@@ -19,7 +19,7 @@ const getBaseUrl = () => {
   const hostSplit = host?.split(".");
 
   if (hostSplit && hostSplit[0] === "dev") {
-    reVal = "https://api.gopizza.kr";
+    reVal = "https://dev.api.gopizza.kr";
   } else if (
     (hostSplit && hostSplit[0] === "192") ||
     (hostSplit && hostSplit[0].indexOf("localhost") >= 0) ||

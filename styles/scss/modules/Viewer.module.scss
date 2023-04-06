@@ -1,0 +1,7 @@
+@import "StyleFarm/scss/Variables";
+@import "StyleFarm/scss/Mixin";
+@import "StyleFarm/scss/Markdown";
+
+.html-viewer {
+  @include markdown-style;
+}

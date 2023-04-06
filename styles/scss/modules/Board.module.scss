@@ -1,0 +1,59 @@
+@use "StyleFarm/scss/Variables.scss" as *;
+@use "StyleFarm/scss/Mixin.scss" as *;
+
+.board-explore {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: $white;
+  padding: 16px 20px;
+  line-height: 1.5;
+
+  &__item {
+    border-bottom: 1px solid $typo-5;
+    cursor: pointer;
+    &:first-child {
+      padding-bottom: 8px;
+    }
+
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+
+    > *:first-child {
+      padding-right: 16px;
+      color: $typo-3;
+    }
+
+    &--empty {
+      color: $typo-3;
+      cursor: default;
+    }
+  }
+}
+
+.board-view-label {
+  color: $typo-3;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  line-height: 1;
+
+  & + & {
+    margin-left: 0.5rem;
+  }
+
+  svg {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    color: $typo-4;
+  }
+}

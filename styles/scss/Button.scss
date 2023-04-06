@@ -1,0 +1,266 @@
+@use "sass:color";
+
+@mixin button-color-rule($color, $background) {
+  color: $color;
+  background: $background;
+
+  @include active {
+    color: color.scale($color, $lightness: 25%);
+    background: color.scale($background, $lightness: 25%);
+  }
+}
+
+@mixin button-clear-color-rule($color) {
+  color: $color;
+  background: rgba($color, 0);
+
+  @include active {
+    color: $color;
+    background: rgba($color, 0.2);
+  }
+}
+
+// .gv-button {
+//   display: inline-flex;
+//   position: relative;
+//   appearance: none;
+//   border: 0;
+//   border-radius: 0.25rem;
+//   font-weight: bold;
+//   justify-content: center;
+//   align-items: center;
+//   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+//   cursor: pointer;
+//   height: 39px;
+//   min-width: 78px;
+//   padding: 0.5rem 0.75rem;
+//   transition: opacity 0.35s, color 0.35s ease-out, background 0.35s ease-out;
+
+//   @include button-color-rule($typo-1, $white);
+
+//   svg {
+//     width: 1rem;
+//     height: 1rem;
+//   }
+
+//   > * {
+//     line-height: 1;
+//   }
+
+//   > * + * {
+//     margin-left: 0.5rem;
+//   }
+
+//   /**
+//       * @TODO add size system
+//       */
+//   &--sm {
+//     min-width: 56px;
+//     height: 30px;
+//     font-weight: 500;
+//   }
+
+//   &--m {
+//     margin-top: 12px;
+//     min-width: 56px;
+//     height: 54px;
+//     font-size: 16px;
+//     font-weight: 700;
+//     border-radius: 10px;
+//   }
+
+//   &--block {
+//     width: 100%;
+//     display: flex;
+//     & + & {
+//       margin-top: 12px;
+//     }
+//   }
+
+//   &:disabled {
+//     color: $disable !important;
+//     background: color.scale($disable, $lightness: 80%) !important;
+//     cursor: not-allowed !important;
+//   }
+
+//   &--clear {
+//     box-shadow: none;
+//     background: transparent;
+//     @include button-clear-color-rule($typo-1);
+//     &:disabled {
+//       color: $disable !important;
+//       background: transparent !important;
+//       cursor: not-allowed !important;
+//     }
+//   }
+
+//   &:not(&--block) {
+//     & + & {
+//       margin-left: 12px;
+//     }
+//   }
+
+//   &--icon {
+//     min-width: auto;
+//     width: 39px;
+//     height: 39px;
+//     padding: 0;
+//     @extend .gv-button--clear;
+
+//     svg {
+//       width: 1.5rem;
+//       height: 1.5rem;
+//     }
+
+//     &:disabled {
+//       color: $disable !important;
+//       background: transparent !important;
+//       cursor: not-allowed !important;
+//     }
+
+//     &:not(.gv-button--block) {
+//       & + & {
+//         margin-left: 6px;
+//       }
+//     }
+//   }
+
+//   &--icon.gv-button--sm {
+//     width: 30px;
+//     height: 30px;
+
+//     svg {
+//       width: 1.125rem;
+//       height: 1.125rem;
+//     }
+//   }
+
+//   &--primary {
+//     @include button-color-rule($white, $primary-3);
+//   }
+
+//   &--primary-2 {
+//     @include button-color-rule($white, $primary-2);
+//   }
+
+//   &--error {
+//     @include button-color-rule($white, $error-1);
+//   }
+
+//   &--add {
+//     @include button-color-rule($white, $success-1);
+//   }
+
+//   &--grey {
+//     @include button-color-rule($white, $typo-4);
+//   }
+
+//   &--download {
+//     @include button-color-rule($download-1, $download-3);
+//   }
+
+//   &--clear.gv-button--error {
+//     @include button-clear-color-rule($error-1);
+//   }
+
+//   &--clear.gv-button--add {
+//     @include button-clear-color-rule($success-1);
+//   }
+
+//   &--reverse {
+//     &.gv-button {
+//       &--primary {
+//         @include button-color-rule($primary-1, $white);
+//       }
+
+//       &--add {
+//         @include button-color-rule($success-1, $white);
+//       }
+
+//       &--error {
+//         @include button-color-rule($error-1, $white);
+//       }
+
+//       &--download {
+//         @include button-color-rule($download-2, $white);
+//         border: 1px solid currentColor;
+//         box-shadow: none;
+//       }
+
+//       &--grey {
+//         @include button-color-rule($typo-4, $white);
+//         border: 1px solid currentColor;
+//         box-shadow: none;
+//       }
+//     }
+//   }
+
+//   &--check {
+//     min-width: 93px;
+//     color: $typo-4;
+//     background: transparent;
+//     border: 1px solid currentColor;
+
+//     @include active {
+//       color: color.scale($typo-4, $lightness: 25%);
+//       background: transparent;
+//     }
+
+//     > * + * {
+//       margin-left: 0.5rem;
+//     }
+
+//     svg {
+//       width: 1.1rem;
+//       height: 1.1rem;
+//     }
+
+//     border-radius: 1.25rem;
+//     box-shadow: 0 2px 4px 0 rgba($typo-1, 0.1);
+
+//     &.gv-button--actived {
+//       &.gv-button {
+//         &--add {
+//           @include button-color-rule($success-1, $white);
+//         }
+
+//         &--yellow {
+//           @include button-color-rule($p-yellow-3, $white);
+//         }
+
+//         &--primary-2 {
+//           @include button-color-rule($primary-2, $white);
+//         }
+//       }
+//     }
+//   }
+
+//   &--label {
+//     position: relative;
+//     input[type="file"] {
+//       position: absolute;
+//       width: 0;
+//       height: 0;
+//       opacity: 0;
+//       z-index: 3;
+//     }
+//   }
+// }
+
+// .gv-check-icon {
+//   width: 1.5rem;
+//   height: 1.5rem;
+//   color: $typo-5;
+
+//   &--check {
+//     &.gv-check-icon {
+//       &--add {
+//         color: $success-1;
+//       }
+
+//       &--yellow {
+//         color: $p-yellow-3;
+//       }
+//     }
+//   }
+// }

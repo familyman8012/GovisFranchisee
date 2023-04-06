@@ -1,0 +1,393 @@
+@import "StyleFarm/scss/Variables";
+@import "StyleFarm/scss/Mixin";
+
+.recipe-feedback {
+  overflow-y: auto;
+}
+.contents-info {
+  display: flex;
+  align-items: center;
+
+  .marker-status {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-weight: bold;
+    position: relative;
+    margin: auto;
+
+    &.ing {
+      background-color: $success-2;
+      color: $success-1;
+    }
+
+    &.wait {
+      background-color: $other-2;
+      color: $other-1;
+    }
+
+    &.finish {
+      background-color: $typo-6;
+      color: $typo-3;
+    }
+
+    .unread {
+      @include unread-marker;
+      position: absolute;
+      right: 0;
+      top: 0;
+      margin-right: 0;
+    }
+  }
+
+  .contents-summary {
+    //margin-left: 12px;
+
+    .date {
+      color: $typo-3;
+      font-size: 10px;
+    }
+
+    .subject {
+      color: #333333;
+      font-size: 14px;
+      word-break: break-all;
+    }
+  }
+
+  .btn-delete-box {
+    color: #eb5757;
+    border: 0;
+    background-color: $white;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
+  &.return-style {
+    .marker-status {
+      font-size: 12px;
+      text-align: center;
+      word-break: keep-all;
+    }
+  }
+}
+
+.recipe-feedback-list {
+  > ul {
+    margin-bottom: 20px;
+  }
+
+  .box {
+    background-color: $white;
+    margin-top: 10px;
+
+    &:first-child {
+      margin-top: 0;
+    }
+
+    > div {
+      padding: 16px 0;
+
+      > div {
+        padding: 0;
+      }
+
+      > div:first-child {
+        display: flex;
+      }
+
+      > div:last-child {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        color: $typo-5;
+        font-weight: bold;
+      }
+    }
+  }
+}
+
+.recipe-feedback-post {
+  pre {
+    padding: 20px;
+    background: #fff6f0;
+    border: 1px solid $primary-3;
+    box-sizing: border-box;
+    border-radius: 4px;
+    font-family: inherit;
+    color: $primary-3;
+    font-size: 12px;
+  }
+
+  input {
+    margin-top: 26px;
+    width: 100%;
+    height: 30px;
+    font-size: 14px;
+    padding: 12px 0;
+    border: 0;
+    border-bottom: 0.8px solid $typo-5;
+    font-size: 16px;
+
+    @include input-placeholder {
+      font-size: 0.8em;
+      letter-spacing: -0.01em;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+  .gv-datepicker__origin {
+    margin-top: 0;
+  }
+
+  p {
+    word-break: keep-all;
+    white-space: pre-wrap;
+    margin-bottom: 0;
+  }
+}
+
+.recipe-feedback-view {
+  margin-bottom: 25px;
+  padding-top: 0;
+
+  .contents-info {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+
+    .contents-summary {
+      //margin-left: 12px;
+
+      .date {
+        color: $typo-3;
+        font-size: 12px;
+      }
+
+      .subject {
+        color: #333333;
+        font-size: 16px;
+        word-break: break-all;
+      }
+    }
+    &.return-style {
+      .marker-status {
+        font-size: 12px;
+        text-align: center;
+        word-break: keep-all;
+      }
+    }
+  }
+
+  .contents-list {
+    li {
+      margin-top: 10px;
+      padding: 20px;
+      background-color: $white;
+      border-radius: 10px;
+
+      &.date {
+        text-align: center;
+        padding: 8px;
+
+        h5 {
+          color: $typo-3;
+        }
+      }
+
+      &.answer {
+        background-color: #fff6f0;
+        color: $primary-3;
+      }
+
+      img {
+        border-radius: 10px;
+      }
+
+      p {
+        white-space: pre-wrap;
+      }
+
+      hr {
+        height: 1px;
+        background-color: $typo-5;
+        border: 0.8px solid $typo-5;
+      }
+
+      button {
+        color: #eb5757;
+        border: 0;
+        background-color: $white;
+      }
+
+      &.no-background {
+        background-color: #fafafa;
+        padding: 0px;
+
+        button {
+          background-color: #fafafa;
+        }
+
+        .row div:first-child {
+          display: flex;
+          align-items: flex-end;
+          justify-content: flex-end;
+          padding-right: 0;
+        }
+      }
+    }
+
+    li:first-child {
+      margin-top: 0;
+    }
+  }
+}
+
+.form-contents-spinner-box {
+  background-color: $typo-4;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .spinner-border {
+    @include loading-spinner;
+  }
+}
+
+.form-contents-box {
+  width: 100%;
+  height: calc(100% - 38px);
+
+  textarea {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    border-top: 0.8px solid $typo-5;
+    color: $typo-2;
+    padding: 15px;
+    font-size: 16px;
+    @include input-placeholder {
+      color: $typo-4;
+      font-size: 0.9em;
+    }
+
+    &:focus {
+      outline: 0;
+    }
+  }
+
+  .image-box {
+    // height:38px;
+    padding: 0.5rem 0;
+    background-color: $typo-6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: -5px;
+
+    label {
+      margin-left: 10px;
+
+      span {
+        margin-left: 8px;
+      }
+    }
+
+    input {
+      display: none;
+    }
+
+    button {
+      height: 24px;
+      width: 54px;
+      min-width: 0;
+      border: 0;
+      border-radius: 12px;
+      margin-right: 10px;
+      background-color: $typo-4;
+      color: $white;
+      box-shadow: none;
+      cursor: not-allowed;
+      &.btn-enabled {
+        background-color: $primary-3;
+        color: $white;
+        cursor: pointer;
+      }
+    }
+  }
+
+  .image-box-label {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    line-height: 1;
+    font-size: 12px;
+  }
+}
+
+.btn-post {
+  width: 50px;
+  height: 50px;
+  padding: 17px;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: $primary-3;
+  border: 0 solid $primary-3;
+  border-radius: 50%;
+  box-shadow: #80808054 1px 1px 1px 0px;
+  color: $white;
+  font-weight: bold;
+
+  display: flex;
+  align-items: center;
+  align-content: center;
+}
+
+.btn-contents {
+  width: 100%;
+  height: 56px;
+  background-color: $white;
+  border: 1px solid $primary-3;
+  margin: auto;
+  margin-top: 20px;
+  border-radius: 28px;
+  font-weight: bold;
+  color: $primary-3;
+
+  @include active {
+    color: $white;
+    background-color: $primary-3;
+  }
+
+  &:disabled {
+    color: $typo-5;
+    border-color: $typo-5;
+    background: transparent;
+  }
+}
+
+.btn-reply {
+  margin-top: 12px;
+
+  width: 100%;
+  height: 54px;
+
+  background: $white;
+
+  border: 1px solid $typo-6;
+  box-sizing: border-box;
+  border-radius: 10px;
+
+  color: $typo-4;
+}

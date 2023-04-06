@@ -1,0 +1,154 @@
+@use "StyleFarm/scss/Variables.scss" as *;
+@use "StyleFarm/scss/Mixin.scss" as *;
+@use "StyleFarm/scss/modules/Notice.module.scss";
+
+.product-recipe__header {
+  position: fixed;
+  width: 100%;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  height: 4.5rem;
+  padding: 0 1.25rem;
+  background: $white;
+  z-index: 2;
+}
+
+.product-recipe__list {
+  position: relative;
+  padding-top: 4.5rem;
+}
+
+// 레시피정복 컨텐츠 영역
+.product-recipe-item {
+  position: relative;
+  margin-top: 0.5rem;
+  background: $white;
+  cursor: pointer;
+}
+
+.product-recipe-item__thumbnail {
+  position: relative;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    padding-bottom: 56.25%;
+  }
+
+  img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.product-recipe-item__info {
+  padding: 1rem 1.25rem;
+  display: flex;
+
+  h3 {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.5;
+    margin-top: 0.25rem;
+    margin-bottom: 0;
+    @include single-line-ellipsis;
+  }
+
+  > div {
+    flex: 1;
+    width: 100%;
+    overflow: hidden;
+  }
+}
+
+.product-recipe-item__meta {
+  margin-top: 0.5rem;
+}
+
+.product-recipe-item__tag {
+  flex: none;
+  width: 3.75rem;
+  height: 3.75rem;
+  border-radius: 50%;
+  font-weight: bold;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background: $primary-2;
+  color: $white;
+  margin-right: 1.25rem;
+  line-height: 1;
+
+  &--category-1 {
+    background: $primary-3;
+    color: $white;
+  }
+
+  &--category-2 {
+    background: $white;
+    color: $primary-3;
+    border: 1px solid $primary-3;
+  }
+
+  &--category-3 {
+    background: $white;
+    color: $primary-2;
+    border: 1px solid $primary-2;
+  }
+}
+
+.product-recipe-label {
+  color: $typo-3;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+  line-height: 1;
+
+  & + & {
+    margin-left: 0.75rem;
+  }
+
+  svg {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    margin-right: 4px;
+    color: $typo-4;
+  }
+}
+
+.product-recipe-detail {
+  @extend .notice-detail;
+
+  &__title {
+    @extend .notice-detail__title;
+  }
+
+  &__info {
+    @extend .notice-detail__info;
+  }
+
+  &__content {
+    @extend .notice-detail__content;
+  }
+}
+
+.product-recipe-explore {
+  @extend .notice-explore;
+
+  &__item {
+    @extend .notice-explore__item;
+
+    &--empty {
+      @extend .notice-explore__item--empty;
+    }
+  }
+}

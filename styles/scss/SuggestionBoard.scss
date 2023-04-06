@@ -1,0 +1,59 @@
+@import "StyleFarm/scss/Variables";
+@import "StyleFarm/scss/Mixin";
+
+.suggestion-category-title {
+  color: #333333;
+  width: 68px;
+  height: 20px;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  margin-bottom: 15px;
+}
+
+// 컨테이너
+.suggestion-category {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+// 기본이 체크 안된 상태이고, 수정자일때만, unchecked상태
+.suggestion-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  width: 100%;
+  height: 52px;
+  border: 1px solid #e0e0e0;
+  color: #828282;
+
+  & + & {
+    margin-left: 15px;
+  }
+
+  // input field 없애기
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: 3;
+  }
+
+  &--checked {
+    font-weight: bold;
+    font-size: 16px;
+    border-color: #ff862c;
+    color: #ff862c;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+}

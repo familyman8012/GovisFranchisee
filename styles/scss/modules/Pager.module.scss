@@ -1,0 +1,53 @@
+@import "StyleFarm/scss/Variables.scss";
+
+.pager {
+  display: flex;
+  width: max-content;
+  gap: 0.5rem;
+}
+
+.pagerContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  height: fit-content;
+  border-radius: 5px;
+  cursor: pointer;
+
+  ul {
+    margin: 10px 0 !important;
+  }
+}
+
+.arrowContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: $white;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: $primary-3;
+
+  &.last {
+    background-color: $typo-4;
+  }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+
+  &__list {
+    margin-bottom: 0;
+  }
+
+  &__icon {
+    width: 1.3rem;
+    height: 1.3rem;
+
+    &--rotate {
+      transform: rotate(180deg);
+    }
+  }
+}

@@ -1,0 +1,342 @@
+:root {
+  --vh: 100%;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-text-size-adjust: none;
+  word-break: keep-all;
+  line-height: 1.5;
+  box-sizing: border-box;
+}
+
+*,
+*:after,
+*:before {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  /* -webkit-font-smoothing:antialiased; */
+  font-size: 14px;
+  -webkit-text-size-adjust: none;
+  -webkit-overflow-scrolling: touch;
+  color: #2c2c2a;
+}
+
+html.laypop {
+  overflow-y: hidden;
+} /* 전체 레이어팝업 일때 */
+
+body,
+div,
+dl,
+dt,
+dd,
+ul,
+ol,
+li,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+pre,
+code,
+form,
+fieldset,
+legend,
+textarea,
+p,
+blockquote,
+table,
+th,
+td,
+input,
+select,
+textarea,
+button {
+  margin: 0;
+  padding: 0;
+  word-break: break-all;
+}
+
+body,
+input,
+textarea,
+select,
+button,
+table {
+  color: inherit;
+  line-height: 1;
+}
+
+em {
+  font-style: normal;
+}
+
+fieldset,
+img {
+  border: 0 none;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+dl,
+ul,
+ol,
+menu,
+li {
+  list-style: none;
+}
+
+input::-ms-clear {
+  display: none;
+}
+
+button {
+  border: 0 none;
+  border-radius: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+
+a {
+  color: unset;
+  text-decoration: none;
+}
+
+a:hover,
+a:focus,
+a:active {
+  background-color: transparent;
+  text-decoration: none;
+  color: inherit;
+}
+
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+  margin: 0;
+  padding: 0;
+}
+
+a[href^="tel:"] {
+  cursor: text;
+}
+
+.blind,
+legend,
+caption {
+  position: absolute;
+  z-index: -10;
+  width: 0 !important;
+  height: 0 !important;
+  overflow: hidden !important;
+  font-size: medium;
+  line-height: normal;
+  word-break: break-all;
+}
+
+.ios_no_acc {
+  -webkit-overflow-scrolling: auto;
+}
+
+/* form */
+
+label {
+  vertical-align: middle;
+}
+textarea {
+  width: 100%;
+  border: 0;
+  overflow-y: auto;
+  resize: none;
+}
+
+.hiddenZoneV {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+  *visibility: hidden;
+}
+
+/* dimmed */
+.dimmed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1040;
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  opacity: 0.5;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+caption {
+  display: none;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", "Noto Sans KR", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+body {
+  background-color: #fafafa;
+}
+
+a {
+  color: inherit;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+h6,
+.h6,
+h5,
+.h5,
+h4,
+.h4,
+h3,
+.h3,
+h2,
+.h2,
+h1,
+.h1 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+h5,
+.h5 {
+  font-size: 1.25rem;
+}
+
+h6,
+.h6 {
+  font-size: 1rem;
+}
+
+pre,
+code,
+kbd,
+samp {
+  font-family: var(--bs-font-monospace);
+  font-size: 1em;
+  direction: ltr;
+  unicode-bidi: bidi-override;
+}
+pre {
+  display: block;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  overflow: auto;
+  font-size: 0.875em;
+}
+
+input,
+button,
+select,
+optgroup,
+textarea {
+  margin: 0;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+button {
+  margin: 0;
+  padding: 0 6px;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+hr {
+  margin: 0.75rem 0;
+  color: inherit;
+  background-color: currentColor;
+  border: 0;
+  opacity: 0.25;
+  &:not([size]) {
+    height: 1px;
+  }
+}
+
+// #modalArea {
+//   #modal_wrapper {
+//     position: fixed;
+//     top: 0;
+//     bottom: 0;
+//     left: 0;
+//     right: 0;
+//     & > .dimm {
+//       width: 100%;
+//       height: 100%;
+
+//       opacity: 0;
+//       background-color: rgba(0, 0, 0, 0.4);
+//       transition: all 3s;
+//     }
+
+//     & > .modal_wrap {
+//       position: absolute;
+//       top: 50%;
+//       left: 50%;
+//       transform: translate(-50%, -50%);
+//     }
+//   }
+//   &.on #modal_wrapper {
+//     & > .dimm {
+//       opacity: 0.5;
+//     }
+//   }
+// }

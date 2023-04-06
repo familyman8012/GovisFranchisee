@@ -1,0 +1,192 @@
+.search-action {
+  &__title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 12px;
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .gv-datepicker {
+      width: 100%;
+    }
+    > * + * {
+      margin-left: 8px;
+    }
+  }
+}
+
+.order-sales-summary {
+  display: flex;
+  padding: 20px 0;
+
+  &__item {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: $typo-2;
+
+    & + & {
+      border-left: 1px solid $typo-4;
+    }
+
+    li {
+      &:first-child {
+        font-size: 14px;
+        margin-bottom: 12px;
+      }
+
+      &:nth-child(2) {
+        font-size: 24px;
+        font-weight: bold;
+      }
+    }
+  }
+
+  &__unit {
+    font-size: 16px;
+    vertical-align: baseline;
+  }
+
+  &__divider {
+    width: 1px;
+    border: 1px solid $typo-4;
+  }
+}
+
+.list-more-button {
+  width: 50px;
+  height: 50px;
+  font-weight: bold;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 18px;
+  border-radius: 50%;
+
+  /* Gray 6 */
+  background: $typo-6;
+  /* Gray 4 */
+  border: 1px solid $typo-4;
+  box-sizing: border-box;
+
+  :first-child {
+    color: $typo-4;
+  }
+}
+
+.fqs-filter-datepicker {
+  border: 0;
+  width: 100%;
+  height: auto;
+  min-height: map-get($component-lg-sizes, "datepicker");
+
+  & > svg {
+    display: none;
+  }
+
+  svg {
+    position: static !important;
+  }
+
+  .gv-datepicker__origin {
+    display: inline-flex;
+    padding: 0;
+    white-space: pre;
+    font-weight: 500;
+    justify-content: center;
+    * {
+      line-height: 1.25;
+    }
+    * + * {
+      margin-left: 1.25rem;
+    }
+  }
+}
+
+.summary-list {
+  &__item {
+    background: $white;
+    display: flex;
+    flex-direction: column;
+    border-radius: $border-radius;
+    padding: 24px;
+
+    & + & {
+      margin-top: 12px;
+    }
+  }
+
+  &__info,
+  &__total {
+    width: 100%;
+    li {
+      display: flex;
+      justify-content: space-between;
+      padding-bottom: 20px;
+      &:last-child {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  &__value {
+    @include single-line-ellipsis;
+  }
+
+  &__info {
+    padding-bottom: 20px;
+    font-weight: 500;
+  }
+
+  &__info &__key {
+    margin-right: 1rem;
+    flex: none;
+    font-weight: 400;
+  }
+
+  &__total {
+    border-top: 1px solid $typo-4;
+    padding-top: 20px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.error-box {
+  position: fixed;
+  bottom: 10px;
+  width: 100%;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  p {
+    background: $white;
+    width: 70%;
+    color: $error-1;
+    background: rgba($error-1, 0.1);
+    font-weight: bold;
+    border-radius: $border-radius;
+    padding: 10px 10px;
+    font-size: 1em;
+    align-items: center;
+    bottom: 0.5rem;
+
+    display: flex;
+    justify-content: center;
+
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+      margin-right: 0.5em;
+    }
+  }
+}

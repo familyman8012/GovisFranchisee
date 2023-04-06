@@ -1,0 +1,39 @@
+$weights: (100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+$en-font-types: (100, 200, 300, "regular", 500, 600, 700, 800, 900);
+$kr-font-types: (100, 300, "regular", 500, 700, 900);
+
+/** Montserrat  */
+@each $weight in $en-font-types {
+  @font-face {
+    font-family: "Montserrat";
+    font-style: normal;
+    @if ($weight == "regular") {
+      font-weight: normal;
+    } @else {
+      font-weight: #{$weight};
+    }
+    src: local("montserrat"), url("/font//montserrat-v18-latin-#{$weight}.eot?#iefix") format("embedded-opentype"),
+      url("/font//montserrat-v18-latin-#{$weight}.woff2") format("woff2"),
+      url("/font//montserrat-v18-latin-#{$weight}.woff") format("woff"),
+      url("/font//montserrat-v18-latin-#{$weight}.ttf") format("truetype"),
+      url("/font//montserrat-v18-latin-#{$weight}.svg#Montserrat") format("svg");
+  }
+}
+
+/** Noto Sans KR */
+@each $weight in $kr-font-types {
+  @font-face {
+    font-family: "Noto Sans KR";
+    font-style: normal;
+    @if ($weight == "regular") {
+      font-weight: normal;
+    } @else {
+      font-weight: #{$weight};
+    }
+    src: local("Noto Sans KR"), url("/font//noto-sans-kr-v21-korean-#{$weight}.eot?#iefix") format("embedded-opentype"),
+      url("/font//noto-sans-kr-v21-korean-#{$weight}.woff2") format("woff2"),
+      url("/font//noto-sans-kr-v21-korean-#{$weight}.woff") format("woff"),
+      url("/font//noto-sans-kr-v21-korean-#{$weight}.svg#NotoSansKR") format("svg");
+  }
+}

@@ -1,0 +1,398 @@
+@use "StyleFarm/scss/Variables" as *;
+@use "StyleFarm/scss/Mixin" as *;
+
+.total-score-box {
+  margin-top: 12px;
+  background: $white;
+  border-radius: 4px;
+  &__title {
+    color: $black;
+    font-weight: 500;
+    font-size: 16px;
+    padding-left: 16px;
+    padding-top: 16px;
+  }
+  &__contents {
+    display: flex;
+    justify-content: flex-end;
+    &__score-number {
+      padding-left: 259px;
+      font-size: 44px;
+      font-weight: 500;
+      color: $black;
+    }
+    &__score {
+      color: $black;
+      font-weight: 500;
+      font-size: 16px;
+      align-items: flex-end;
+      padding-right: 16px;
+      padding-top: 30px;
+      margin-left: 6px;
+    }
+  }
+}
+
+.chart-container {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  &__view {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.move-list {
+  padding: 13px 0;
+  height: 50px;
+  margin-top: 8px;
+}
+
+.dashboard-rating-status-title {
+  margin-top: 16px;
+  font-weight: 500;
+  font-size: 16px;
+  color: $black;
+}
+
+// FQS - Dashboard - RatingStatus.tsx
+.rating-status-container {
+  margin-top: 12px;
+  margin-right: 9px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-flow: 1;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.rating-status {
+  background-color: $white;
+  width: 48%;
+  border-radius: 4px;
+  margin-bottom: 9px;
+  &__img-position {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 19px 20px 20px 21px;
+  }
+  &__image {
+    width: 122px;
+    height: 71px;
+  }
+  &__title {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    font-weight: 500;
+    font-size: 14px;
+    color: $black;
+  }
+  &__contents {
+    display: flex;
+    justify-content: center;
+    &__section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 9%;
+      margin-left: 15px;
+      margin-right: 15px;
+      &__count {
+        font-weight: 400;
+        font-size: 10px;
+        color: $typo-3;
+        flex-wrap: wrap;
+      }
+      &__division {
+        margin-top: 16px;
+        margin-bottom: 18px;
+        height: 40px;
+        width: 1px;
+        border-width: 0;
+        background-color: $typo-5;
+      }
+      &__score {
+        color: $primary-3;
+        font-weight: 500;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+.choice-btn-container {
+  padding: 0 20px;
+  padding-top: 4px;
+  padding-bottom: 114px;
+}
+
+//FQS - Dashboard & List - ChoiceBtn.tsx
+.choice-btn {
+  display: flex;
+  align-items: flex-end;
+  height: 40px;
+  background: $white;
+  border-radius: 20px;
+  box-sizing: border-box;
+  margin-top: 12px;
+}
+
+.dashboard-checkbox {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  box-sizing: border-box;
+  border-radius: 20px;
+  width: 50%;
+  height: 52px;
+  color: $typo-3;
+  height: 40px;
+  background: $white;
+  border-radius: 20px;
+
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: 3;
+  }
+
+  &__checked {
+    display: flex;
+    font-weight: 500;
+    font-size: 16px;
+    color: $primary-3;
+    width: 50%;
+    height: 40px;
+    left: 20px;
+    top: 615px;
+    background: $white;
+    border: 1px solid $primary-3;
+    box-sizing: border-box;
+    border-radius: 20px;
+  }
+
+  &__disabled {
+    cursor: not-allowed;
+  }
+}
+
+// FQS - List - FoodQualityList.tsx
+.list-header {
+  height: 72px;
+  background: $white;
+  display: flex;
+  padding: 16px 20px;
+  &__content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+    & + & {
+      border-left: 1px solid $typo-5;
+    }
+  }
+}
+
+// FQS - List - ListContent.tsx
+.list-content-container {
+  margin-top: 16px;
+  .list-content-img {
+    width: 100%;
+    border-radius: 4px 4px 0px 0px;
+  }
+  .list-content-body {
+    padding: 15px 16px 16px 16px;
+    border-radius: 0px 0px 4px 4px;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__date {
+      font-weight: 400;
+      font-size: 14px;
+      color: $typo-3;
+    }
+    &__name {
+      margin-top: 4px;
+      font-weight: 400;
+      font-size: 14px;
+      color: $black;
+      line-height: 17px;
+    }
+    &__score {
+      font-weight: 400;
+      font-size: 32px;
+      color: $primary-3;
+    }
+  }
+}
+
+//FQS- List - CategoryPizza.tsx
+.list-header__pizza-filter-button {
+  height: auto;
+  min-height: map-get($component-lg-sizes, "button");
+}
+
+.list-header__pizza-filter-button::before {
+  content: "";
+  display: inline-flex;
+  width: 24px;
+  height: 12px;
+  background: $primary-2;
+  margin-right: 1rem;
+  border-radius: $border-radius * 2;
+  box-shadow: 0 0 0 1px $white, 0 0 0 2px $primary-2;
+}
+
+//FQS - List - categoryPizzaChips
+.category-pizza-chip {
+  font-weight: 500;
+  font-size: 16px;
+  padding: 8px 16px;
+  border: 1px solid $typo-5;
+  border-radius: 20px;
+  color: $typo-5;
+  margin-right: 8px;
+  margin-bottom: 8px;
+  display: inline-flex;
+  align-items: center;
+
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: 3;
+  }
+
+  &__checked {
+    font-weight: 500;
+    border-color: $primary-3;
+    color: $primary-3;
+  }
+
+  &__mg {
+    margin-right: 8px;
+  }
+  &__line-height {
+    line-height: 0;
+  }
+}
+
+//FQS - Detail - DetailCotent.tsx
+.detail-content-container {
+  height: 287px;
+  background: $white;
+  border-radius: 4px;
+  .detail-content-img {
+    height: 211px;
+    width: 100%;
+  }
+  .detail-content-body {
+    padding: 17px 20px 18px 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    &__date {
+      font-weight: 400;
+      font-size: 14px;
+      color: $typo-3;
+      margin: 0;
+    }
+    &__name {
+      font-weight: 400;
+      font-size: 14px;
+      color: $black;
+      margin-top: 4px;
+      line-height: 20px;
+    }
+    &__score {
+      font-weight: 400;
+      font-size: 32px;
+      color: $primary-3;
+    }
+  }
+}
+
+//FQS - Detail - SectionInfo.tsx
+.detail-section-info-container {
+  margin-top: 12px;
+  background-color: $white;
+  width: 100%;
+  border-radius: 4px;
+  padding: 20px 20px 109px 20px;
+}
+
+.detail-section-info-title {
+  font-weight: 500;
+  font-size: 16px;
+  color: $black;
+}
+.section-info {
+  margin-top: 16px;
+  border-radius: 4px;
+  border: 1px solid $typo-5;
+  &__image {
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+  }
+  &__contents {
+    display: flex;
+    justify-content: space-around;
+    &__section {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 16px;
+      margin-left: 14px;
+      margin-right: 14px;
+      &__category {
+        font-weight: 400;
+        font-size: 10px;
+        color: $typo-3;
+      }
+      &__division {
+        margin-top: 16px;
+        margin-bottom: 18px;
+        height: 40px;
+        width: 1px;
+        border-width: 0;
+        background-color: $typo-5;
+      }
+      &__score {
+        color: $primary-3;
+        font-weight: 500;
+        font-size: 16px;
+      }
+    }
+  }
+}
+
+//src/components/foodQuality - no-img(페이지 무관 공통 컴포넌트)
+.no-img {
+  background-color: $typo-5;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.no-img-dashboard {
+  padding: 26px;
+}
+.no-img-list {
+  padding: 80px;
+}
+.no-img-detail-content {
+  padding: 85px;
+}
+.no-img-detail-section-info {
+  padding: 42px;
+}

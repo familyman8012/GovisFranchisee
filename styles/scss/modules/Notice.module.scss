@@ -1,0 +1,146 @@
+@import "StyleFarm/scss/Variables.scss";
+@import "StyleFarm/scss/Mixin.scss";
+
+.notice {
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    padding: 1rem 1.25rem;
+    background: $white;
+  }
+
+  &__empty {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    color: $typo-4;
+    min-height: 50vmax;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    svg {
+      width: 3rem;
+      height: 3rem;
+    }
+
+    p {
+      margin-top: 1.5rem;
+    }
+  }
+}
+
+.notice-list {
+  padding: 16px 1.25rem 24px;
+
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.667rem 0;
+    padding-left: 23px;
+    padding-right: 18px;
+    background: $white;
+    border: 1px solid $typo-6;
+    border-radius: $border-radius;
+    cursor: pointer;
+
+    & + & {
+      margin-top: 8px;
+    }
+    & > * + * {
+      margin-left: 1rem;
+    }
+  }
+
+  &__title {
+    flex: 1;
+    @include single-line-ellipsis;
+    font-size: 14px;
+    &--unread::before {
+      @include unread-marker;
+    }
+  }
+}
+
+.notice-detail {
+  line-height: 1.5;
+  background: $white;
+  padding: 16px 20px;
+  overflow-y: auto;
+  margin-bottom: 99px;
+  min-height: calc(100vh - 99px - 56px);
+
+  &__info {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid $typo-5;
+    padding-bottom: 8px;
+    font-size: 12px;
+  }
+
+  &__title {
+    font-size: 16px;
+    margin-bottom: 8px;
+    font-weight: normal;
+  }
+
+  &__label {
+    color: $typo-3;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 0.9rem;
+    line-height: 1;
+    & + & {
+      margin-left: 0.5rem;
+    }
+    svg {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      margin-right: 4px;
+      color: $typo-4;
+    }
+  }
+
+  &__content {
+    padding: 22px 0;
+  }
+}
+
+.notice-explore {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: $white;
+  padding: 16px 20px;
+  line-height: 1.5;
+
+  &__item {
+    border-bottom: 1px solid $typo-5;
+    cursor: pointer;
+    &:first-child {
+      padding-bottom: 8px;
+    }
+
+    &:not(:first-child) {
+      margin-top: 8px;
+    }
+
+    &:last-child {
+      border: 0;
+    }
+
+    > *:first-child {
+      padding-right: 16px;
+      color: $typo-3;
+    }
+
+    &--empty {
+      color: $typo-3;
+      cursor: default;
+    }
+  }
+}

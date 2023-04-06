@@ -1,0 +1,103 @@
+@use "Font" as Font;
+@use "sass:math";
+@use "sass:string";
+
+$weights: (100, 200, 300, 400, 500, 600, 700, 800, 900);
+
+/// unit: rem;
+$sizes: (
+  "display-1": #{math.div(64, 16)}rem,
+  "display-2": #{math.div(52, 16)}rem,
+  "display-3": #{math.div(44, 16)}rem,
+  "heading-1": #{math.div(36, 16)}rem,
+  "heading-2": #{math.div(32, 16)}rem,
+  "heading-3": #{math.div(24, 16)}rem,
+  "heading-4": #{math.div(20, 16)}rem,
+  "body-1": #{math.div(16, 16)}rem,
+  "body-2": #{math.div(14, 16)}rem,
+  "caption-1": #{math.div(12, 16)}rem,
+);
+
+/// @example
+///   .weight-400
+///   .weight-normal
+///   .weight-bold
+@each $weight in $weights {
+  $prefix: "weight";
+  .#{$prefix}-#{$weight} {
+    font-weight: $weight !important;
+  }
+
+  @if ($weight == 400) {
+    .#{$prefix}-normal {
+      font-weight: normal !important;
+    }
+  } @else if($weight == 700) {
+    .#{$prefix}-bold {
+      font-weight: bold !important;
+    }
+  }
+}
+
+@each $key, $size in $sizes {
+  .gv-typo-#{$key} {
+    font-size: #{$size} !important;
+    @if (string.index($key, "display")) {
+      line-height: 1;
+    }
+  }
+}
+
+.gv-font-en {
+  font-family: "Montserrat", sans-serif;
+}
+
+.gv-font-kr {
+  font-family: "Noto Sans KR", sans-serif;
+}
+
+.gv-text-center {
+  text-align: center !important;
+}
+
+.gv-text-right {
+  text-align: right !important;
+}
+
+.gv-text-left {
+  text-align: left !important;
+}
+
+.line-height-1 {
+  line-height: 1 !important;
+}
+
+.line-height-normal {
+  line-height: 1.15 !important;
+}
+
+.line-height-large {
+  line-height: 1.35 !important;
+}
+
+.white-space {
+  &-normal {
+    white-space: normal;
+  }
+
+  &-nowrap {
+    white-space: nowrap;
+  }
+
+  &-pre {
+    white-space: pre;
+  }
+
+  &-pre-wrap {
+    white-space: pre-wrap;
+  }
+
+  &-pre-line {
+    white-space: pre-line;
+  }
+}

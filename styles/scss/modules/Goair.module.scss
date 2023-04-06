@@ -1,0 +1,320 @@
+@use "sass:color";
+@use "StyleFarm/scss/Variables" as *;
+@use "StyleFarm/scss/Mixin" as *;
+@use "StyleFarm/scss/Typography" as font;
+
+.goair-status-guide {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  padding: 1.25rem 0;
+  font-size: map-get(font.$sizes, "body-2");
+
+  &__symbol {
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+
+    &::before {
+      content: "";
+      flex: none;
+      display: inline-block;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background-color: currentColor;
+      margin-right: 0.25rem;
+    }
+
+    &--error {
+      color: $p-red-1;
+    }
+
+    &--warning {
+      color: $other-1;
+    }
+
+    &--normal {
+      color: $download-2;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+.goair-section-tags {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.goair-section {
+  padding-top: 0;
+  &__list {
+    position: relative;
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    width: 80px;
+    margin-right: 1rem;
+
+    @include single-line-ellipsis;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    padding: 1.25rem 1.5rem;
+    border: 1px solid transparent;
+    border-radius: $border-radius;
+    background: $white;
+    border: 1px solid $typo-6;
+    cursor: pointer;
+  }
+
+  &__item + &__item {
+    margin-top: 0.5rem;
+  }
+
+  &__requirement {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 1.25rem;
+    h3 {
+      margin: 0;
+    }
+  }
+}
+
+.goair-tag {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 32px;
+  max-width: 80px;
+  padding: 0 0.75rem;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 1.25rem;
+  color: $typo-4;
+  cursor: pointer;
+  font-weight: 500;
+  margin-bottom: 0.25rem;
+  margin-top: 0.25rem;
+  margin-left: 0.5rem;
+
+  &__label {
+    @include single-line-ellipsis;
+  }
+
+  &--error {
+    color: $p-red-1;
+  }
+
+  &--warning {
+    color: $other-1;
+  }
+
+  &--normal {
+    color: $download-2;
+  }
+
+  &__label {
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: 3;
+  }
+
+  &--checked {
+    color: $white !important;
+    &.goair-tag {
+      &--error {
+        background: $p-red-1;
+      }
+
+      &--warning {
+        background: $other-1;
+      }
+
+      &--normal {
+        background: $download-2;
+      }
+    }
+  }
+
+  &:last-child {
+    margin-right: 0;
+  }
+}
+
+.goair-section-image {
+  position: relative;
+  margin: 0;
+  border-radius: $border-radius;
+  overflow: hidden;
+
+  &::before {
+    content: "";
+    display: block;
+    padding-bottom: 56.25%;
+  }
+
+  img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    object-fit: cover;
+  }
+
+  &--loaded {
+    img {
+      opacity: 1;
+    }
+  }
+}
+
+.goair-section-modules {
+  &__item {
+    background: $white;
+    padding: 1.25rem;
+  }
+
+  &__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+
+    > * {
+      margin: 0;
+    }
+  }
+
+  &__content {
+    margin-top: 1rem;
+  }
+
+  &__item + &__item {
+    margin-top: 0.5rem;
+  }
+}
+
+.goair-alert {
+  display: inline-flex;
+  padding: 0.3rem 0.5rem;
+  font-size: map-get(font.$sizes, "body-2");
+  align-items: center;
+  border-radius: $border-radius;
+  margin-right: 0.5rem;
+  margin-bottom: 0.5rem;
+
+  svg {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5rem;
+  }
+
+  &--error {
+    color: $error-1;
+    background: $error-2;
+  }
+
+  &--warning {
+    color: $other-1;
+    background: $other-2;
+  }
+
+  &--normal {
+    color: $download-2;
+    background: color.scale($download-3, $lightness: 25%);
+  }
+}
+
+.goair-data-page {
+  padding: 1.25rem;
+}
+
+.goair-data-chart {
+  background: $white;
+  border-radius: $border-radius;
+  overflow: hidden;
+
+  h4 {
+    padding: 1.25rem 1.25rem 0;
+    margin-bottom: 0;
+  }
+
+  &__wrapper {
+    position: relative;
+    &::before {
+      content: "";
+      display: block;
+      padding-bottom: 56.25%;
+    }
+  }
+
+  &__view {
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.goair-sensor-list {
+  cursor: pointer;
+  display: flex;
+  flex-wrap: wrap;
+  margin: 1rem -0.25rem;
+
+  &__value {
+    flex: 1;
+    text-align: right;
+    font-weight: 500;
+    @include single-line-ellipsis;
+  }
+
+  &__item {
+    position: relative;
+    flex: none;
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0.25rem;
+    width: calc(50% - 0.5rem);
+    height: 52px;
+    padding: 0 1rem;
+
+    border-radius: 5px;
+    background: $white;
+    cursor: pointer;
+    font-size: map-get(font.$sizes, "body-2");
+
+    &--active {
+      color: $primary-3;
+    }
+
+    &--exception {
+      border: 1px solid $primary-3;
+    }
+  }
+}

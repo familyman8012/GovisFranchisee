@@ -1,0 +1,14 @@
+@import "StyleFarm/scss/Variables";
+@import "StyleFarm/scss/Mixin";
+
+.store-token-refresh {
+  margin-top: -56px;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .spinner-border {
+    @include loading-spinner;
+  }
+}

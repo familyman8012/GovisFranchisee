@@ -1,0 +1,84 @@
+//color
+$white: #fff !default;
+$black: #000 !default;
+$disable: #e0e0e0 !default;
+
+// primary
+$primary-1: #ff6d00 !default;
+$primary-2: #061138 !default;
+$primary-3: #ff862c !default;
+
+// modify: success, error, warning, download
+$success-1: #2f80ed !default;
+$success-2: #e3f5ff !default;
+
+$error-1: #ef4747 !default;
+$error-2: #ffefef !default;
+
+$warning-1: #ffd34d !default;
+$warning-2: #fff7dd !default;
+
+$download-1: #27ae60 !default;
+$download-2: #6fcf97 !default;
+$download-3: #e4fbf0 !default;
+
+// typograph: icon, text, background, border, divide
+$typo-1: #333333 !default;
+$typo-2: #4f4f4f !default;
+$typo-3: #828282 !default;
+$typo-4: #bdbdbd !default;
+$typo-5: #e0e0e0 !default;
+$typo-6: #f2f2f2 !default;
+$typo-7: #f8f8f8 !default;
+
+// additional palette: chart, graph, tooltip
+$p-blue-1: #7da9ff !default;
+$p-blue-2: #84b5ff !default;
+$p-blue-3: #78cee9 !default;
+
+$p-purple-1: #a485ff !default;
+$p-purple-2: #978eff !default;
+
+$p-green-1: #90cca0 !default;
+$p-green-2: #98e6a9 !default;
+$p-green-3: #d6f5dd !default;
+$p-green-4: #9dd764 !default;
+$p-green-5: #5bcbb7 !default;
+
+$p-red-1: #ff766d !default;
+
+$p-pink-1: #ff92a5 !default;
+$p-pink-2: #ffcfec !default;
+
+$p-yellow-1: #fde047 !default;
+$p-yellow-2: #ffd98e !default;
+$p-yellow-3: #ffd34d !default;
+
+$p-brown-1: #d3a064 !default;
+
+$p-orange-1: #ffab6c !default;
+$p-orange-2: #ffd5b5 !default;
+
+// etc
+$other-1: #5d5fef !default;
+$other-2: #e5e6ff !default;
+
+$line-icon: #ccd2e3 !default;
+$focus: #86b7fa !default;
+
+$border-radius: 0.25rem;
+$input-placeholder: $typo-3;
+
+$component-lg-sizes: (
+  "button": 40px,
+  "datepicker": 40px,
+  "select": 40px,
+  "input": 40px,
+);
+
+$component-sm-sizes: (
+  "button": 32px,
+  "datepicker": 32px,
+  "select": 32px,
+  "input": 32px,
+);

@@ -1,0 +1,71 @@
+@use "sass:color";
+
+@import "StyleFarm/scss/Variables";
+@import "StyleFarm/scss/Mixin";
+
+$toast-l-height: 2.5rem;
+
+.gv-toast-container {
+  position: fixed;
+  display: block;
+  max-width: 350px;
+  right: 0;
+  left: 0;
+  margin: auto;
+  bottom: 2rem;
+  z-index: 2000;
+  pointer-events: none;
+}
+
+.gv-toast-item {
+  position: relative;
+  display: block;
+  margin: 0.75rem;
+  font-weight: bold;
+  background-color: $typo-1;
+  color: $white;
+  line-height: $toast-l-height;
+  height: $toast-l-height;
+  text-align: center;
+  padding: 0 1rem;
+  border-radius: $border-radius;
+  transform: translateX(200%) translateY(0);
+  opacity: 1;
+  will-change: opacity, transform, margin;
+  font-size: 0.9rem;
+  transition: opacity 0.25s cubic-bezier(0.23, 1, 0.32, 1), transform 0.5s cubic-bezier(0.23, 1, 0.32, 1),
+    margin 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  user-select: none;
+  -webkit-user-drag: none;
+  @include single-line-ellipsis;
+
+  &--visible {
+    opacity: 1;
+    transform: translateX(0) translateY(0);
+  }
+
+  &--hidden {
+    opacity: 0;
+    margin-top: -#{$toast-l-height};
+    transform: translateX(0) translateY(0);
+  }
+
+  &--primary {
+    background: $primary-3;
+    color: $white;
+  }
+
+  &--add {
+    background: $success-1;
+    color: $white;
+  }
+
+  &--error {
+    background: $error-1;
+    color: $white;
+  }
+}
+
+// @media (max-width: 375px) {
+
+// }

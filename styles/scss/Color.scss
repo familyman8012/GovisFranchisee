@@ -1,0 +1,53 @@
+$colors: (
+  "black": $black,
+  "white": $white,
+  "primary-1": $primary-1,
+  "primary-2": $primary-2,
+  "primary-3": $primary-3,
+  "success-1": $success-1,
+  "success-2": $success-2,
+  "error-1": $error-1,
+  "error-2": $error-2,
+  "warning-1": $warning-1,
+  "warning-2": $warning-2,
+  "download-1": $download-1,
+  "download-2": $download-2,
+  "download-3": $download-3,
+  "typo-1": $typo-1,
+  "typo-2": $typo-2,
+  "typo-3": $typo-3,
+  "typo-4": $typo-4,
+  "typo-5": $typo-5,
+  "typo-6": $typo-6,
+  "typo-7": $typo-7,
+  "p-blue-1": $p-blue-1,
+  "p-blue-2": $p-blue-2,
+  "p-blue-3": $p-blue-3,
+  "p-purple-1": $p-purple-1,
+  "p-purple-2": $p-purple-2,
+  "p-green-1": $p-green-1,
+  "p-green-2": $p-green-2,
+  "p-green-3": $p-green-3,
+  "p-green-4": $p-green-4,
+  "p-green-5": $p-green-5,
+  "p-red-1": $p-red-1,
+  "p-pink-1": $p-pink-1,
+  "p-pink-2": $p-pink-2,
+  "p-yellow-1": $p-yellow-1,
+  "p-yellow-2": $p-yellow-2,
+  "p-yellow-3": $p-yellow-3,
+  "p-brown-1": $p-brown-1,
+  "p-orange-1": $p-orange-1,
+  "p-orange-2": $p-orange-2,
+) !default;
+
+$color-types: ("bg", "text", "fill", "stroke") !default;
+
+@each $type in $color-types {
+  $property: if($type == "bg", "background-color", if($type == "text", "color", $type));
+  @each $key, $color in $colors {
+    .#{$type}-#{$key} {
+      #{$property}: $color !important;
+    }
+  }
+}

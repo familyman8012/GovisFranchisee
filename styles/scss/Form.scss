@@ -1,0 +1,115 @@
+.gv-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  height: 39px;
+  padding: 0 1rem;
+  background: transparent;
+  border: 1px solid currentColor;
+  border-radius: 1.25rem;
+  color: $typo-4;
+  cursor: pointer;
+  font-weight: 500;
+
+  &:focus-within {
+    border-color: $typo-1;
+  }
+
+  &__icon {
+    width: 1.25rem;
+    height: 1.25rem;
+    color: inherit;
+  }
+
+  &__label {
+    white-space: nowrap;
+    line-height: 1;
+  }
+
+  input {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    z-index: 3;
+  }
+
+  &__icon + &__label {
+    margin-left: 0.5rem;
+  }
+
+  & + & {
+    margin-left: 1rem;
+  }
+
+  &--checked {
+    color: $typo-1;
+    box-shadow: 0px 2px 4px 0px rgba($typo-1, 0.1);
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+  }
+
+  /** 레시피 자료실 전용 체크박스 css */
+  &--recipe {
+    min-width: 60px;
+    height: 32px;
+    text-align: center;
+    background: transparent;
+    font-weight: 500;
+    justify-content: center;
+    color: $primary-2;
+    border-color: $primary-2;
+
+    & + & {
+      margin-left: 0.5rem;
+    }
+
+    &.gv-checkbox--checked {
+      box-shadow: none;
+      color: $white;
+      background: $primary-2;
+    }
+
+    .gv-checkbox__icon {
+      display: none;
+    }
+
+    .gv-checkbox__icon + .gv-checkbox__label {
+      margin-left: 0;
+    }
+  }
+  /** 뉴스레터 전용 체크박스 css */
+  &--news {
+    min-width: 80px;
+    height: 40px;
+    text-align: center;
+    background: transparent;
+    font-weight: 500;
+    font-size: 16px;
+    justify-content: center;
+    color: #061138;
+    border-color: $primary-2;
+    border-radius: 20px;
+
+    & + & {
+      margin-left: 0.5rem;
+      margin-right: 0;
+    }
+
+    &.gv-checkbox--checked {
+      box-shadow: none;
+      color: $white;
+      background: $primary-2;
+    }
+
+    .gv-checkbox__icon {
+      display: none;
+    }
+
+    .gv-checkbox__icon + .gv-checkbox__label {
+      margin-left: 0;
+    }
+  }
+}

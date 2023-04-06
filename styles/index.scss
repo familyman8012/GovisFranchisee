@@ -1,0 +1,213 @@
+@import "react-datepicker/dist/react-datepicker";
+
+@import "StyleFarm/normalize.scss";
+@import "StyleFarm/bootstrap-utilities.scss";
+
+@import "StyleFarm/scss/Variables.scss";
+@import "StyleFarm/scss/Mixin.scss";
+@import "StyleFarm/scss/Color.scss";
+@import "StyleFarm/scss/Font.scss";
+@import "StyleFarm/scss/Typography.scss";
+@import "StyleFarm/scss/Button.scss";
+@import "StyleFarm/scss/Datepicker.scss";
+@import "StyleFarm/scss/SearchInput.scss";
+@import "StyleFarm/scss/Components.scss";
+@import "StyleFarm/scss/Form.scss";
+@import "StyleFarm/scss/NavBar.scss";
+@import "StyleFarm/scss/Pager.scss";
+@import "StyleFarm/scss/Empty.scss";
+@import "StyleFarm/scss/Loading.scss";
+@import "StyleFarm/scss/Modal.scss";
+@import "StyleFarm/scss/Swiper.scss";
+@import "StyleFarm/scss/Calendar.scss";
+@import "StyleFarm/scss/Error.scss";
+
+html,
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Montserrat", "Noto Sans KR", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen, Ubuntu,
+    Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+p {
+  margin: 0;
+}
+
+button {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.contents {
+  padding: 0 20px;
+  padding-top: 24px;
+  padding-bottom: 114px;
+}
+
+.contents .contents-box {
+  border-radius: $border-radius;
+}
+
+.contents-prefix-box {
+  background-color: $white;
+  margin: 0;
+  max-width: 100%;
+
+  &.height-full {
+    height: 100vh;
+  }
+}
+
+/** rechart override */
+.recharts-surface {
+  margin-right: 8px !important;
+}
+
+.recharts-cartesian-axis-tick-value {
+  font-size: 10px;
+  font-weight: 600;
+  fill: $typo-3;
+}
+
+.recharts-legend-label {
+  color: $typo-3;
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
+
+.display-hidden {
+  display: none !important;
+}
+
+.gv-alternative-image {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 10vmax;
+  border-radius: inherit;
+
+  &__content {
+    margin-top: 1rem;
+  }
+
+  &--full {
+    min-height: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.chart-wrapper-bar {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+
+  &--squre {
+    padding-bottom: 100%;
+  }
+  &__legend {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    li > span {
+      padding-left: 8px;
+    }
+    li + li {
+      margin-left: 8px;
+    }
+  }
+
+  &__tooltip {
+    padding: 10px;
+    background-color: $white;
+    border: 1px solid #ececec;
+
+    li + li {
+      margin-top: 8px;
+    }
+  }
+
+  &__symbol {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 8px;
+  }
+
+  &__view {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__unit {
+    padding-left: 8px;
+  }
+}
+
+.chart-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%;
+  overflow: hidden;
+
+  &--squre {
+    padding-bottom: 100%;
+  }
+
+  &__legend {
+    padding-left: 26px;
+    display: inline-flex;
+    align-items: center;
+    li + li {
+      margin-top: 8px;
+    }
+  }
+
+  &__symbol {
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: currentColor;
+    margin-right: 8px;
+  }
+
+  &__view {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+  }
+
+  &__unit {
+    padding-left: 8px;
+  }
+}

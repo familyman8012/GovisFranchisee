@@ -1,0 +1,22 @@
+container 가 공통되지 못함
+
+- 쿠폰
+form > ${Container} {
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1320px;
+    margin: 0 auto;
+    padding: 0 10.5px;
+    flex: 1;
+
+
+- feedback
+${Container} {
+    max-width: 1320px;
+  }
+
+- home 
+padding: 24px 20px 114px;
+
+
+- emotion 아이콘으로 변경

@@ -1,0 +1,30 @@
+.page-link {
+  color: $primary-2;
+  font-weight: 500;
+  font-size: 10px;
+  line-height: 12px;
+  text-align: center;
+  letter-spacing: 0.1px;
+}
+
+.page-item {
+  &.active {
+    .page-link {
+      border: 1px solid #dee2e6;
+      background-color: $primary-2;
+    }
+  }
+}
+
+.pagination {
+  .page-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+    width: 2.375rem;
+    height: 2rem;
+    font-size: 1rem;
+    border-color: $typo-5;
+  }
+}

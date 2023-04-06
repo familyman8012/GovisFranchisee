@@ -1,0 +1,83 @@
+@import "StyleFarm/scss/Variables";
+
+.login {
+  background-color: $white;
+  margin-top: -56px;
+  max-width: 100%;
+
+  &__box-row {
+    height: 100vh;
+  }
+
+  &__box-col {
+    margin: auto;
+    margin-top: 10vh;
+    margin-left: 2vw;
+    margin-right: 2vw;
+  }
+
+  &__logo {
+    text-align: center;
+
+    img {
+      width: 300px;
+
+      @media (max-width: 576px) {
+        width: 150px;
+      }
+    }
+
+    &__top-text {
+      margin-bottom: 0;
+      font-size: 32pt;
+      font-weight: bold;
+      color: $primary-3;
+    }
+
+    &__sub-text {
+      font-size: 16pt;
+      color: rgba(0, 0, 0, 0.6);
+    }
+  }
+
+  &__input {
+    &__area {
+      margin-top: 50px;
+      margin-bottom: 3vh;
+    }
+
+    &__contraler {
+      height: 45px;
+    }
+  }
+
+  &__btn {
+    background-color: $primary-3;
+    border-color: $primary-3;
+    height: 48px;
+    font-weight: bold;
+    font-size: 16px;
+
+    &:hover {
+      background-color: $primary-3 !important;
+      border-color: $primary-3;
+      color: $white;
+    }
+
+    &:active,
+    &:focus {
+      color: $white;
+      --box-shadow-color: $primary-3 !important;
+      border-color: $primary-3;
+      filter: drop-shadow(0px 2px 4px var(--box-shadow-color));
+    }
+  }
+
+  &__error-massage {
+    border: 1px solid #eaeaea;
+    padding: 10px;
+    background-color: #fff6f6;
+    box-shadow: 0 0 0 1px #e0b4b4 inset, 0 0 0 0 transparent;
+    color: #9f3a38;
+  }
+}

@@ -1,0 +1,18 @@
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
+
+.swiper-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-bullets.swiper-pagination-horizontal,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  bottom: 0.8rem;
+}
+
+.swiper-pagination-bullet-active {
+  background: $success-1;
+}
+
+.swiper {
+  padding-bottom: 2.7rem;
+}

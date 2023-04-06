@@ -1,0 +1,40 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": false,
+    "noEmit": true,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "ComponentsFarm/*": ["./components/*"],
+      "ModulesFarm/*": ["./modules/*"],
+      "UtilsFarm/*": ["./utils/*"],
+      "LibFarm/*": ["./lib/*"],
+      "HookFarm/*": ["./src/hook/*"],
+      "ApiFarm/*": ["./src/api/*"],
+      "PagesFarm/*": ["./pages/*"],
+      "ConstraintsFarm/*": ["./constraints/*"],
+      "InterfaceFarm/*": ["./src/interface/*"],
+      "FontFarm/*": ["./public/font/*"],
+      "StyleFarm/*": ["./styles/*"]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    "pages/api/auth/[...nextauth].tsx",
+    "pages/examples/dynamic_input.bak"
+  ],
+  "exclude": ["node_modules"]
+}

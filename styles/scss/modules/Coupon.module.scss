@@ -1,0 +1,117 @@
+@use "sass:math";
+@import "StyleFarm/scss/Variables";
+@import "StyleFarm/scss/Mixin";
+@import "StyleFarm/scss/modules/Notice.module";
+
+.coupon {
+  &__label {
+    display: block;
+    width: 100%;
+    margin-bottom: 8px;
+    font-weight: bold;
+
+    &--error {
+      color: $error-1;
+    }
+  }
+}
+
+.coupon-list {
+  padding: 16px 20px 23px;
+
+  &__search {
+    border-radius: math.div($border-radius, 2);
+    margin-bottom: 10px;
+    ::placeholder {
+      color: $typo-3;
+    }
+  }
+
+  &__item {
+    @extend .notice-list__item;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  &__date {
+    flex: 0 1 auto;
+    font-weight: bold;
+    color: $primary-3;
+    font-size: 0.75rem;
+  }
+
+  &__name {
+    flex: 1;
+    min-width: 70px;
+    color: $typo-2;
+    text-align: left;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 0;
+    @include single-line-ellipsis;
+  }
+
+  &__code {
+    flex: 0 1 auto;
+    color: $typo-2;
+    font-size: 1rem;
+    font-weight: 500;
+  }
+}
+
+.coupon-form {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 16px 20px calc(16px + 1.5rem);
+  background: $white;
+  box-shadow: 2px 2px 5px 0 rgba($typo-1, 0.1);
+  position: relative;
+
+  &__wrapper {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  &__input {
+    font-size: 1.5rem;
+    height: 60px;
+    flex: 1;
+    width: 100%;
+    font-weight: 500;
+
+    &--error {
+      border-color: $error-1 !important;
+      &:focus {
+        box-shadow: 0 0 0 0.25rem rgba($error-1, 0.25) !important;
+      }
+    }
+  }
+
+  &__submit {
+    font-size: 1.5rem;
+    height: 60px;
+    flex: 0 0 auto;
+    margin-left: 9px;
+  }
+
+  &__error {
+    position: absolute;
+    display: inline-flex;
+    color: $error-1;
+    background: rgba($error-1, 0.1);
+    font-weight: bold;
+    border-radius: $border-radius;
+    padding: 3px 10px;
+    font-size: 0.8em;
+    align-items: center;
+    bottom: 0.5rem;
+    left: auto;
+    margin-bottom: 0;
+
+    svg {
+      width: 1.2em;
+      height: 1.2em;
+      margin-right: 0.5em;
+    }
+  }
+}

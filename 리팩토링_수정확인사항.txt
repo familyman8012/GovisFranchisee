@@ -1,4 +1,4 @@
-container 가 공통되지 못함
+1) container 가 공통되지 못함
 
 - 쿠폰
 form > ${Container} {

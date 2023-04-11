@@ -1,5 +1,7 @@
+import { ListLoading } from "ComponentsFarm/elements/Loading";
+import useElementSize from "HookFarm/useElementSize";
 import { PALLETES } from "LibFarm/color";
-import React from "react";
+import React, { useMemo, useRef } from "react";
 import {
   ComposedChart,
   Bar,
@@ -25,25 +27,30 @@ interface Props {
   data: {
     list: DataItem[];
   };
+  loading: boolean;
 }
 
-const MultiChart: React.FC<Props> = ({ data }) => {
+const MultiChart: React.FC<Props> = ({ data, loading }) => {
   const chartData = data.list.map((item) => ({
     label: item.display_label,
     orderCount: item.display_item.order_count,
     avgProcessingTime: item.display_item.average_processing_time,
   }));
 
-  const legendFormatter = (value: string) => {
-    switch (value) {
-      case "orderCount":
-        return "주문수";
-      case "avgProcessingTime":
-        return "평균처리시간";
-      default:
-        return value;
-    }
-  };
+  const ref = useRef(null);
+  const [width] = useElementSize(ref);
+  const contentWidth = useMemo(
+    () => (80 * chartData.length >= width ? 80 * chartData.length : "100%"),
+    [width, chartData, 80]
+  );
+
+  if (loading) {
+    return (
+      <div className={"chart-wrapper-bar"} ref={ref}>
+        <ListLoading full />
+      </div>
+    );
+  }
 
   const formatTime = (value: number) => {
     const hours = Math.floor(value / 3600);
@@ -63,20 +70,13 @@ const MultiChart: React.FC<Props> = ({ data }) => {
     }
   };
 
-  const timeFormatter = (value: number) => {
-    return formatTime(value)
-      .replace("시간", ":")
-      .replace("분", ":")
-      .replace("초", "");
-  };
-
   return (
     <div className="wrap_chart">
       <div className="head">
         <h3 className="title">시간대별 주문 현황</h3>
       </div>
-      <OverflowChartWrapper len={chartData.length}>
-        <ResponsiveContainer width={1000} height={179}>
+      <OverflowChartWrapper ref={ref} len={chartData.length}>
+        <ResponsiveContainer width={contentWidth} height={179}>
           <ComposedChart
             data={chartData}
             margin={{ top: 20, left: 0, right: 0 }}
@@ -87,6 +87,7 @@ const MultiChart: React.FC<Props> = ({ data }) => {
               axisLine={{
                 stroke: PALLETES["typo-4"],
               }}
+              interval={0}
             />
             {/* <YAxis yAxisId="left" />
           <YAxis
@@ -100,6 +101,7 @@ const MultiChart: React.FC<Props> = ({ data }) => {
             />
             {/* <Legend formatter={legendFormatter} /> */}
             <Bar
+              isAnimationActive={false}
               yAxisId="left"
               dataKey="orderCount"
               barSize={28}
@@ -111,6 +113,7 @@ const MultiChart: React.FC<Props> = ({ data }) => {
               fill="#ffab6c"
             />
             <Line
+              isAnimationActive={false}
               yAxisId="right"
               type="monotone"
               dataKey="avgProcessingTime"

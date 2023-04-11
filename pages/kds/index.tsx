@@ -25,7 +25,7 @@ function KDS() {
     AxiosError
   >(["orderMount"], () => fetchOrderAmount());
 
-  const { data: orderProcessData } = useQuery<
+  const { data: orderProcessData, isLoading: orderProcessLoading } = useQuery<
     AxiosResponse<IOrderProcessRes>,
     AxiosError
   >(["orderProcess"], () => fetchOrderProcess());
@@ -54,7 +54,12 @@ function KDS() {
               <div>{orderAmountData?.data?.total_amount}원</div>
             </li>
           </ul>
-          {orderProcessData && <MultiChart data={orderProcessData?.data} />}
+          {orderProcessData && (
+            <MultiChart
+              data={orderProcessData?.data}
+              loading={orderProcessLoading}
+            />
+          )}
         </section>
         <section className="box_receipt">
           <div className="item_receipt">

@@ -65,6 +65,16 @@ export const KdsWrap = styled.div`
       background: #fff;
     }
   }
+
+  .wrap_real_order {
+    h3 {
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+    .box:first-of-type {
+      margin-top: 0px;
+    }
+  }
   .box_receipt {
     .box {
       padding: 0;

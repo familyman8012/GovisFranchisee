@@ -22,59 +22,70 @@ const DataComponent = ({ data }: { data: IOrderListRes }) => {
     <div>
       {data.list.map((item) => (
         <div className="box">
-          <div className="item_receipt">
-            <div className="box_status_info">
-              <div className="txt_info">
-                <div className="kind">
-                  <span className="txt_kind">배달 : </span>
-                  <span className="txt_date">{item.ordered_at}</span>
+          <div className="head_item">
+            <div className="item_receipt">
+              <div className="box_status_info">
+                <div className="num_order">
+                  {item.receipt_number}
+                  <span className="current_status">
+                    {" "}
+                    (배달 / {getStatusText(item.process_status)})
+                  </span>{" "}
                 </div>
-                <div className="current_status">
-                  {getStatusText(item.process_status)}
+                <div className="txt_info">
+                  <div className="kind">
+                    <span className="txt_date">{item.ordered_at}</span>
+                  </div>
                 </div>
               </div>
-              <div className="num_order">{item.receipt_number}</div>
             </div>
           </div>
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">메뉴이름</th>
-                <th scope="col">수량</th>
-                <th scope="col">상태</th>
-              </tr>
-            </thead>
-            <tbody>
-              {item.item_list
-                .map((itemList) => [
-                  <tr key={itemList.receipt_item_idx}>
-                    <td>
-                      <span>{itemList.product_name}</span>
-                    </td>
-                    <td>
-                      <span>{itemList.quantity}</span>
-                    </td>
-                    <td>
-                      <span>{getStatusText(itemList.process_status)}</span>
-                    </td>
-                  </tr>,
-                  itemList.option_list.map((option) => (
-                    <tr key={option.receipt_item_idx}>
-                      <td style={{ paddingLeft: "30px" }}>
-                        <span>- {option.product_name}</span>
+          <div className="cont_item">
+            <table>
+              <colgroup>
+                <col width="70%" />
+                <col width="15%" />
+                <col width="15%" />
+              </colgroup>
+              <thead>
+                <tr>
+                  <th scope="col">메뉴이름</th>
+                  <th scope="col">수량</th>
+                  <th scope="col">상태</th>
+                </tr>
+              </thead>
+              <tbody>
+                {item.item_list
+                  .map((itemList) => [
+                    <tr key={itemList.receipt_item_idx}>
+                      <td>
+                        <span>{itemList.product_name}</span>
                       </td>
                       <td>
-                        <span>{option.quantity}</span>
+                        <span>{itemList.quantity}</span>
                       </td>
                       <td>
-                        <span>{getStatusText(option.process_status)}</span>
+                        <span>{getStatusText(itemList.process_status)}</span>
                       </td>
-                    </tr>
-                  )),
-                ])
-                .reduce((acc, curr) => acc.concat(curr), [])}
-            </tbody>
-          </table>
+                    </tr>,
+                    itemList.option_list.map((option) => (
+                      <tr key={option.receipt_item_idx}>
+                        <td style={{ paddingLeft: "30px" }}>
+                          <span>· {option.product_name}</span>
+                        </td>
+                        <td>
+                          <span>{option.quantity}</span>
+                        </td>
+                        <td>
+                          <span>{getStatusText(option.process_status)}</span>
+                        </td>
+                      </tr>
+                    )),
+                  ])
+                  .reduce((acc, curr) => acc.concat(curr), [])}
+              </tbody>
+            </table>
+          </div>
         </div>
       ))}
     </div>

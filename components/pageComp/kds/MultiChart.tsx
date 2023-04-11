@@ -1,3 +1,4 @@
+import { PALLETES } from "LibFarm/color";
 import React from "react";
 import {
   ComposedChart,
@@ -10,6 +11,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import OverflowChartWrapper from "../statistics/product/OverflowChartWrapper";
 
 interface DataItem {
   display_label: string;
@@ -69,26 +71,55 @@ const MultiChart: React.FC<Props> = ({ data }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={249}>
-      <ComposedChart data={chartData}>
-        <XAxis dataKey="label" />
-        <YAxis yAxisId="left" />
-        <YAxis
-          yAxisId="right"
-          orientation="right"
-          tickFormatter={timeFormatter}
-        />
-        <Tooltip formatter={tooltipFormatter} />
-        <Legend formatter={legendFormatter} />
-        <Bar yAxisId="left" dataKey="orderCount" barSize={20} fill="#ffab6c" />
-        <Line
-          yAxisId="right"
-          type="monotone"
-          dataKey="avgProcessingTime"
-          stroke="#FFD98E"
-        />
-      </ComposedChart>
-    </ResponsiveContainer>
+    <div className="wrap_chart">
+      <div className="head">
+        <h3 className="title">시간대별 주문 현황</h3>
+      </div>
+      <OverflowChartWrapper len={chartData.length}>
+        <ResponsiveContainer width={1000} height={179}>
+          <ComposedChart
+            data={chartData}
+            margin={{ top: 20, left: 0, right: 0 }}
+          >
+            <XAxis
+              dataKey="label"
+              tickLine={false}
+              axisLine={{
+                stroke: PALLETES["typo-4"],
+              }}
+            />
+            {/* <YAxis yAxisId="left" />
+          <YAxis
+            yAxisId="right"
+            orientation="right"
+            tickFormatter={timeFormatter}
+          /> */}
+            <Tooltip
+              formatter={tooltipFormatter}
+              cursor={{ fill: PALLETES["typo-6"] }}
+            />
+            {/* <Legend formatter={legendFormatter} /> */}
+            <Bar
+              yAxisId="left"
+              dataKey="orderCount"
+              barSize={28}
+              label={{
+                style: { fontWeight: 500, fontSize: "12px" },
+                fill: PALLETES["typo-3"],
+                position: "top",
+              }}
+              fill="#ffab6c"
+            />
+            <Line
+              yAxisId="right"
+              type="monotone"
+              dataKey="avgProcessingTime"
+              stroke="#FFD98E"
+            />
+          </ComposedChart>
+        </ResponsiveContainer>
+      </OverflowChartWrapper>
+    </div>
   );
 };
 

@@ -1,15 +1,31 @@
 import styled from "@emotion/styled";
 
 export const KdsWrap = styled.div`
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+  @media (min-width: 1400px) {
+    max-width: 1320px;
+  }
+
+  margin: 24px auto 0;
+  padding: 0 20px 50px;
+
   .box {
     margin: 16px 0;
-    padding: 24px;
+    padding: 15px;
     border-radius: 0.25rem;
     background-color: rgb(255, 255, 255);
+    border: 1px solid #e0e0e0;
   }
   .wrap_info {
-    background: #fff;
-    padding-bottom: 20px;
+    margin-bottom: 24px;
     .box {
       margin-top: 0;
     }
@@ -25,34 +41,53 @@ export const KdsWrap = styled.div`
         }
       }
     }
+    .wrap_chart {
+      border-radius: 0.25rem;
+      background: #fff;
+      border: 1px solid #e0e0e0;
+
+      .head {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        height: 47px;
+        padding-left: 0.75rem;
+        border-bottom: 1px solid #e0e0e0;
+
+        .title {
+          margin-bottom: 0;
+        }
+      }
+    }
     .recharts-responsive-container {
       overflow: hidden;
+      background: #fff;
     }
   }
   .box_receipt {
-    @media (min-width: 576px) {
-      max-width: 540px;
+    .box {
+      padding: 0;
     }
-    @media (min-width: 768px) {
-      max-width: 720px;
-    }
-    @media (min-width: 992px) {
-      max-width: 960px;
-    }
-    @media (min-width: 1400px) {
-      max-width: 1320px;
-    }
-
-    margin: 24px auto 0;
-    padding: 0 20px 50px;
-
     .item_receipt {
+      font-size: 13px;
+      .head_item {
+        border-bottom: 1px solid #e0e0e0;
+        padding: 15px;
+      }
+      .cont_item {
+        padding: 15px;
+      }
       .box_status_info {
         display: flex;
-
         font-weight: bold;
+        font-size: 13px;
 
-        .num_order {
+        /* .num_order {
+          margin-left: auto;
+        } */
+
+        .txt_info {
           margin-left: auto;
         }
 
@@ -63,12 +98,14 @@ export const KdsWrap = styled.div`
 
       table {
         width: 100%;
-        margin-top: 20px;
         border-collapse: collapse;
+        border: 1px solid #e0e0e0;
         th,
         td {
           text-align: center;
           border: 1px solid #e0e0e0;
+          border-left: none;
+          border-right: none;
         }
         th,
         td {

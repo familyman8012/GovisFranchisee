@@ -9,6 +9,7 @@ import Layout from "ComponentsFarm/layouts";
 import DataComponent from "ComponentsFarm/pageComp/kds/DataComponent";
 import MultiChart from "ComponentsFarm/pageComp/kds/MultiChart";
 import { KdsWrap } from "ComponentsFarm/pageComp/kds/style";
+import { ScrollShadow } from "ComponentsFarm/pageComp/statistics/product/styles";
 import {
   IOrderAmountRes,
   IOrderListRes,
@@ -39,7 +40,7 @@ function KDS() {
   return (
     <Layout className="fullWidth">
       <Head>
-        <title>주문관제 | GOVIS For Franchisee</title>
+        <title>실시간 주문 현황 | GOVIS For Franchisee</title>
       </Head>
       <KdsWrap>
         <section className="wrap_info">

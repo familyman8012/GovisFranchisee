@@ -19,17 +19,17 @@ import React from "react";
 import { useQuery } from "react-query";
 
 function KDS() {
-  const { data: orderAmountData, isLoading: orderAmountLoading } = useQuery<
+  const { data: orderAmountData } = useQuery<
     AxiosResponse<IOrderAmountRes>,
     AxiosError
   >(["orderMount"], () => fetchOrderAmount());
 
-  const { data: orderProcessData, isLoading: orderProcessLoading } = useQuery<
+  const { data: orderProcessData } = useQuery<
     AxiosResponse<IOrderProcessRes>,
     AxiosError
   >(["orderProcess"], () => fetchOrderProcess());
 
-  const { data: orderListData, isLoading: orderListLoading } = useQuery<
+  const { data: orderListData } = useQuery<
     AxiosResponse<IOrderListRes>,
     AxiosError
   >(["orderList"], () => fetchOrderList(), {

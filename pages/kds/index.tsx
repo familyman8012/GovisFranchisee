@@ -34,7 +34,7 @@ function KDS() {
     AxiosResponse<IOrderListRes>,
     AxiosError
   >(["orderList"], () => fetchOrderList(), {
-    refetchInterval: 3000,
+    refetchInterval: 1000 * 60,
   });
 
   return (

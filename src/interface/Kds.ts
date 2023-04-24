@@ -1,3 +1,16 @@
+export interface IIsKds {
+  store_list: IIsKdsListItem[];
+}
+
+export interface IIsKdsListItem {
+  addr: string;
+  is_kds: number;
+  revoked: string;
+  store_id: string;
+  store_name: string;
+  sv_user_id: string;
+}
+
 export interface IOrderAmountReq {
   search_ordered_dt?: string;
 }

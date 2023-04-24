@@ -18,7 +18,6 @@ const getStatusText = (status: number): string => {
 };
 
 const DataComponent = ({ data }: { data: IOrderListRes }) => {
-  console.log("data", data);
   return (
     <div className="wrap_real_order">
       <h3>실시간 주문 현황</h3>
@@ -28,7 +27,7 @@ const DataComponent = ({ data }: { data: IOrderListRes }) => {
         </div>
       ) : (
         data.list.map((item) => (
-          <div className="box">
+          <div className="box" key={item.receipt_idx}>
             <div className="head_item">
               <div className="item_receipt">
                 <div className="box_status_info">

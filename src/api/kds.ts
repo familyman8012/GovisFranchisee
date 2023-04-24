@@ -1,6 +1,12 @@
 import AxiosUtil from ".";
 
-export const fetchOrderAmount = async (params?: string) => {
+export const fetchIsKds = async () => {
+  const response = await AxiosUtil.get(`/fc/v1/store/is_kds`);
+
+  return response.data;
+};
+
+export const fetchOrderAmount = async () => {
   const response = await AxiosUtil.get(
     `/fc/v1/realtime_order/order_total_amount`
   );
@@ -8,7 +14,7 @@ export const fetchOrderAmount = async (params?: string) => {
   return response.data;
 };
 
-export const fetchOrderProcess = async (params?: string) => {
+export const fetchOrderProcess = async () => {
   const response = await AxiosUtil.get(
     `/fc/v1/realtime_order/order_processed_chart`
   );
@@ -16,7 +22,7 @@ export const fetchOrderProcess = async (params?: string) => {
   return response.data;
 };
 
-export const fetchOrderList = async (params?: string) => {
+export const fetchOrderList = async () => {
   const response = await AxiosUtil.get(
     `/fc/v1/realtime_order/order_processing_list`
   );

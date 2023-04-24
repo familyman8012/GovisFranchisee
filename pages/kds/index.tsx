@@ -47,11 +47,21 @@ function KDS() {
           <ul className="box box_sales">
             <li>
               <div>객단가</div>
-              <div>{orderAmountData?.data?.unit_amount}원</div>
+              <div>
+                {Number(orderAmountData?.data?.unit_amount).toLocaleString(
+                  "ko-KR"
+                )}
+                원
+              </div>
             </li>
             <li>
               <div>누적 총합</div>
-              <div>{orderAmountData?.data?.total_amount}원</div>
+              <div>
+                {Number(orderAmountData?.data?.total_amount).toLocaleString(
+                  "ko-KR"
+                )}
+                원
+              </div>
             </li>
           </ul>
           {orderProcessData && (

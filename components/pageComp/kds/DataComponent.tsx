@@ -41,7 +41,9 @@ const DataComponent = ({ data }: { data: IOrderListRes }) => {
                   </div>
                   <div className="txt_info">
                     <div className="kind">
-                      <span className="txt_date">{item.ordered_at}</span>
+                      <span className="txt_date">
+                        {item.ordered_at.slice(0, -3)}
+                      </span>
                     </div>
                   </div>
                 </div>

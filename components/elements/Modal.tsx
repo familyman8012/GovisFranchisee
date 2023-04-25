@@ -11,8 +11,17 @@ interface IModal {
   center?: boolean;
 }
 
-export function Modal({ open, onClose, children, center, className = "" }: IModal): React.ReactElement | null {
-  const portalId = useMemo(() => `modalArea_${Math.random().toString(36).substr(2, 16)}`, []);
+export function Modal({
+  open,
+  onClose,
+  children,
+  center,
+  className = "",
+}: IModal): React.ReactElement | null {
+  const portalId = useMemo(
+    () => `modalArea_${Math.random().toString(36).substr(2, 16)}`,
+    []
+  );
   const [container, setContainer] = useState<Element | null>(null);
 
   useEffect(() => {
@@ -32,7 +41,8 @@ export function Modal({ open, onClose, children, center, className = "" }: IModa
   }, [portalId]);
 
   const handleEndEventListener = React.useCallback(
-    (node: HTMLElement, done: () => void) => node.addEventListener("transitionend", done, false),
+    (node: HTMLElement, done: () => void) =>
+      node.addEventListener("transitionend", done, false),
     []
   );
 
@@ -56,11 +66,24 @@ export function Modal({ open, onClose, children, center, className = "" }: IModa
   );
 }
 
-export const ModalHeader = ({ children, closeButton }: { children: React.ReactNode; closeButton?: () => void }) => {
+export const ModalHeader = ({
+  children,
+  closeButton,
+}: {
+  children: React.ReactNode;
+  closeButton?: () => void;
+}) => {
   return (
     <ModalHead>
       {children}
-      {closeButton && <button type="button" className="btn-close" onClick={closeButton} aria-label="Close" />}
+      {closeButton && (
+        <button
+          type="button"
+          className="btn-close"
+          onClick={closeButton}
+          aria-label="Close"
+        />
+      )}
     </ModalHead>
   );
 };

@@ -3,7 +3,13 @@ import Head from "next/head";
 import type { AppProps } from "next/app";
 import { useRouter } from "next/router";
 import { ReactQueryDevtools } from "react-query/devtools";
-import { Hydrate, MutationCache, QueryCache, QueryClient, QueryClientProvider } from "react-query";
+import {
+  Hydrate,
+  MutationCache,
+  QueryCache,
+  QueryClient,
+  QueryClientProvider,
+} from "react-query";
 import { toast, ToastContainer } from "react-toastify";
 import { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
@@ -14,6 +20,9 @@ import "react-toastify/dist/ReactToastify.css";
 /** @tui-calendar css */
 import "tui-calendar/dist/tui-calendar.css";
 import "StyleFarm/index.scss";
+import "StyleFarm/icon.css";
+import { Global } from "@emotion/react";
+import reset from "ComponentsFarm/pageComp/gomarket/reset";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -64,8 +73,13 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/img/favicon.ico" />
       </Head>
       <QueryClientProvider client={queryClient}>
+        {router.asPath.includes("gomarket") && <Global styles={reset} />}
         <Hydrate state={pageProps.dehydratedState}>
-          <ToastContainer position="top-right" pauseOnFocusLoss={false} pauseOnHover={false} />
+          <ToastContainer
+            position="top-right"
+            pauseOnFocusLoss={false}
+            pauseOnHover={false}
+          />
           <Component {...pageProps} />
         </Hydrate>
         <ReactQueryDevtools />

@@ -8,7 +8,11 @@ import { Container } from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import ImgUpload from "ComponentsFarm/pageComp/return/ImgUpload";
 import { ReturnBoardContentsInfo } from "ComponentsFarm/pageComp/return/ReturnBoardContentsInfo";
-import { ErrorTxt, RegisterForm, ReturnApplyView } from "ComponentsFarm/pageComp/return/style";
+import {
+  ErrorTxt,
+  RegisterForm,
+  ReturnApplyView,
+} from "ComponentsFarm/pageComp/return/style";
 import { IReturnPostValues } from "InterfaceFarm/ReturnBoard";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useMemo, useState } from "react";
@@ -17,6 +21,7 @@ import { useQuery } from "react-query";
 
 export default function ReturnBoardPost() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const { sbreIdx } = router.query;
   const [attachImg, setAttachImg] = useState<null | string[]>(null);
 
@@ -37,9 +42,13 @@ export default function ReturnBoardPost() {
     return () => clearTimeout(timer);
   }, []);
 
-  const { data } = useQuery(["return-apply-modify"], () => ReturnApplyViewinfo(String(sbreIdx)), {
-    enabled: !!sbreIdx,
-  });
+  const { data } = useQuery(
+    ["return-apply-modify"],
+    () => ReturnApplyViewinfo(String(sbreIdx)),
+    {
+      enabled: !!sbreIdx,
+    }
+  );
 
   const {
     control,
@@ -72,7 +81,9 @@ export default function ReturnBoardPost() {
   useEffect(() => {
     if (data) {
       const occur_arr: any[] = [false, false, false, false];
-      data?.occur_type.forEach((el: number) => (el === 9 ? (occur_arr[4] = String(4)) : (occur_arr[el] = String(el))));
+      data?.occur_type.forEach((el: number) =>
+        el === 9 ? (occur_arr[4] = String(4)) : (occur_arr[el] = String(el))
+      );
 
       setValue("occur_type", occur_arr);
       setValue("process_request", `process_request${data?.process_request}`);
@@ -84,27 +95,43 @@ export default function ReturnBoardPost() {
 
   //  react hook form 의 submit 버튼 클릭 하면, axios 로 보낼 data 를 형변환등 작업을 해서 전송.
   const onSubmit: SubmitHandler<IReturnPostValues> = async (values) => {
-    const modifydata = {
-      sbre_idx: Number(sbreIdx),
-      receiving_date: values.receiving_date.toString(),
-      product_name: values.product_name,
-      product_quantity: Number(values.product_quantity),
-      expiration_date: values.expiration_date,
-      occur_type: values.occur_type
-        .filter((el: boolean | number) => el !== false)
-        .map((el: string) => (el === "4" ? "9" : el))
-        .toString(),
-      occur_etc: values.occur_type?.includes("4") ? values.occur_etc ?? "" : null,
-      process_request: Number(values.process_request.charAt(values.process_request.length - 1)),
-      detail_content: values.detail_content,
-    };
+    if (isLoading) return;
 
-    await ReturnApplyModifyinfo(modifydata);
-    router.push(`/board/return/confirm/${sbreIdx}`);
+    setIsLoading(true);
+
+    try {
+      const modifydata = {
+        sbre_idx: Number(sbreIdx),
+        receiving_date: values.receiving_date.toString(),
+        product_name: values.product_name,
+        product_quantity: Number(values.product_quantity),
+        expiration_date: values.expiration_date,
+        occur_type: values.occur_type
+          .filter((el: boolean | number) => el !== false)
+          .map((el: string) => (el === "4" ? "9" : el))
+          .toString(),
+        occur_etc: values.occur_type?.includes("4")
+          ? values.occur_etc ?? ""
+          : null,
+        process_request: Number(
+          values.process_request.charAt(values.process_request.length - 1)
+        ),
+        detail_content: values.detail_content,
+      };
+
+      await ReturnApplyModifyinfo(modifydata);
+      router.push(`/board/return/confirm/${sbreIdx}`);
+    } catch (e) {
+      setIsLoading(false);
+    }
   };
 
   return (
-    <Layout menuIconType="back" className="fullWidth" handlerMenuIcon={handlerNavBarMenuClick}>
+    <Layout
+      menuIconType="back"
+      className="fullWidth"
+      handlerMenuIcon={handlerNavBarMenuClick}
+    >
       <FeedBackContents>
         <ReturnApplyView>
           <div className={"contents-prefix-box"}>
@@ -138,10 +165,16 @@ export default function ReturnBoardPost() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
-                      <Datepicker onChange={(date) => field.onChange(date)} editable={false} value={field.value} />
+                      <Datepicker
+                        onChange={(date) => field.onChange(date)}
+                        editable={false}
+                        value={field.value}
+                      />
                     )}
                   />
-                  {errors.receiving_date && <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>}
+                  {errors.receiving_date && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 </div>
                 <div className={`box ${errors.expiration_date && "error"}`}>
                   <div className="tit">유통기한/제조일자</div>
@@ -150,10 +183,16 @@ export default function ReturnBoardPost() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
-                      <Datepicker onChange={(date) => field.onChange(date)} editable={false} value={field.value} />
+                      <Datepicker
+                        onChange={(date) => field.onChange(date)}
+                        editable={false}
+                        value={field.value}
+                      />
                     )}
                   />
-                  {errors.expiration_date && <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>}
+                  {errors.expiration_date && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 </div>
 
                 <LabelText
@@ -168,7 +207,13 @@ export default function ReturnBoardPost() {
                 />
                 <div className="box">
                   <div className="tit">클레임 분류</div>
-                  {["이물혼입", "배송불량", "품질 불량", "입수부족", "기타(상세기재)"].map((el, i) => (
+                  {[
+                    "이물혼입",
+                    "배송불량",
+                    "품질 불량",
+                    "입수부족",
+                    "기타(상세기재)",
+                  ].map((el, i) => (
                     <ListCustomCheckBox
                       label={el}
                       key={i}
@@ -178,7 +223,9 @@ export default function ReturnBoardPost() {
                       register={{
                         ...register(`occur_type.${i}`, {
                           validate: () =>
-                            getValues("occur_type")?.filter((el: boolean | number) => el !== false).length !== 0,
+                            getValues("occur_type")?.filter(
+                              (el: boolean | number) => el !== false
+                            ).length !== 0,
                         }),
                       }}
                       register2={{
@@ -187,9 +234,10 @@ export default function ReturnBoardPost() {
                     />
                   ))}
                 </div>
-                {errors.occur_type && IsChk?.every((el: boolean | number) => el === false) && (
-                  <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
-                )}
+                {errors.occur_type &&
+                  IsChk?.every((el: boolean | number) => el === false) && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 <div className="box">
                   <div className="tit">요청 사항</div>
                   <div className="wrap_radio">
@@ -207,7 +255,9 @@ export default function ReturnBoardPost() {
                       />
                     ))}
                   </div>
-                  {errors.process_request && <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>}
+                  {errors.process_request && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 </div>
                 <div className="box">
                   <div className="tit">이미치 첨부 / 최대 4개</div>
@@ -234,7 +284,11 @@ export default function ReturnBoardPost() {
                   }}
                   errors={errors}
                 />
-                <button className={"btn-contents"} type="submit">
+                <button
+                  className={"btn-contents"}
+                  type="submit"
+                  disabled={isLoading}
+                >
                   내용 등록하기 &gt;{" "}
                 </button>
               </RegisterForm>

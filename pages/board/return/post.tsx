@@ -7,7 +7,11 @@ import Layout from "ComponentsFarm/layouts";
 import { Container } from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import ImgUpload from "ComponentsFarm/pageComp/return/ImgUpload";
-import { ErrorTxt, RegisterForm, ReturnApplyView } from "ComponentsFarm/pageComp/return/style";
+import {
+  ErrorTxt,
+  RegisterForm,
+  ReturnApplyView,
+} from "ComponentsFarm/pageComp/return/style";
 import { IReturnPostValues } from "InterfaceFarm/ReturnBoard";
 import { useRouter } from "next/router";
 import { useEffect, useRef, useState } from "react";
@@ -20,6 +24,7 @@ export interface ISendImg {
 
 export default function ReturnBoardPost() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [sbreIdx, setSbreIdx] = useState<null | number>(null);
   const [sendImg, setSendImg] = useState<undefined | ISendImg[]>([]);
 
@@ -52,6 +57,22 @@ export default function ReturnBoardPost() {
     return () => clearTimeout(timer);
   }, []);
 
+  const sendImageFunc = async (sbreIdx: number) => {
+    const sendImageArr =
+      typeof sendImg !== "undefined" &&
+      sendImg.map((el) => {
+        const formData = new FormData();
+        formData.append("sbre_idx", String(sbreIdx));
+        formData.append("attached_number", String(el.id));
+        formData.append("process_type", "C");
+        formData.append("attached_file", el.img);
+        return formData;
+      });
+    //      const result = ReturnApplyImgPost(formData);
+    return await Promise.all(
+      (sendImageArr as FormData[]).map((el) => ReturnApplyImgPost(el))
+    );
+  };
   //  이미지 전송 : sbr_idx 가 생성되면, 이미지가 있는 이미지업로드 컴포넌트 버튼만 전송 클릭
   useEffect(() => {
     if (sbreIdx) {
@@ -67,7 +88,10 @@ export default function ReturnBoardPost() {
             return formData;
           });
         //      const result = ReturnApplyImgPost(formData);
-        await Promise.all((sendImageArr as FormData[]).map((el) => ReturnApplyImgPost(el)));
+        await Promise.all(
+          (sendImageArr as FormData[]).map((el) => ReturnApplyImgPost(el))
+        );
+        setIsLoading(false);
         router.push(`/board/return/confirm/${sbreIdx}`);
       };
       sendImgFunc();
@@ -79,26 +103,44 @@ export default function ReturnBoardPost() {
   console.log("Is Chk", IsChk);
   //  react hook form 의 submit 버튼 클릭 하면, axios 로 보낼 data 를 형변환등 작업을 해서 전송.
   const onSubmit: SubmitHandler<IReturnPostValues> = async (values) => {
-    const data = {
-      product_name: values.product_name,
-      receiving_date: values.receiving_date.toString(),
-      expiration_date: values.expiration_date.toString(),
-      product_quantity: Number(values.product_quantity),
-      occur_type: values.occur_type
-        .filter((el: boolean | number) => el !== false)
-        .map((el: string) => (el === "4" ? "9" : el))
-        .toString(),
-      occur_etc: values.occur_type?.includes("4") ? values.occur_etc ?? "" : null,
-      process_request: Number(values.process_request.charAt(values.process_request.length - 1)),
-      detail_content: values.detail_content,
-    };
+    if (isLoading) return;
+    setIsLoading(true);
+    try {
+      const data = {
+        product_name: values.product_name,
+        receiving_date: values.receiving_date.toString(),
+        expiration_date: values.expiration_date.toString(),
+        product_quantity: Number(values.product_quantity),
+        occur_type: values.occur_type
+          .filter((el: boolean | number) => el !== false)
+          .map((el: string) => (el === "4" ? "9" : el))
+          .toString(),
+        occur_etc: values.occur_type?.includes("4")
+          ? values.occur_etc ?? ""
+          : null,
+        process_request: Number(
+          values.process_request.charAt(values.process_request.length - 1)
+        ),
+        detail_content: values.detail_content,
+      };
 
-    const result = await ReturApplyPost(data);
-    setSbreIdx(result.sbre_idx);
+      const result = await ReturApplyPost(data);
+      await sendImageFunc(result.sbre_idx);
+      router.push(`/board/return/confirm/${result.sbre_idx}`);
+    } catch (e) {
+      setIsLoading(false);
+    }
+
+    // setIsLoading(false);
+    // setSbreIdx(result.sbre_idx);
   };
 
   return (
-    <Layout menuIconType="back" handlerMenuIcon={handlerNavBarMenuClick} className="fullWidth">
+    <Layout
+      menuIconType="back"
+      handlerMenuIcon={handlerNavBarMenuClick}
+      className="fullWidth"
+    >
       <FeedBackContents>
         <ReturnApplyView className="post">
           <div className={"contents-prefix-box"}>
@@ -130,10 +172,16 @@ export default function ReturnBoardPost() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
-                      <Datepicker onChange={(date) => field.onChange(date)} editable={false} value={field.value} />
+                      <Datepicker
+                        onChange={(date) => field.onChange(date)}
+                        editable={false}
+                        value={field.value}
+                      />
                     )}
                   />
-                  {errors.receiving_date && <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>}
+                  {errors.receiving_date && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 </div>
                 <div className={`box ${errors.expiration_date && "error"}`}>
                   <div className="tit">유통기한/제조일자</div>
@@ -142,10 +190,16 @@ export default function ReturnBoardPost() {
                     control={control}
                     rules={{ required: true }}
                     render={({ field }) => (
-                      <Datepicker onChange={(date) => field.onChange(date)} editable={false} value={field.value} />
+                      <Datepicker
+                        onChange={(date) => field.onChange(date)}
+                        editable={false}
+                        value={field.value}
+                      />
                     )}
                   />
-                  {errors.expiration_date && <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>}
+                  {errors.expiration_date && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 </div>
 
                 <LabelText
@@ -160,7 +214,13 @@ export default function ReturnBoardPost() {
                 />
                 <div className="box">
                   <div className="tit">클레임 분류</div>
-                  {["이물혼입", "배송불량", "품질 불량", "입수부족", "기타(상세기재)"].map((el, i) => (
+                  {[
+                    "이물혼입",
+                    "배송불량",
+                    "품질 불량",
+                    "입수부족",
+                    "기타(상세기재)",
+                  ].map((el, i) => (
                     <ListCustomCheckBox
                       label={el}
                       key={i}
@@ -169,7 +229,10 @@ export default function ReturnBoardPost() {
                       className={IsChk && IsChk.includes(String(i)) ? "on" : ""}
                       register={{
                         ...register(`occur_type.${i}`, {
-                          validate: () => getValues("occur_type").filter((el: boolean) => el !== false).length !== 0,
+                          validate: () =>
+                            getValues("occur_type").filter(
+                              (el: boolean) => el !== false
+                            ).length !== 0,
                         }),
                       }}
                       register2={{
@@ -178,9 +241,10 @@ export default function ReturnBoardPost() {
                     />
                   ))}
                 </div>
-                {errors.occur_type && IsChk?.every((el: boolean | number) => el === false) && (
-                  <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
-                )}
+                {errors.occur_type &&
+                  IsChk?.every((el: boolean | number) => el === false) && (
+                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                  )}
                 <div className="box">
                   <div className="tit">요청 사항</div>
                   <div className="wrap_radio">
@@ -198,9 +262,10 @@ export default function ReturnBoardPost() {
                       />
                     ))}
                   </div>
-                  {errors.process_request && errors.process_request.type === "required" && (
-                    <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
-                  )}
+                  {errors.process_request &&
+                    errors.process_request.type === "required" && (
+                      <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                    )}
                 </div>
                 <div className="box">
                   <div className="tit">이미치 첨부 / 최대 4개</div>
@@ -227,7 +292,11 @@ export default function ReturnBoardPost() {
                   }}
                   errors={errors}
                 />
-                <button className={"btn-contents"} type="submit">
+                <button
+                  className={"btn-contents"}
+                  type="submit"
+                  disabled={isLoading}
+                >
                   내용 등록하기 &gt;{" "}
                 </button>
               </RegisterForm>

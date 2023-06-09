@@ -130,9 +130,6 @@ export default function ReturnBoardPost() {
     } catch (e) {
       setIsLoading(false);
     }
-
-    // setIsLoading(false);
-    // setSbreIdx(result.sbre_idx);
   };
 
   return (

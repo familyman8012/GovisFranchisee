@@ -8,7 +8,7 @@ export const manageMenu = [
   { title: "건의 & 문의", path: "/board/suggestion" },
   { title: "인테리어 AS", path: "/board/interior" },
   { title: "반품 문의", path: "/board/return" },
-  { title: "실시간 주문 현황", path: "/kds" },
+  // { title: "실시간 주문 현황", path: "/kds" },
   { title: "GoAir", path: "/goair" },
   { title: "대시보드", path: "/fqs/dashboard" },
 ];

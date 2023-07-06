@@ -18,7 +18,13 @@ export interface MenuList {
   path: string;
 }
 
-function Layout({ className, children, title, menuIconType, handlerMenuIcon }: Props) {
+function Layout({
+  className,
+  children,
+  title,
+  menuIconType,
+  handlerMenuIcon,
+}: Props) {
   const router = useRouter();
   const { loading, session } = authStore;
   const [sideMenuShow, setSideMenuShow] = useState(false);
@@ -49,7 +55,9 @@ function Layout({ className, children, title, menuIconType, handlerMenuIcon }: P
           />
           <Left session={session} sideMenuShow={sideMenuShow} />
           <ContentsArea>{children}</ContentsArea>
-          {sideMenuShow && <div className="dimmed" onClick={handlerSideMenuShow} />}
+          {sideMenuShow && (
+            <div className="dimmed" onClick={handlerSideMenuShow} />
+          )}
         </LayoutWrap>
       ) : (
         <div></div>

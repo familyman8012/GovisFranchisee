@@ -20,7 +20,10 @@ import ProductRecipeList from "ComponentsFarm/pageComp/productRecipe/ProductReci
 export default function ProductRecipe() {
   const router = useRouter();
 
-  const qs = useMemo(() => new URLSearchParams(router.asPath.split("?")[1]), []);
+  const qs = useMemo(
+    () => new URLSearchParams(router.asPath.split("?")[1]),
+    []
+  );
 
   const [params, setParams] = useQueryString<IProductRecipeListRequest>({
     search_product_category: parseInt(qs.get("search_product_category") ?? "0"),
@@ -38,7 +41,8 @@ export default function ProductRecipe() {
     });
   };
 
-  const handleChangeProduct = (search_product_category: number) => setParams({ search_product_category });
+  const handleChangeProduct = (search_product_category: number) =>
+    setParams({ search_product_category });
 
   return (
     <Layout>
@@ -50,7 +54,11 @@ export default function ProductRecipe() {
           initialProduct={params.search_product_category}
           onChangeProduct={handleChangeProduct}
         />
-        <ProductRecipeList loading={isLoading} items={data?.list ?? []} onClick={handleClick} />
+        <ProductRecipeList
+          loading={isLoading}
+          items={data?.list ?? []}
+          onClick={handleClick}
+        />
       </div>
     </Layout>
   );

@@ -16,7 +16,21 @@ interface FormCheckboxProps {
 }
 
 export const Checkbox = React.forwardRef<any, FormCheckboxProps>(
-  ({ type, className, checked, value, disabled, name, label, onClick, onChange, ...otherProps }, ref) => {
+  (
+    {
+      type,
+      className,
+      checked,
+      value,
+      disabled,
+      name,
+      label,
+      onClick,
+      onChange,
+      ...otherProps
+    },
+    ref
+  ) => {
     return (
       <label
         className={toClasses([
@@ -45,14 +59,15 @@ export const Checkbox = React.forwardRef<any, FormCheckboxProps>(
 
 Checkbox.displayName = "Checkbox";
 
-export const FormCheckbox = React.forwardRef<any, Omit<FormCheckboxProps, "type">>((props, ref) => (
-  <Checkbox {...props} ref={ref} type="checkbox" />
-));
+export const FormCheckbox = React.forwardRef<
+  any,
+  Omit<FormCheckboxProps, "type">
+>((props, ref) => <Checkbox {...props} ref={ref} type="checkbox" />);
 
 FormCheckbox.displayName = "FormCheckbox";
 
-export const FormRadio = React.forwardRef<any, Omit<FormCheckboxProps, "type">>((props, ref) => (
-  <Checkbox {...props} ref={ref} type="radio" />
-));
+export const FormRadio = React.forwardRef<any, Omit<FormCheckboxProps, "type">>(
+  (props, ref) => <Checkbox {...props} ref={ref} type="radio" />
+);
 
 FormRadio.displayName = "FormRadio";

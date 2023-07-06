@@ -15,7 +15,11 @@ import useBack from "HookFarm/useBack";
 import HtmlViewer from "ComponentsFarm/elements/HtmlViewer";
 import Layout from "ComponentsFarm/layouts";
 import { ListLoading } from "ComponentsFarm/elements/Loading";
-import { BoardExplore, BoardExploreItem, BoardViewLabel } from "ComponentsFarm/module/Board";
+import {
+  BoardExplore,
+  BoardExploreItem,
+  BoardViewLabel,
+} from "ComponentsFarm/module/Board";
 
 export default function NewsLetterView() {
   const router = useRouter();
@@ -23,13 +27,23 @@ export default function NewsLetterView() {
     passQuery: true,
   });
 
-  const sbnl_idx = useMemo(() => parseInt(router.query.sbnl_idx as string), [router.query]);
-  const { data, isLoading } = useQuery<INews>(["news", sbnl_idx], () => fetchNewsLetter(sbnl_idx), {
-    onError: () => back(),
-    enabled: router.isReady,
-  });
+  const sbnl_idx = useMemo(
+    () => parseInt(router.query.sbnl_idx as string),
+    [router.query]
+  );
+  const { data, isLoading } = useQuery<INews>(
+    ["news", sbnl_idx],
+    () => fetchNewsLetter(sbnl_idx),
+    {
+      onError: () => back(),
+      enabled: router.isReady,
+    }
+  );
 
-  const handleChangeId = useCallback((changeIdx: number) => router.push(`/news/product/${changeIdx}`), []);
+  const handleChangeId = useCallback(
+    (changeIdx: number) => router.push(`/news/product/${changeIdx}`),
+    []
+  );
 
   if (isLoading || !router.isReady) {
     return (
@@ -46,12 +60,16 @@ export default function NewsLetterView() {
         <div className={style["news-detail__info"]}>
           <BoardViewLabel icon={<PersonCircle />}>관리자</BoardViewLabel>
           <div>
-            <BoardViewLabel icon={<Calendar />}>{dayjs(data?.created_at).format("YYYY-MM-DD")}</BoardViewLabel>
+            <BoardViewLabel icon={<Calendar />}>
+              {dayjs(data?.created_at).format("YYYY-MM-DD")}
+            </BoardViewLabel>
           </div>
         </div>
         {/* content */}
         <div className={style["news-detail__content"]}>
-          <HtmlViewer html={`${data?.content === undefined ? "" : data?.content}`} />
+          <HtmlViewer
+            html={`${data?.content === undefined ? "" : data?.content}`}
+          />
         </div>
       </article>
       {/* next article & prev article */}

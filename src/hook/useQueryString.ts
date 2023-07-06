@@ -22,7 +22,9 @@ export const useQueryString = <T extends Object>(
 
   useEffect(() => {
     const search = `?${(options?.ignoreFields
-      ? Object.entries(params).filter(([key]) => !options?.ignoreFields?.includes(key as keyof T))
+      ? Object.entries(params).filter(
+          ([key]) => !options?.ignoreFields?.includes(key as keyof T)
+        )
       : Object.entries(params)
     )
       .map(([key, value]) => (!isEmpty(value) ? `${key}=${value}` : ""))
@@ -50,7 +52,11 @@ export const useQueryString = <T extends Object>(
 export const useQueryStringWithSort = <T extends ISort, F extends any>(
   initialParams: T,
   options?: useQueryStringOptions<T>
-): [T, React.Dispatch<React.SetStateAction<T>>, (sort_field: keyof F) => void] => {
+): [
+  T,
+  React.Dispatch<React.SetStateAction<T>>,
+  (sort_field: keyof F) => void
+] => {
   const [params, setParams] = useQueryString<T>(initialParams, options);
 
   const handleSort = useCallback(

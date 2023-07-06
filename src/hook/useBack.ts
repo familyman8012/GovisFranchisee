@@ -17,7 +17,10 @@ const useBack = (options?: RoutingOptions) => {
       const split = pathname.split("/").filter((value) => value);
       const path = split.slice(0, split.length - (opt.count || 1)).join("/");
 
-      router.push({ pathname: `/${path}`, search: opt.passQuery || passQuery ? search : undefined });
+      router.push({
+        pathname: `/${path}`,
+        search: opt.passQuery || passQuery ? search : undefined,
+      });
     },
     [router.isReady]
   );

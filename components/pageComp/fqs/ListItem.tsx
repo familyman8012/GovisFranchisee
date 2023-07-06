@@ -26,7 +26,7 @@ const FqsListItem = ({ item, onClick }: Props) => {
       <div className="item-content">
         <div>
           <div className="item-date">
-            {dayjs(item.inspection_dt).format("YYYY-MM-DD")}
+            {dayjs(item.created_at).format("YYYY-MM-DD")}
           </div>
           <div className="item-name">{item.category_name}</div>
         </div>

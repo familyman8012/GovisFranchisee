@@ -73,7 +73,7 @@ export default function FoodQualityDetail() {
           <div className="data">
             <ul>
               <li className="date">
-                {dayjs(data?.inspection_dt).format("YYYY-MM-DD")}
+                {dayjs(data?.created_at).format("YYYY-MM-DD")}
               </li>
               <li className="category">{data?.category_name}</li>
             </ul>

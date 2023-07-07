@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 
@@ -28,6 +28,7 @@ const getMimeTypeForVideo = (filename: string) => {
 };
 
 export default function FoodQualityDetail() {
+  const videoRef = useRef<HTMLVideoElement>(null);
   const router = useRouter();
   const back = useBack({
     passQuery: true,
@@ -47,6 +48,23 @@ export default function FoodQualityDetail() {
     }
   );
 
+  const handleSectionClick = (section: iFQSDetailSection) => {
+    if (!videoRef.current) return;
+
+    const playing = !videoRef.current.paused;
+    if (playing) {
+      videoRef.current.pause();
+    }
+
+    const sec = section.section_frame_start / 30;
+
+    if (typeof videoRef.current.fastSeek === "function") {
+      videoRef.current.fastSeek(sec);
+    } else {
+      videoRef.current.currentTime = sec;
+    }
+  };
+
   if (isLoading) {
     return (
       <Layout menuIconType="back" handlerMenuIcon={back} title="상세 정보">
@@ -60,7 +78,12 @@ export default function FoodQualityDetail() {
       <FqsDetailPageStyle>
         <div className="detail-info">
           <div className="video-wrapper">
-            <video poster={data?.official_image} controls playsInline>
+            <video
+              poster={data?.official_image}
+              controls
+              playsInline
+              ref={videoRef}
+            >
               <source
                 src={data?.video_url}
                 type={getMimeTypeForVideo(data?.video_url ?? "")}
@@ -82,7 +105,11 @@ export default function FoodQualityDetail() {
           <h3 className="title">구간정보</h3>
           <div className="section-info__wrapper">
             {data?.section.map((section: iFQSDetailSection) => (
-              <DetailSection section={section} key={section.section_type} />
+              <DetailSection
+                section={section}
+                key={section.section_type}
+                onClick={handleSectionClick}
+              />
             ))}
           </div>
         </section>

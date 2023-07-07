@@ -24,23 +24,35 @@ const Coupon = () => {
 
   const queryKey = useMemo(() => ["used-coupons", params], [params]);
 
-  const { data, isLoading: isListLoading } = useQuery(queryKey, () => fetchUsedCouponList(params));
+  const { data, isLoading: isListLoading } = useQuery(queryKey, () =>
+    fetchUsedCouponList(params)
+  );
 
-  const { mutate, isLoading } = useMutation((couponCode: string) => updateCoupon(couponCode), {
-    onSuccess: () => {
-      toast("쿠폰이 등록되었습니다.");
-      setReset(true);
-      setInvalid(undefined);
-      queryClient.invalidateQueries(queryKey);
-    },
-    onError: (e: Error) => {
-      setInvalid(e);
-    },
-  });
+  const { mutate, isLoading } = useMutation(
+    (couponCode: string) => updateCoupon(couponCode),
+    {
+      onSuccess: () => {
+        toast("쿠폰이 등록되었습니다.");
+        setReset(true);
+        setInvalid(undefined);
+        queryClient.invalidateQueries(queryKey);
+      },
+      onError: (e: Error) => setInvalid(e),
+    }
+  );
 
-  const handleSubmit = useCallback((couponCode: string) => mutate(couponCode), []);
-  const handleSearch = useCallback((search: string) => setParams({ ...params, search, page: 1 }), [params]);
-  const handleChangePage = useCallback((page: number) => setParams({ ...params, page }), [params]);
+  const handleSubmit = useCallback(
+    (couponCode: string) => mutate(couponCode),
+    []
+  );
+  const handleSearch = useCallback(
+    (search: string) => setParams({ ...params, search, page: 1 }),
+    [params]
+  );
+  const handleChangePage = useCallback(
+    (page: number) => setParams({ ...params, page }),
+    [params]
+  );
 
   return (
     <Layout className="fullWidth">
@@ -58,7 +70,13 @@ const Coupon = () => {
           coupons={data?.list ?? []}
           onSearch={handleSearch}
         />
-        <BoardPager mini page={params.page} size={params.size} count={data?.count ?? 1} onChange={handleChangePage} />
+        <BoardPager
+          mini
+          page={params.page}
+          size={params.size}
+          count={data?.count ?? 1}
+          onChange={handleChangePage}
+        />
       </CouponWrap>
     </Layout>
   );

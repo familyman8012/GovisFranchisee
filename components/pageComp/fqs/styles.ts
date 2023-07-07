@@ -190,7 +190,11 @@ export const FqsDetailPageStyle = styled.div`
   display: flex;
   width: 100%;
   flex-direction: column;
+
   .detail-info {
+    position: sticky;
+    top: 56px;
+    z-index: 2;
     background: ${Common.color.$white};
     border-radius: 4px;
 
@@ -240,6 +244,7 @@ export const FqsDetailPageStyle = styled.div`
     display: block;
     position: relative;
     padding-bottom: 56.25%;
+
     video {
       position: absolute;
       top: 0;
@@ -270,7 +275,7 @@ export const FqsDetailPageStyle = styled.div`
 export const DetailSectionStyle = styled.div`
   display: inline-flex;
   flex-direction: column;
-
+  cursor: pointer;
   position: relative;
   width: calc(50% - 8px);
   margin: 4px;

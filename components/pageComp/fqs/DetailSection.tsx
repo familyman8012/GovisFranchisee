@@ -2,9 +2,18 @@ import { Image } from "@emotion-icons/bootstrap/Image";
 import { iFQSDetailSection } from "InterfaceFarm/Fqs";
 import { DetailSectionStyle, NoImage } from "./styles";
 
-const DetailSection = ({ section }: { section: iFQSDetailSection }) => {
+const DetailSection = ({
+  section,
+  onClick,
+}: {
+  section: iFQSDetailSection;
+  onClick: (item: iFQSDetailSection) => void;
+}) => {
   return (
-    <DetailSectionStyle className="detail-section">
+    <DetailSectionStyle
+      className="detail-section"
+      onClick={() => onClick(section)}
+    >
       <div className="image-wrapper">
         {section.section_frame_official_image ? (
           <img

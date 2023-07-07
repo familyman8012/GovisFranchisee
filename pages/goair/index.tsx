@@ -19,7 +19,10 @@ import { EmptyView } from "ComponentsFarm/elements/EmptyView";
 
 export default function GoAirPage() {
   const { push } = useRouter();
-  const { data, isLoading } = useQuery<IGoAirListResponse<IGoAirArea>>(["goair-section"], GoAirService.fetchStore);
+  const { data, isLoading } = useQuery<IGoAirListResponse<IGoAirArea>>(
+    ["goair-section"],
+    GoAirService.fetchStore
+  );
   const notUsedGoAir = !isLoading && data?.list.length === 0;
   return (
     <Layout>
@@ -31,7 +34,10 @@ export default function GoAirPage() {
           {!notUsedGoAir && (
             <ul className={style["goair-status-guide"]}>
               <li
-                className={toClasses([style["goair-status-guide__symbol"], style["goair-status-guide__symbol--error"]])}
+                className={toClasses([
+                  style["goair-status-guide__symbol"],
+                  style["goair-status-guide__symbol--error"],
+                ])}
               >
                 심각
               </li>
@@ -67,7 +73,10 @@ export default function GoAirPage() {
                 <li
                   key={section.goair_area_info_idx}
                   tabIndex={0}
-                  className={toClasses([style["goair-section__item"], style["goair-section__item--active"]])}
+                  className={toClasses([
+                    style["goair-section__item"],
+                    style["goair-section__item--active"],
+                  ])}
                   onClick={() => push(`/goair/${section.goair_area_info_idx}`)}
                 >
                   <div className={`${style["goair-section__title"]}`}>

@@ -11,6 +11,7 @@ export const manageMenu = [
   // { title: "실시간 주문 현황", path: "/kds" },
   { title: "GoAir", path: "/goair" },
   { title: "대시보드", path: "/fqs/dashboard" },
+  { title: "AI FQS", path: "/fqs" },
 ];
 
 export const newsMenu = [

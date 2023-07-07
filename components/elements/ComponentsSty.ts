@@ -169,6 +169,7 @@ export const Components = styled.div`
     position: fixed;
     bottom: 10px;
     width: 100%;
+  }
 `;
 
 export const OrderSalesSummaryList = styled.ul`

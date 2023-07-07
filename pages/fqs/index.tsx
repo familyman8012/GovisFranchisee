@@ -1,19 +1,17 @@
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { useInfiniteQuery, useQuery } from "react-query";
-// import { Container } from "react-bootstrap";
-// import { useHistory } from "react-router-dom";
 import dayjs from "dayjs";
+import { observer } from "mobx-react";
 
 import { Calendar } from "@emotion-icons/bootstrap/Calendar";
 
 import { iFQSListItem, iFQSListRequest } from "InterfaceFarm/Fqs";
 import { fetchFQSList } from "ApiFarm/fqs";
 
-import { Button } from "ComponentsFarm/elements/Button";
 import ListMoreButton from "ComponentsFarm/elements/ListMoreButton";
-
 import Layout from "ComponentsFarm/layouts";
+import { Button } from "ComponentsFarm/elements/Button";
 import { Datepicker } from "ComponentsFarm/elements/Datepicker";
 import { EmptyView } from "ComponentsFarm/elements/EmptyView";
 import { FqsListPageStyle } from "ComponentsFarm/pageComp/fqs/styles";
@@ -21,6 +19,7 @@ import { FormCheckbox } from "ComponentsFarm/elements/Checkbox";
 import { ListLoading } from "ComponentsFarm/elements/Loading";
 import CategorySelect from "ComponentsFarm/pageComp/fqs/CategorySelect";
 import FqsListItem from "ComponentsFarm/pageComp/fqs/ListItem";
+import { authStore } from "src/mobx/store";
 
 const DatepickerButton = React.forwardRef<
   any,
@@ -38,7 +37,9 @@ const SORT_TYPE_OPTIONS = [
   { label: "평균 평점 순", value: 2 },
 ];
 
-export default function FoodQualityList() {
+const ALLOWED_STORE_IDS = ["1", "18", "354", "412"];
+
+function FoodQualityList() {
   const router = useRouter();
   const [params, setParams] = useState<iFQSListRequest>({
     current_page_number: 1,
@@ -48,6 +49,11 @@ export default function FoodQualityList() {
     record_end_dt: dayjs().format("YYYY-MM-DD"),
     sort_type: 1,
   });
+
+  const isAllowedStore = useMemo(
+    () => ALLOWED_STORE_IDS.includes(authStore.storeInfo?.store_id),
+    [authStore.storeInfo?.store_id]
+  );
 
   const { fetchNextPage, hasNextPage, data, isLoading, isFetchingNextPage } =
     useInfiniteQuery(
@@ -61,6 +67,7 @@ export default function FoodQualityList() {
           return allPages.length + 1;
         },
         cacheTime: 0,
+        enabled: isAllowedStore,
       }
     );
 
@@ -73,6 +80,14 @@ export default function FoodQualityList() {
       record_end_dt,
       current_page_number: 1,
     });
+
+  if (!isAllowedStore) {
+    return (
+      <Layout title="제조 목록">
+        <EmptyView>AI-FQS 서비스를 사용하지 않는 매장입니다.</EmptyView>
+      </Layout>
+    );
+  }
 
   return (
     <Layout title="제조 목록">
@@ -130,3 +145,5 @@ export default function FoodQualityList() {
     </Layout>
   );
 }
+
+export default observer(FoodQualityList);

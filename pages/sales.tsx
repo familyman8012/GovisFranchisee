@@ -4,8 +4,16 @@ import Layout from "ComponentsFarm/layouts";
 import { Col, Container, Row } from "ComponentsFarm/layouts/styles";
 import SearchDateRangeDefaultDatePicker from "ComponentsFarm/module/SearchDateRangeDefaultDatePicker";
 import OrderSalesSummary from "ComponentsFarm/pageComp/salesOrders/OrderSalesSummary";
-import { SummaryItemForSale, SummaryList } from "ComponentsFarm/pageComp/salesOrders/SummaryList";
-import { IDaliyList, IDaliyListRow, ISalesRequestDateRange, ITotal } from "InterfaceFarm/Sale";
+import {
+  SummaryItemForSale,
+  SummaryList,
+} from "ComponentsFarm/pageComp/salesOrders/SummaryList";
+import {
+  IDaliyList,
+  IDaliyListRow,
+  ISalesRequestDateRange,
+  ITotal,
+} from "InterfaceFarm/Sale";
 import { useState } from "react";
 
 export default function Sales() {
@@ -76,11 +84,16 @@ export default function Sales() {
   return (
     <Layout className="fullWidth">
       <div className={"contents-prefix-box"}>
-        <Container className={"contents"}>
+        <Container className={"contents pb-3"}>
           <Row>
             <Col>
-              <SearchDateRangeDefaultDatePicker handlerBtnSearch={handlerSearch} />
-              <OrderSalesSummary total={total.total_billable_amount} count={total.total_order_count.toString()} />
+              <SearchDateRangeDefaultDatePicker
+                handlerBtnSearch={handlerSearch}
+              />
+              <OrderSalesSummary
+                total={total.total_billable_amount}
+                count={total.total_order_count.toString()}
+              />
             </Col>
           </Row>
         </Container>
@@ -89,12 +102,19 @@ export default function Sales() {
         <Row>
           <Col>
             <SummaryList>
-              {list && Object.entries(list).map(([key, data]) => <SummaryItemForSale key={key} data={data} />)}
+              {list &&
+                Object.entries(list).map(([key, data]) => (
+                  <SummaryItemForSale key={key} data={data} />
+                ))}
             </SummaryList>
           </Col>
         </Row>
         <Row className="my-3">
-          <Col>{total?.total_date > Object.keys(list).length && <ListMoreButton handler={handlerBtnMore} />}</Col>
+          <Col>
+            {total?.total_date > Object.keys(list).length && (
+              <ListMoreButton handler={handlerBtnMore} />
+            )}
+          </Col>
         </Row>
       </Container>
     </Layout>

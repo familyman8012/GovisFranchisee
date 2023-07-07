@@ -10,10 +10,7 @@ import useBack from "HookFarm/useBack";
 
 import Layout from "ComponentsFarm/layouts";
 import { ListLoading } from "ComponentsFarm/elements/Loading";
-import {
-  FqsDetailPageStyle,
-  NoImage,
-} from "ComponentsFarm/pageComp/fqs/styles";
+import { FqsDetailPageStyle } from "ComponentsFarm/pageComp/fqs/styles";
 import dayjs from "dayjs";
 import DetailSection from "ComponentsFarm/pageComp/fqs/DetailSection";
 
@@ -46,6 +43,7 @@ export default function FoodQualityDetail() {
     () => fetchFQSDetail(idx),
     {
       onError: () => back(),
+      enabled: router.isReady,
     }
   );
 

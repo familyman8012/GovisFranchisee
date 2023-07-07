@@ -269,6 +269,8 @@ export const FqsDetailPageStyle = styled.div`
 
   .section-info__wrapper {
     margin: 0 -4px;
+    display: flex;
+    flex-wrap: wrap;
   }
 `;
 
@@ -305,6 +307,7 @@ export const DetailSectionStyle = styled.div`
     li {
       position: relative;
       width: 50%;
+      /* height: 100%; */
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -329,7 +332,6 @@ export const DetailSectionStyle = styled.div`
     .label {
       font-size: 12px;
       color: ${Common.color.$typo3};
-
       text-transform: capitalize;
     }
 
@@ -337,6 +339,7 @@ export const DetailSectionStyle = styled.div`
       font-size: 16px;
       color: ${Common.color.$primary3};
       font-weight: 500;
+      text-align: center;
     }
   }
 `;

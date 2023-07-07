@@ -31,7 +31,7 @@ const DetailSection = ({
       <ul className="info">
         <li>
           <span className="label">구간 항목</span>
-          <span className="value">{section.section_type}</span>
+          <span className="value">{section.section_name}</span>
         </li>
         <li>
           <span className="label">평점</span>

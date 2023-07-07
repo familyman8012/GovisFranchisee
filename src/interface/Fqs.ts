@@ -88,6 +88,7 @@ export interface iFQSDetailSection {
   updated_at: string;
   quality_info_idx: string;
   section_type: string;
+  section_name: string;
   section_frame_start: number;
   section_frame_end: string;
   section_score: string;

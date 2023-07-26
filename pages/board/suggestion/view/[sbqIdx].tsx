@@ -1,10 +1,19 @@
 import { PlusLg } from "@emotion-icons/bootstrap/PlusLg";
-import { SuggestionBoardReplyDelete, SuggestionBoardReplyPost, SuggestionBoardViewinfo } from "ApiFarm/suggestion";
+import {
+  SuggestionBoardReplyDelete,
+  SuggestionBoardReplyPost,
+  SuggestionBoardViewinfo,
+} from "ApiFarm/suggestion";
 import ErrorMassageBox from "ComponentsFarm/elements/ErrorMassageBox";
 import FileUploadInput from "ComponentsFarm/elements/FileUploadInput";
 import Spinner from "ComponentsFarm/elements/Spinner";
 import Layout from "ComponentsFarm/layouts";
-import { Container, Offcanvas, OffcanvasBackDrop, Row } from "ComponentsFarm/layouts/styles";
+import {
+  Container,
+  Offcanvas,
+  OffcanvasBackDrop,
+  Row,
+} from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import { SuggestionBoardContentsInfo } from "ComponentsFarm/pageComp/suggestion/SuggestionBoardContentsInfo";
 import { SuggestionBoardContentsList } from "ComponentsFarm/pageComp/suggestion/SuggestionBoardContentsList";
@@ -22,7 +31,7 @@ export default function SuggestionBoardView() {
   const ref = useRef<HTMLDivElement>(null);
   const instance = useRef({ timer: 0 });
   const router = useRouter();
-  const { loading, session } = authStore;
+
   const { sbqIdx } = router.query;
   const [contentList, setContentList] = useState<iSuggestionListContent[]>([]);
   const [contentInfo, setContentInfo] = useState<iSuggestion>({
@@ -33,10 +42,14 @@ export default function SuggestionBoardView() {
     content: [],
   });
   const [showReplyContentsBox, setShowReplyContentsBox] = useState(false);
-  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] = useState("");
+  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] =
+    useState("");
   const [btnSendEnabledClass, setBtnSendEnabledClass] = useState("");
   const [errorMassage, setErrorMassage] = useState("");
-  const [formContentsSpinnerBoxDisplayClass, setFormContentsSpinnerBoxDisplayClass] = useState("display-hidden");
+  const [
+    formContentsSpinnerBoxDisplayClass,
+    setFormContentsSpinnerBoxDisplayClass,
+  ] = useState("display-hidden");
   const [contentsReplyTextAra, setContentsReplyTextAra] = useState("");
 
   useEffect(() => {
@@ -120,7 +133,7 @@ export default function SuggestionBoardView() {
   };
 
   const procFileUpload = async (fileList: File[]) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
 
     if (fileList.length > 0) {
       setFormContentsSpinnerBoxDisplayClass("");
@@ -147,7 +160,9 @@ export default function SuggestionBoardView() {
     }
   };
 
-  const handlerTextAreaOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handlerTextAreaOnChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setContentsReplyTextAra(e.target.value);
     if (e.target.value !== "") {
       setBtnSendEnabledClass("btn-enabled");
@@ -161,7 +176,7 @@ export default function SuggestionBoardView() {
       setFormContentsSpinnerBoxDisplayClass("");
       setFormContentsBoxDisplayClass("display-hidden");
 
-      const userId = Number(session?.info?.user_id);
+      const userId = Number(authStore.user_info?.user_idx);
       const data: iSuggestionBoardReplyPostRequest = {
         sbq_idx: Number(sbqIdx),
         content_type: 0,
@@ -180,7 +195,7 @@ export default function SuggestionBoardView() {
   };
 
   const handlerOnclickDelte = async (sbqc_idx: number) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
     const data = {
       sbqc_idx,
       user_id: userId,
@@ -201,7 +216,11 @@ export default function SuggestionBoardView() {
   };
 
   return (
-    <Layout menuIconType="back" className="fullWidth" handlerMenuIcon={handlerNavBarMenuClick}>
+    <Layout
+      menuIconType="back"
+      className="fullWidth"
+      handlerMenuIcon={handlerNavBarMenuClick}
+    >
       <FeedBackContents>
         {contentInfo.title !== "" && (
           <div className={"recipe-feedback"}>
@@ -220,7 +239,10 @@ export default function SuggestionBoardView() {
 
             <Container className={"contents recipe-feedback-view "}>
               <Row>
-                <SuggestionBoardContentsList dataList={contentList} onClickDelete={handlerOnclickDelte} />
+                <SuggestionBoardContentsList
+                  dataList={contentList}
+                  onClickDelete={handlerOnclickDelte}
+                />
               </Row>
 
               {contentInfo.status < 2 && (
@@ -239,13 +261,20 @@ export default function SuggestionBoardView() {
 
             {errorMassage !== "" && <ErrorMassageBox massage={errorMassage} />}
 
-            <OffcanvasBackDrop show={showReplyContentsBox} onClick={() => setShowReplyContentsBox(false)} />
+            <OffcanvasBackDrop
+              show={showReplyContentsBox}
+              onClick={() => setShowReplyContentsBox(false)}
+            />
             <Offcanvas className={`bottom ${showReplyContentsBox ? "on" : ""}`}>
-              <div className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}>
+              <div
+                className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}
+              >
                 <Spinner />
               </div>
 
-              <div className={`form-contents-box ${formContentsBoxDisplayClass}`}>
+              <div
+                className={`form-contents-box ${formContentsBoxDisplayClass}`}
+              >
                 <textarea
                   placeholder={"상세내용을 입력해주세요."}
                   value={contentsReplyTextAra}
@@ -254,7 +283,10 @@ export default function SuggestionBoardView() {
                 <div className={"image-box"}>
                   <FileUploadInput callbackUploadFiles={procFileUpload} />
 
-                  <button onClick={handerBtnSend} className={btnSendEnabledClass}>
+                  <button
+                    onClick={handerBtnSend}
+                    className={btnSendEnabledClass}
+                  >
                     전송
                   </button>
                 </div>

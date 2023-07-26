@@ -1,11 +1,21 @@
 import { PlusLg } from "@emotion-icons/bootstrap";
-import { ReturnApplyViewinfo, ReturnBoardReplyDelete, ReturnBoardReplyPost, ReturnBoardViewinfo } from "ApiFarm/return";
+import {
+  ReturnApplyViewinfo,
+  ReturnBoardReplyDelete,
+  ReturnBoardReplyPost,
+  ReturnBoardViewinfo,
+} from "ApiFarm/return";
 import { Button } from "ComponentsFarm/elements/Button";
 import ErrorMassageBox from "ComponentsFarm/elements/ErrorMassageBox";
 import FileUploadInput from "ComponentsFarm/elements/FileUploadInput";
 import Spinner from "ComponentsFarm/elements/Spinner";
 import Layout from "ComponentsFarm/layouts";
-import { Container, Offcanvas, OffcanvasBackDrop, Row } from "ComponentsFarm/layouts/styles";
+import {
+  Container,
+  Offcanvas,
+  OffcanvasBackDrop,
+  Row,
+} from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import { ReturnBoardContentsInfo } from "ComponentsFarm/pageComp/return/ReturnBoardContentsInfo";
 import { ReturnBoardContentsList } from "ComponentsFarm/pageComp/return/ReturnBoardContentsList";
@@ -22,7 +32,6 @@ import { authStore } from "src/mobx/store";
 
 export default function ReturnBoardView() {
   const ref = useRef<HTMLDivElement>(null);
-  const { loading, session } = authStore;
   const instance = useRef({ timer: 0 });
   const router = useRouter();
 
@@ -36,7 +45,8 @@ export default function ReturnBoardView() {
   });
   const [showReplyContentsBox, setShowReplyContentsBox] = useState(false);
 
-  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] = useState("");
+  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] =
+    useState("");
   const [btnSendEnabledClass, setBtnSendEnabledClass] = useState("");
   const [errorMassage, setErrorMassage] = useState("");
 
@@ -46,7 +56,10 @@ export default function ReturnBoardView() {
     setPopShow((prev) => !prev);
   };
 
-  const [formContentsSpinnerBoxDisplayClass, setFormContentsSpinnerBoxDisplayClass] = useState("display-hidden");
+  const [
+    formContentsSpinnerBoxDisplayClass,
+    setFormContentsSpinnerBoxDisplayClass,
+  ] = useState("display-hidden");
   const [contentsReplyTextAra, setContentsReplyTextAra] = useState("");
 
   useEffect(() => {
@@ -131,7 +144,7 @@ export default function ReturnBoardView() {
   };
 
   const procFileUpload = async (fileList: File[]) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
 
     if (fileList.length > 0) {
       setFormContentsSpinnerBoxDisplayClass("");
@@ -158,7 +171,9 @@ export default function ReturnBoardView() {
     }
   };
 
-  const handlerTextAreaOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handlerTextAreaOnChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setContentsReplyTextAra(e.target.value);
     if (e.target.value !== "") {
       setBtnSendEnabledClass("btn-enabled");
@@ -172,7 +187,7 @@ export default function ReturnBoardView() {
       setFormContentsSpinnerBoxDisplayClass("");
       setFormContentsBoxDisplayClass("display-hidden");
 
-      const userId = Number(session?.info?.user_id);
+      const userId = Number(authStore.user_info?.user_idx);
       const data: iReturnBoardReplyPostRequest = {
         sbre_idx: Number(sbreIdx),
         content_type: 0,
@@ -191,7 +206,7 @@ export default function ReturnBoardView() {
   };
 
   const handlerOnclickDelte = async (sbrec_idx: number) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
     const data = {
       sbrec_idx,
       user_id: userId,
@@ -212,7 +227,11 @@ export default function ReturnBoardView() {
   };
 
   return (
-    <Layout menuIconType="back" className="fullWidth" handlerMenuIcon={handlerNavBarMenuClick}>
+    <Layout
+      menuIconType="back"
+      className="fullWidth"
+      handlerMenuIcon={handlerNavBarMenuClick}
+    >
       <FeedBackContents>
         <div className={"recipe-feedback"}>
           <ReturnApplyView>
@@ -253,17 +272,30 @@ export default function ReturnBoardView() {
 
             {errorMassage !== "" && <ErrorMassageBox massage={errorMassage} />}
 
-            <OffcanvasBackDrop show={showReplyContentsBox} onClick={() => setShowReplyContentsBox(false)} />
+            <OffcanvasBackDrop
+              show={showReplyContentsBox}
+              onClick={() => setShowReplyContentsBox(false)}
+            />
             <Offcanvas className={`bottom ${showReplyContentsBox ? "on" : ""}`}>
-              <div className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}>
+              <div
+                className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}
+              >
                 <Spinner />
               </div>
 
-              <div className={`form-contents-box ${formContentsBoxDisplayClass}`}>
-                <textarea placeholder="상세 내용을 입력해주세요." onChange={handlerTextAreaOnChange} />
+              <div
+                className={`form-contents-box ${formContentsBoxDisplayClass}`}
+              >
+                <textarea
+                  placeholder="상세 내용을 입력해주세요."
+                  onChange={handlerTextAreaOnChange}
+                />
                 <div className="image-box">
                   <FileUploadInput callbackUploadFiles={procFileUpload} />
-                  <Button className={`weight-500 ${btnSendEnabledClass}`} onClick={handerBtnSend}>
+                  <Button
+                    className={`weight-500 ${btnSendEnabledClass}`}
+                    onClick={handerBtnSend}
+                  >
                     전송
                   </Button>
                 </div>

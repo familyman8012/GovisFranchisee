@@ -26,7 +26,6 @@ function Layout({
   handlerMenuIcon,
 }: Props) {
   const router = useRouter();
-  // const { loading, session } = authStore;
   const [sideMenuShow, setSideMenuShow] = useState(false);
   const handlerSideMenuShow = useCallback(() => {
     setSideMenuShow((prev) => !prev);

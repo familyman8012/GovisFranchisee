@@ -1,11 +1,20 @@
 import { PlusLg } from "@emotion-icons/bootstrap/PlusLg";
-import { InteriorBoardReplyDelete, InteriorBoardReplyPost, InteriorBoardViewinfo } from "ApiFarm/InteriorModul";
+import {
+  InteriorBoardReplyDelete,
+  InteriorBoardReplyPost,
+  InteriorBoardViewinfo,
+} from "ApiFarm/InteriorModul";
 import { Button } from "ComponentsFarm/elements/Button";
 import ErrorMassageBox from "ComponentsFarm/elements/ErrorMassageBox";
 import FileUploadInput from "ComponentsFarm/elements/FileUploadInput";
 import Spinner from "ComponentsFarm/elements/Spinner";
 import Layout from "ComponentsFarm/layouts";
-import { Container, Offcanvas, OffcanvasBackDrop, Row } from "ComponentsFarm/layouts/styles";
+import {
+  Container,
+  Offcanvas,
+  OffcanvasBackDrop,
+  Row,
+} from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import { InteriorBoardContentsInfo } from "ComponentsFarm/pageComp/interior/InteriorBoardContentsInfo";
 import { InteriorBoardContentsList } from "ComponentsFarm/pageComp/interior/InteriorBoardContentsList";
@@ -25,7 +34,7 @@ export default function InteriorBoardView() {
   const ref = useRef<HTMLDivElement>(null);
   const instance = useRef({ timer: 0 });
   const router = useRouter();
-  const { loading, session } = authStore;
+
   const { sbiIdx } = router.query;
 
   const [contentList, setContentList] = useState<iInteriorListContent[]>([]);
@@ -37,7 +46,8 @@ export default function InteriorBoardView() {
     review: null,
   });
   const [showReplyContentsBox, setShowReplyContentsBox] = useState(false);
-  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] = useState("");
+  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] =
+    useState("");
   const [btnSendEnabledClass, setBtnSendEnabledClass] = useState("");
   const [errorMassage, setErrorMassage] = useState("");
 
@@ -47,7 +57,10 @@ export default function InteriorBoardView() {
     setPopShow((prev) => !prev);
   };
 
-  const [formContentsSpinnerBoxDisplayClass, setFormContentsSpinnerBoxDisplayClass] = useState("display-hidden");
+  const [
+    formContentsSpinnerBoxDisplayClass,
+    setFormContentsSpinnerBoxDisplayClass,
+  ] = useState("display-hidden");
   const [contentsReplyTextAra, setContentsReplyTextAra] = useState("");
 
   // useEffect(() => {
@@ -136,7 +149,7 @@ export default function InteriorBoardView() {
   };
 
   const procFileUpload = async (fileList: File[]) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
 
     if (fileList.length > 0) {
       setFormContentsSpinnerBoxDisplayClass("");
@@ -163,7 +176,9 @@ export default function InteriorBoardView() {
     }
   };
 
-  const handlerTextAreaOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handlerTextAreaOnChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setContentsReplyTextAra(e.target.value);
     if (e.target.value !== "") {
       setBtnSendEnabledClass("btn-enabled");
@@ -177,7 +192,7 @@ export default function InteriorBoardView() {
       setFormContentsSpinnerBoxDisplayClass("");
       setFormContentsBoxDisplayClass("display-hidden");
 
-      const userId = Number(session?.info?.user_id);
+      const userId = Number(authStore.user_info?.user_idx);
       const data: iInteriorBoardReplyPostRequest = {
         sbi_idx: Number(sbiIdx),
         content_type: 0,
@@ -196,7 +211,7 @@ export default function InteriorBoardView() {
   };
 
   const handlerOnclickDelte = async (sbic_idx: number) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
     const data = {
       sbic_idx,
       user_id: userId,
@@ -223,11 +238,20 @@ export default function InteriorBoardView() {
   // }, []);
 
   return (
-    <Layout menuIconType="back" className="fullWidth" handlerMenuIcon={handlerNavBarMenuClick}>
+    <Layout
+      menuIconType="back"
+      className="fullWidth"
+      handlerMenuIcon={handlerNavBarMenuClick}
+    >
       <FeedBackContents>
         {contentInfo.title !== "" && (
           <div className={"recipe-feedback"}>
-            <InteriorPopup sbi_idx={Number(sbiIdx)} popShow={popShow} getView={getView} handlePopShow={handlePopShow} />
+            <InteriorPopup
+              sbi_idx={Number(sbiIdx)}
+              popShow={popShow}
+              getView={getView}
+              handlePopShow={handlePopShow}
+            />
             <div className={"contents-prefix-box"}>
               <Container className={"recipe-feedback-view "}>
                 <InteriorBoardContentsInfo
@@ -261,7 +285,12 @@ export default function InteriorBoardView() {
               )}
               {contentInfo.status !== 0 && contentInfo.review === null && (
                 // <button className="gv-button">AS 완료하기</button>
-                <Button block color={PALLETES["primary-3"]} className="btn_interior_fin" onClick={handlePopShow}>
+                <Button
+                  block
+                  color={PALLETES["primary-3"]}
+                  className="btn_interior_fin"
+                  onClick={handlePopShow}
+                >
                   AS 완료하기
                 </Button>
               )}
@@ -271,17 +300,30 @@ export default function InteriorBoardView() {
 
             {errorMassage !== "" && <ErrorMassageBox massage={errorMassage} />}
 
-            <OffcanvasBackDrop show={showReplyContentsBox} onClick={() => setShowReplyContentsBox(false)} />
+            <OffcanvasBackDrop
+              show={showReplyContentsBox}
+              onClick={() => setShowReplyContentsBox(false)}
+            />
             <Offcanvas className={`bottom ${showReplyContentsBox ? "on" : ""}`}>
-              <div className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}>
+              <div
+                className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}
+              >
                 <Spinner />
               </div>
 
-              <div className={`form-contents-box ${formContentsBoxDisplayClass}`}>
-                <textarea placeholder="상세 내용을 입력해주세요." onChange={handlerTextAreaOnChange} />
+              <div
+                className={`form-contents-box ${formContentsBoxDisplayClass}`}
+              >
+                <textarea
+                  placeholder="상세 내용을 입력해주세요."
+                  onChange={handlerTextAreaOnChange}
+                />
                 <div className="image-box">
                   <FileUploadInput callbackUploadFiles={procFileUpload} />
-                  <Button className={`weight-500 ${btnSendEnabledClass}`} onClick={handerBtnSend}>
+                  <Button
+                    className={`weight-500 ${btnSendEnabledClass}`}
+                    onClick={handerBtnSend}
+                  >
                     전송
                   </Button>
                 </div>

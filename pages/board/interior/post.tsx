@@ -10,7 +10,6 @@ import { authStore } from "src/mobx/store";
 
 export default function InteriorBoardPost() {
   const router = useRouter();
-  const { loading, session } = authStore;
   const [title, setTitle] = useState("");
 
   const handlerNavBarMenuClick = () => {
@@ -18,7 +17,7 @@ export default function InteriorBoardPost() {
   };
 
   const handlerOnClickPost = async () => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore?.user_info?.user_idx);
     const data: iInteriorTitlePostRequest = {
       title,
       user_id: userId,
@@ -29,7 +28,11 @@ export default function InteriorBoardPost() {
   };
 
   return (
-    <Layout menuIconType="back" handlerMenuIcon={handlerNavBarMenuClick} className="fullWidth">
+    <Layout
+      menuIconType="back"
+      handlerMenuIcon={handlerNavBarMenuClick}
+      className="fullWidth"
+    >
       <FeedBackContents>
         <div className={"contents-prefix-box height-full"}>
           <Container className={"contents recipe-feedback-post"}>

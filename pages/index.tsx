@@ -39,7 +39,6 @@ function Login() {
   const now = useMemo(() => dayjs(), []);
 
   useEffect(() => {
-    console.log(authStore);
     if (authStore.isLoggedIn) {
       setIsLoginState(1);
       router.push(

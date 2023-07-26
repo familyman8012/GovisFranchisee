@@ -18,25 +18,35 @@ import { ListLoading } from "ComponentsFarm/elements/Loading";
 import HtmlViewer from "ComponentsFarm/elements/HtmlViewer";
 import Layout from "ComponentsFarm/layouts";
 
-import { BoardExplore, BoardExploreItem, BoardViewLabel } from "ComponentsFarm/module/Board";
+import {
+  BoardExplore,
+  BoardExploreItem,
+  BoardViewLabel,
+} from "ComponentsFarm/module/Board";
 import { authStore } from "src/mobx/store";
 
 export default function NoticeBoardView() {
   const router = useRouter();
   const back = useBack({ passQuery: true });
-  const { session, loading } = authStore;
 
-  const sbn_idx = React.useMemo(() => parseInt(router.query.sbn_idx as string), [router.query]);
+  const sbn_idx = React.useMemo(
+    () => parseInt(router.query.sbn_idx as string),
+    [router.query]
+  );
 
   const { data, isLoading } = useQuery<INoticeBoardViewResponse>(
     ["notices", sbn_idx],
-    () => fetchNotice({ sbn_idx, user_id: session?.info?.user_id ?? -1 }),
+    () =>
+      fetchNotice({ sbn_idx, user_id: authStore.user_info?.user_idx ?? -1 }),
     {
       enabled: !isNaN(sbn_idx),
     }
   );
 
-  const handleChangeNotice = React.useCallback((changeIdx: number) => router.push(`/notice/board/${changeIdx}`), []);
+  const handleChangeNotice = React.useCallback(
+    (changeIdx: number) => router.push(`/notice/board/${changeIdx}`),
+    []
+  );
 
   if (isLoading) {
     return (
@@ -56,11 +66,15 @@ export default function NoticeBoardView() {
         <div className={style["notice-detail__info"]}>
           <BoardViewLabel icon={<PersonCircle />}>관리자</BoardViewLabel>
           <div>
-            <BoardViewLabel icon={<Calendar />}>{dayjs(data?.created_at).format("YYYY-MM-DD")}</BoardViewLabel>
+            <BoardViewLabel icon={<Calendar />}>
+              {dayjs(data?.created_at).format("YYYY-MM-DD")}
+            </BoardViewLabel>
           </div>
         </div>
         <div className={style["notice-detail__content"]}>
-          <HtmlViewer html={`${data?.content === undefined ? "" : data?.content}`} />
+          <HtmlViewer
+            html={`${data?.content === undefined ? "" : data?.content}`}
+          />
         </div>
       </article>
       <BoardExplore>

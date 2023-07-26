@@ -51,8 +51,8 @@ function FoodQualityList() {
   });
 
   const isAllowedStore = useMemo(
-    () => ALLOWED_STORE_IDS.includes(authStore.storeInfo?.store_id),
-    [authStore.storeInfo?.store_id]
+    () => ALLOWED_STORE_IDS.includes(`${authStore.selected_store_idx}`),
+    [authStore.selected_store_idx]
   );
 
   const { fetchNextPage, hasNextPage, data, isLoading, isFetchingNextPage } =

@@ -18,20 +18,20 @@ import {
 import { Button } from "ComponentsFarm/elements/Button";
 
 import { toast } from "react-toastify";
+import { observer } from "mobx-react";
 
 import { PALLETES } from "LibFarm/color";
-import { observer } from "mobx-react";
 import { runInAction } from "mobx";
 import { authStore } from "src/mobx/store";
 import { LoginGuideModal } from "ComponentsFarm/pageComp/login/LoginGuideModal";
 import AxiosUtil from "ApiFarm/.";
+import { fetchMyInfo, login } from "ApiFarm/auth";
 import useErrorHandler from "HookFarm/useErrorHandler";
 
 function Login() {
   const router = useRouter();
   const { errorHandler } = useErrorHandler();
-  const { loading, session } = authStore;
-  const [email, setEmail] = useState<string | string[] | undefined>("");
+  const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState("");
   const [showGuideModal, setShowGuideModal] = useState(false);
   const [isLoginState, setIsLoginState] = useState(-1);
@@ -39,7 +39,8 @@ function Login() {
   const now = useMemo(() => dayjs(), []);
 
   useEffect(() => {
-    if (localStorage.getItem("storeInfo") !== null) {
+    console.log(authStore);
+    if (authStore.isLoggedIn) {
       setIsLoginState(1);
       router.push(
         window.location.href.indexOf("store") > -1
@@ -54,13 +55,17 @@ function Login() {
   const handleLogin = async (e: SyntheticEvent) => {
     e.preventDefault();
     try {
-      const user = await AxiosUtil.post("/store/login", {
-        user_id: email,
-        user_pwd: password,
+      const tokenResponse = await login({
+        email,
+        password,
       });
+      const user = await fetchMyInfo(tokenResponse["GO-AUTH"]);
 
       runInAction(() => {
-        authStore.login(user.data.data);
+        authStore.login({
+          token: tokenResponse["GO-AUTH"],
+          ...user,
+        });
       });
     } catch (e: any) {
       if (e.code === "9001") {
@@ -85,7 +90,11 @@ function Login() {
           <LoginMain>
             <LoginLogo>
               <h1 title="GOViS For Franchisee">
-                <Image src="/img/govis_fc_logo.png" layout="fill" alt="GOViS For Franchisee" />
+                <Image
+                  src="/img/govis_fc_logo.png"
+                  layout="fill"
+                  alt="GOViS For Franchisee"
+                />
               </h1>
             </LoginLogo>
             <form onSubmit={(e) => handleLogin(e)}>
@@ -100,7 +109,9 @@ function Login() {
                 />
               </LoginInputWrap>
               <LoginInputWrap>
-                <LoginInputLabel htmlFor="inputPassword">비밀번호</LoginInputLabel>
+                <LoginInputLabel htmlFor="inputPassword">
+                  비밀번호
+                </LoginInputLabel>
                 <LoginInput
                   id="inputPassword"
                   type="password"
@@ -130,7 +141,10 @@ function Login() {
               </Copyright>
             </form>
           </LoginMain>
-          <LoginGuideModal show={showGuideModal} onClose={() => setShowGuideModal(false)} />
+          <LoginGuideModal
+            show={showGuideModal}
+            onClose={() => setShowGuideModal(false)}
+          />
         </LoginWrap>
       ) : (
         <div></div>

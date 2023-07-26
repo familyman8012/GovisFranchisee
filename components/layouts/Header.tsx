@@ -4,29 +4,26 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import {
-  List,
-  ChevronLeft,
-  BoxArrowRight,
-  ChevronDown,
-} from "@emotion-icons/bootstrap";
+import Head from "next/head";
+import { useMutation, useQuery } from "react-query";
+
+import { CheckCircleFill } from "@emotion-icons/bootstrap/CheckCircleFill";
+import { List } from "@emotion-icons/bootstrap/List";
+import { ChevronLeft } from "@emotion-icons/bootstrap/ChevronLeft";
+import { ChevronDown } from "@emotion-icons/bootstrap/ChevronDown";
+
 import { LayoutHead, StoreList } from "./styles";
 import { fqs, manageMenu, newsMenu } from "./menu";
 import { MenuList } from ".";
 import Modal, { ModalBody, ModalHeader } from "ComponentsFarm/elements/Modal";
-import {
-  getStoreSwitchStoerListApi,
-  getStoreSwitchStoreInfoApi,
-  iStoreSwitchStoreListItem,
-} from "src/api/store";
-import { reloadSession } from "LibFarm/.";
-import Spinner from "ComponentsFarm/elements/Spinner";
-import { useQuery } from "react-query";
-import { AxiosError, AxiosResponse } from "axios";
+import { changeStore, getStoreSwitchStoerListApi } from "src/api/store";
+
 import { authStore } from "src/mobx/store";
 import { observer } from "mobx-react";
 import { useRouter } from "next/router";
-import Head from "next/head";
+import Spinner from "ComponentsFarm/elements/Spinner";
+
+import { fetchMyStore } from "ApiFarm/auth";
 
 interface IHeader {
   handlerSideMenuShow: () => void;
@@ -58,23 +55,29 @@ function Header({
   // store 팝업
   const [open, setOpen] = useState(false);
 
-  // useQuery
-  const { data: storeListData, refetch } = useQuery<
-    AxiosResponse<any>,
-    AxiosError
-  >(["storeList"], getStoreSwitchStoerListApi);
+  useQuery(["selected-store"], fetchMyStore, {
+    enabled: authStore.isLoggedIn,
+    onSuccess: (res) => {
+      authStore.selected_store_idx = res.selected_store_idx;
+      authStore.selected_store_name = res.selected_store_name;
+    },
+  });
 
+  // useQuery
+  const storeListQuery = useQuery(["storeList"], getStoreSwitchStoerListApi, {
+    enabled: authStore.isLoggedIn && open,
+  });
+
+  const changeStoreMutate = useMutation(changeStore, {
+    onSuccess: (res) => {
+      authStore.selected_store_idx = res.selected_store_idx;
+      authStore.selected_store_name = res.selected_store_name;
+      setOpen(false);
+      router.reload();
+    },
+  });
   const openStoreModal = useCallback(() => {
     setOpen(true);
-  }, []);
-
-  const handlerSelectStore = useCallback(async (mus_idx: number) => {
-    const selStoreData = await getStoreSwitchStoreInfoApi(mus_idx);
-    console.log("selStoreData selStoreData", selStoreData);
-    authStore.storeChange(selStoreData);
-    //reloadSession();
-    router.reload();
-    setOpen(false);
   }, []);
 
   const close = useCallback(() => {
@@ -113,37 +116,34 @@ function Header({
         )}
         <h1>{title ? title : headUrl?.title}</h1>
         <button className="btn_store_select" onClick={openStoreModal}>
-          <span className="txt">
-            {authStore?.storeInfo?.store_name
-              ? authStore?.storeInfo?.store_name
-              : ""}
-          </span>
+          <span className="txt">{authStore.selected_store_name ?? ""}</span>
           <ChevronDown width={"10px"} />
         </button>
       </LayoutHead>
       <Modal open={open} onClose={close}>
         <ModalHeader closeButton={close}>매장을 선택해 주세요.</ModalHeader>
         <ModalBody>
-          {storeListData !== undefined &&
-          storeListData?.data.store_list.length > 0 ? (
-            <StoreList>
-              {storeListData?.data.store_list.map(
-                (row: iStoreSwitchStoreListItem) => {
-                  return (
-                    <li
-                      key={row.mus_idx}
-                      onClick={() => {
-                        handlerSelectStore(row.mus_idx);
-                      }}
-                    >
-                      <span>{row.store_name}</span>
-                    </li>
-                  );
-                }
-              )}
-            </StoreList>
-          ) : (
+          {storeListQuery.isLoading ? (
             <Spinner />
+          ) : (
+            <StoreList>
+              {(storeListQuery.data?.store_list ?? []).map((row) => {
+                const selected = authStore.selected_store_idx === row.store_idx;
+                return (
+                  <li
+                    key={row.mus_idx}
+                    onClick={() =>
+                      !changeStoreMutate.isLoading &&
+                      changeStoreMutate.mutate(row.mus_idx)
+                    }
+                    className={selected ? "selected" : ""}
+                  >
+                    <span className="store-name">{row.store_name}</span>
+                    {selected && <CheckCircleFill className="icon" />}
+                  </li>
+                );
+              })}
+            </StoreList>
           )}
         </ModalBody>
       </Modal>

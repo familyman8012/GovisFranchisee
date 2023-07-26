@@ -26,43 +26,31 @@ function Layout({
   handlerMenuIcon,
 }: Props) {
   const router = useRouter();
-  const { loading, session } = authStore;
+  // const { loading, session } = authStore;
   const [sideMenuShow, setSideMenuShow] = useState(false);
-  const [isLoginState, setIsLoginState] = useState(-1);
   const handlerSideMenuShow = useCallback(() => {
     setSideMenuShow((prev) => !prev);
   }, []);
 
   useEffect(() => {
-    if (localStorage.getItem("storeInfo") === null) {
-      setIsLoginState(0);
-      window.location.href = "/";
-    } else {
-      setIsLoginState(1);
+    if (!authStore.isLoggedIn) {
+      router.push("/");
     }
-  }, [router]);
+  }, [router, authStore.isLoggedIn]);
 
   return (
-    <>
-      {isLoginState === 1 ? (
-        <LayoutWrap className={className}>
-          {/* menuIcontype : 메뉴, 뒤로가기 등 구분, handlerMenuIcon : 메뉴아이콘 클릭시 이벤트 */}
-          <Header
-            handlerSideMenuShow={handlerSideMenuShow}
-            title={title ? title : undefined}
-            menuIconType={menuIconType ? menuIconType : undefined}
-            handlerMenuIcon={handlerMenuIcon ? handlerMenuIcon : undefined}
-          />
-          <Left session={session} sideMenuShow={sideMenuShow} />
-          <ContentsArea>{children}</ContentsArea>
-          {sideMenuShow && (
-            <div className="dimmed" onClick={handlerSideMenuShow} />
-          )}
-        </LayoutWrap>
-      ) : (
-        <div></div>
-      )}
-    </>
+    <LayoutWrap className={className}>
+      {/* menuIcontype : 메뉴, 뒤로가기 등 구분, handlerMenuIcon : 메뉴아이콘 클릭시 이벤트 */}
+      <Header
+        handlerSideMenuShow={handlerSideMenuShow}
+        title={title ? title : undefined}
+        menuIconType={menuIconType ? menuIconType : undefined}
+        handlerMenuIcon={handlerMenuIcon ? handlerMenuIcon : undefined}
+      />
+      <Left session={authStore.user_info} sideMenuShow={sideMenuShow} />
+      <ContentsArea>{children}</ContentsArea>
+      {sideMenuShow && <div className="dimmed" onClick={handlerSideMenuShow} />}
+    </LayoutWrap>
   );
 }
 

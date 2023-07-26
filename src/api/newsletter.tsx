@@ -1,10 +1,10 @@
-import AxiosUtil, { AxiosUtilResponse } from "ApiFarm/index";
+import AxiosUtil from "ApiFarm/index";
 import { INewsListRequest } from "InterfaceFarm/NewsLetter";
 
 export const fetchNewsLetterCategories = async () =>
-  AxiosUtil.get<AxiosUtilResponse<{ year_category_list: string[] }>>("/store/board/newsletter/year_category").then(
-    (res) => res.data.data
-  );
+  AxiosUtil.get<IResponse<{ year_category_list: string[] }>>(
+    "/store/board/newsletter/year_category"
+  ).then((res) => res.data.data);
 
 export const fetchNewsLetterList = async (params: INewsListRequest) => {
   const response = await AxiosUtil.get("/store/board/newsletter", {

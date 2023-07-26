@@ -1,4 +1,4 @@
-import ApiRequest, { AxiosUtilResponse } from "./index";
+import ApiRequest from "./index";
 import {
   IProductListFetchParams,
   IProductListFetchResponse,
@@ -6,8 +6,10 @@ import {
   IProductResultFetchResponse,
 } from "InterfaceFarm/Product";
 
-export const fetchProductSaleResult = async (params: IProductResultFetchParams) => {
-  const response = await ApiRequest.get<AxiosUtilResponse<IProductResultFetchResponse>>(
+export const fetchProductSaleResult = async (
+  params: IProductResultFetchParams
+) => {
+  const response = await ApiRequest.get<IResponse<IProductResultFetchResponse>>(
     "/fc/v1/product_performance/chart",
     {
       params,
@@ -18,7 +20,7 @@ export const fetchProductSaleResult = async (params: IProductResultFetchParams) 
 };
 
 export const fetchProductSaleList = async (params: IProductListFetchParams) => {
-  const response = await ApiRequest.get<AxiosUtilResponse<IProductListFetchResponse>>(
+  const response = await ApiRequest.get<IResponse<IProductListFetchResponse>>(
     "/fc/v1/product_performance/data",
     {
       params,

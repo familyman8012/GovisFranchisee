@@ -2,12 +2,6 @@ import axios, { AxiosRequestConfig } from "axios";
 import { authStore } from "src/mobx/store";
 import { BaseExceptionModule, AuthExceptionModule } from "LibFarm/error";
 
-export interface AxiosUtilResponse<T> {
-  code: string;
-  data: T;
-  message: string;
-}
-
 const getBaseUrl = () => {
   let reVal = "https://api.gopizza.kr";
 
@@ -25,8 +19,8 @@ const getBaseUrl = () => {
     (hostSplit && hostSplit[0].indexOf("localhost") >= 0) ||
     (hostSplit && hostSplit[0] === "local")
   ) {
-    reVal = "https://dev.api.gopizza.kr";
-    // reVal = "http://feature.api.gopizza.kr";
+    // reVal = "https://dev.api.gopizza.kr";
+    reVal = "http://feature.api.gopizza.kr";
     //reVal = "http://api.gopizza.kr";
     // reVal = "http://192.168.0.10:8000";
   }
@@ -41,22 +35,12 @@ const AxiosUtil = axios.create({
 
 AxiosUtil.interceptors.request.use(
   async (request: AxiosRequestConfig) => {
-    if (
-      typeof window !== "undefined" &&
-      localStorage.getItem("auth_token") !== null
-    ) {
-      authStore.newLogin();
+    if (authStore.token) {
+      request.headers = {
+        "GO-AUTH": authStore.token,
+        ...request.headers,
+      };
     }
-    const session = await authStore.sessionGet();
-    const storeInfo = await authStore.storeGet();
-
-    request.headers = {
-      "auth-token": String(session?.auth_token),
-      "store-token": String(storeInfo?.store_token),
-      //"store-token": String(storeInfo?.store_token),
-      //"auth-token":"03ihVMICyDqph+o9+D4V6g5VlkreL8WIYuG/GKwzHufdWTx+5Ri8IVVaD2pvqcKLarUBpNRjBNndTLPb6vGP820jQzY2431SMqGyNGLtbu2lifWolMMvjEpG0EuQj7im1ADTk02NqnTM1s1NB5qHz1/kgF5Xkh7fWx6I2ekGA0bJp6IkUA02iz1qyAse+GY14Hh3w5xusWEYDNBPjFLIoDKVgliaDQNBl8qeq7S2Jo62zfCwlAWWmh8kQ4jucbrlkNA4GZYc9qTUKGuVBwEhZ67Ead52o2rUnoo/h7/y8FaWKUCUMnVjk32wMeU9ULMXPAZcHdomaBcqoXji69YUXLXn3HI6foUpnO3X54wLd1PLlAnwSty+10FoX5q56hVRF7VvoowRtDyiRpYXTZaL6g==",
-      ...request.headers,
-    };
 
     return request;
   },

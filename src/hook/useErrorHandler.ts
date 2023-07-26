@@ -43,10 +43,15 @@ export default function useErrorHandler() {
     } else {
       isDev && console.error(error);
       const _code = response && response.status >= 400 ? response.status : code;
-      toast.error(isDev ? `(${_code}) ${message}` : `요청 처리에 실패하였습니다. (Error Code: ${_code})`, {
-        toastId: `${_code}`,
-        autoClose: 4000,
-      });
+      toast.error(
+        isDev
+          ? `(${_code}) ${message}`
+          : `요청 처리에 실패하였습니다. (Error Code: ${_code})`,
+        {
+          toastId: `${_code}`,
+          autoClose: 4000,
+        }
+      );
     }
   }, []);
 

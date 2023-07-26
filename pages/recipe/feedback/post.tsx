@@ -9,7 +9,6 @@ import { authStore } from "src/mobx/store";
 
 export default function RecipeFeedbackPost() {
   const router = useRouter();
-  const { loading, session } = authStore;
   const [title, setTitle] = useState("");
 
   const handlerNavBarMenuClick = () => {
@@ -17,7 +16,7 @@ export default function RecipeFeedbackPost() {
   };
 
   const handlerOnClickPost = async () => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore?.user_info?.user_idx);
     const data: IRecipeFeedbackTitlePostRequest = {
       title: title,
       user_id: userId,
@@ -28,7 +27,11 @@ export default function RecipeFeedbackPost() {
   };
 
   return (
-    <Layout menuIconType="back" handlerMenuIcon={handlerNavBarMenuClick} className="fullWidth">
+    <Layout
+      menuIconType="back"
+      handlerMenuIcon={handlerNavBarMenuClick}
+      className="fullWidth"
+    >
       <FeedBackContents>
         <div className={"contents-prefix-box height-full"}>
           <Container className={"contents recipe-feedback-post"}>
@@ -42,12 +45,18 @@ export default function RecipeFeedbackPost() {
               </p>
             </pre>
             <input
-              placeholder={"피드백하는 상품 이름을 입력해 주세요. ( ex: 클래식 치즈 피자 )"}
+              placeholder={
+                "피드백하는 상품 이름을 입력해 주세요. ( ex: 클래식 치즈 피자 )"
+              }
               onChange={(e) => {
                 setTitle(e.target.value);
               }}
             />
-            <button className={"btn-contents"} disabled={!title} onClick={handlerOnClickPost}>
+            <button
+              className={"btn-contents"}
+              disabled={!title}
+              onClick={handlerOnClickPost}
+            >
               상세내용 쓰기 &gt;{" "}
             </button>
           </Container>

@@ -235,17 +235,38 @@ export const LnbBottom = styled.div`
 `;
 
 export const StoreList = styled.ul`
+  margin: -1rem;
   li {
-    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 16px;
     text-align: left;
+    cursor: pointer;
     span {
-      width: 100%;
-      margin: 15px;
+      margin: 0;
       cursor: pointer;
     }
-    &:hover,
-    &:active {
-      background-color: #f2f2f2;
+
+    &.selected {
+      pointer-events: none;
+    }
+
+    &:not(.selected) {
+      cursor: pointer;
+      &:hover,
+      &:active {
+        background-color: #f2f2f2;
+      }
+    }
+
+    &:not(:last-of-type) {
+      border-bottom: 1px solid #e0e0e0;
+    }
+
+    .icon {
+      width: 20px;
+      height: 20px;
+      color: ${Common.color.$primary3};
     }
   }
 `;
@@ -295,8 +316,8 @@ export const Pagination = styled.ul`
     background-color: #fff;
     border: 1px solid #e0e0e0;
     cursor: pointer;
-    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+    transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+      border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
     svg {
       display: inline-block;
       vertical-align: middle;
@@ -394,6 +415,7 @@ export const OffcanvasBackDrop = styled.div<{ show: boolean }>`
   .on {
   }
 
-  ${({ show }) => (show ? "display:block;opacity:0.5;" : "display:none;opacity:0;")};
+  ${({ show }) =>
+    show ? "display:block;opacity:0.5;" : "display:none;opacity:0;"};
   transition: "opacity 500ms , display 500ms";
 `;

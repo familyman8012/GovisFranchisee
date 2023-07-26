@@ -23,9 +23,11 @@ import "StyleFarm/index.scss";
 import "StyleFarm/icon.css";
 import { Global } from "@emotion/react";
 import reset from "ComponentsFarm/pageComp/gomarket/reset";
+import { authStore } from "src/mobx/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
+  const [loadedStore, setLoadedStore] = React.useState(false);
   const { errorHandler } = useErrorHandler();
 
   const { current: queryClient } = React.useRef(
@@ -59,6 +61,8 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   useEffect(() => {
     registerLocale("ko", ko);
+    authStore.init();
+    setLoadedStore(true);
   }, []);
 
   return (
@@ -80,7 +84,7 @@ function MyApp({ Component, pageProps }: AppProps) {
             pauseOnFocusLoss={false}
             pauseOnHover={false}
           />
-          <Component {...pageProps} />
+          {loadedStore && <Component {...pageProps} />}
         </Hydrate>
         <ReactQueryDevtools />
       </QueryClientProvider>

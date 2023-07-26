@@ -10,7 +10,7 @@ import { authStore } from "src/mobx/store";
 
 export default function SuggestionBoardPost() {
   const router = useRouter();
-  const { loading, session } = authStore;
+
   const [title, setTitle] = useState("");
   const [category, setCategory] = useState(0);
 
@@ -19,7 +19,7 @@ export default function SuggestionBoardPost() {
   };
 
   const handlerOnClickPost = async () => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
     const data: iSuggestionTitlePostRequest = {
       title,
       category,
@@ -31,7 +31,11 @@ export default function SuggestionBoardPost() {
   };
 
   return (
-    <Layout menuIconType="back" handlerMenuIcon={handlerNavBarMenuClick} className="fullWidth">
+    <Layout
+      menuIconType="back"
+      handlerMenuIcon={handlerNavBarMenuClick}
+      className="fullWidth"
+    >
       <FeedBackContents>
         <div className={"contents-prefix-box height-full"}>
           <Container className={"contents recipe-feedback-post"}>
@@ -55,11 +59,25 @@ export default function SuggestionBoardPost() {
                   undefined,
                 ])}
               >
-                <input name="category" type={"radio"} checked={category === 0} onChange={() => setCategory(0)} />
+                <input
+                  name="category"
+                  type={"radio"}
+                  checked={category === 0}
+                  onChange={() => setCategory(0)}
+                />
                 문의
               </label>
-              <label className={`suggestion-checkbox ${category === 1 ? "suggestion-checkbox--checked" : ""}`}>
-                <input name="category" type={"radio"} checked={category === 1} onChange={() => setCategory(1)} />
+              <label
+                className={`suggestion-checkbox ${
+                  category === 1 ? "suggestion-checkbox--checked" : ""
+                }`}
+              >
+                <input
+                  name="category"
+                  type={"radio"}
+                  checked={category === 1}
+                  onChange={() => setCategory(1)}
+                />
                 건의
               </label>
             </div>

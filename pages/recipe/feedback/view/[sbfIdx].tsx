@@ -9,7 +9,12 @@ import ErrorMassageBox from "ComponentsFarm/elements/ErrorMassageBox";
 import FileUploadInput from "ComponentsFarm/elements/FileUploadInput";
 import Spinner from "ComponentsFarm/elements/Spinner";
 import Layout from "ComponentsFarm/layouts";
-import { Container, Offcanvas, OffcanvasBackDrop, Row } from "ComponentsFarm/layouts/styles";
+import {
+  Container,
+  Offcanvas,
+  OffcanvasBackDrop,
+  Row,
+} from "ComponentsFarm/layouts/styles";
 import { RecipeFeedbackContentsInfo } from "ComponentsFarm/pageComp/feedback/RecipeFeedbackContentsInfo";
 import { RecipeFeedbackContentsList } from "ComponentsFarm/pageComp/feedback/RecipeFeedbackContentsList";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
@@ -27,7 +32,7 @@ export default function RecipeFeedbackView() {
   const ref = useRef<HTMLDivElement>(null);
   const instance = useRef({ timer: 0 });
   const router = useRouter();
-  const { loading, session } = authStore;
+
   const { sbfIdx } = router.query;
   //const { sbfIdx } = useParams<{ sbfIdx: string }>();
   const [contentInfo, setContentInfo] = useState<IRecipeFeedbackItem>({
@@ -48,8 +53,12 @@ export default function RecipeFeedbackView() {
   const [btnSendEnabledClass, setBtnSendEnabledClass] = useState("");
   const [errorMassage, setErrorMassage] = useState("");
 
-  const [formContentsSpinnerBoxDisplayClass, setFormContentsSpinnerBoxDisplayClass] = useState("display-hidden");
-  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] = useState("");
+  const [
+    formContentsSpinnerBoxDisplayClass,
+    setFormContentsSpinnerBoxDisplayClass,
+  ] = useState("display-hidden");
+  const [formContentsBoxDisplayClass, setFormContentsBoxDisplayClass] =
+    useState("");
 
   useEffect(() => {
     sbfIdx && getView();
@@ -62,7 +71,11 @@ export default function RecipeFeedbackView() {
     if (contentList.length > 0) {
       const timer = window.setTimeout(() => {
         if (ref.current) {
-          ref.current.scrollIntoView({ behavior: "smooth", block: "start", inline: "nearest" });
+          ref.current.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+            inline: "nearest",
+          });
         }
       }, 200);
       return () => clearTimeout(timer);
@@ -131,7 +144,7 @@ export default function RecipeFeedbackView() {
   };
 
   const procFileUpload = async (fileList: File[]) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
 
     if (fileList.length > 0) {
       setFormContentsSpinnerBoxDisplayClass("");
@@ -158,7 +171,9 @@ export default function RecipeFeedbackView() {
     }
   };
 
-  const handlerTextAreaOnChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+  const handlerTextAreaOnChange = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => {
     setContentsReplyTextAra(e.target.value);
     if (e.target.value !== "") {
       setBtnSendEnabledClass("btn-enabled");
@@ -172,7 +187,7 @@ export default function RecipeFeedbackView() {
       setFormContentsSpinnerBoxDisplayClass("");
       setFormContentsBoxDisplayClass("display-hidden");
 
-      const userId = Number(session?.info?.user_id);
+      const userId = Number(authStore.user_info?.user_idx);
       const data: IRecipeFeedbackReplyPostRequest = {
         sbf_idx: Number(sbfIdx),
         content_type: 0,
@@ -191,7 +206,7 @@ export default function RecipeFeedbackView() {
   };
 
   const handlerOnClickDelete = async (sbfc_idx: number) => {
-    const userId = Number(session?.info?.user_id);
+    const userId = Number(authStore.user_info?.user_idx);
     const data = {
       sbfc_idx: sbfc_idx,
       user_id: userId,
@@ -221,7 +236,7 @@ export default function RecipeFeedbackView() {
   };
   const handlerBtnDeleteInfo = async (item: IRecipeFeedbackItem) => {
     if (confirm("삭제하겠습니까?")) {
-      const userId = Number(session?.info?.user_id);
+      const userId = Number(authStore.user_info?.user_idx);
       const data: IRecipeFeedbackTitleDeleteRequest = {
         sbf_idx: item.sbf_idx,
         user_id: userId,
@@ -242,18 +257,28 @@ export default function RecipeFeedbackView() {
   };
 
   return (
-    <Layout menuIconType="back" className="fullWidth" handlerMenuIcon={handlerNavBarMenuClick}>
+    <Layout
+      menuIconType="back"
+      className="fullWidth"
+      handlerMenuIcon={handlerNavBarMenuClick}
+    >
       {contentInfo.sbf_idx !== 0 && (
         <FeedBackContents>
           <div className={"recipe-feedback"}>
             <div className={"contents-prefix-box"}>
               <Container className={" recipe-feedback-view "}>
-                <RecipeFeedbackContentsInfo dataItem={contentInfo} onDelete={handlerBtnDeleteInfo} />
+                <RecipeFeedbackContentsInfo
+                  dataItem={contentInfo}
+                  onDelete={handlerBtnDeleteInfo}
+                />
               </Container>
             </div>
             <Container className={"contents recipe-feedback-view "}>
               <Row>
-                <RecipeFeedbackContentsList dataList={contentList} onClickDelete={handlerOnClickDelete} />
+                <RecipeFeedbackContentsList
+                  dataList={contentList}
+                  onClickDelete={handlerOnClickDelete}
+                />
               </Row>
 
               {contentInfo.status < 2 && (
@@ -267,16 +292,23 @@ export default function RecipeFeedbackView() {
 
             {errorMassage !== "" && <ErrorMassageBox massage={errorMassage} />}
 
-            <OffcanvasBackDrop show={showReplyContentsBox} onClick={handleCloseOffcanvas} />
+            <OffcanvasBackDrop
+              show={showReplyContentsBox}
+              onClick={handleCloseOffcanvas}
+            />
             <Offcanvas className={`bottom ${showReplyContentsBox ? "on" : ""}`}>
-              <div className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}>
+              <div
+                className={`form-contents-spinner-box ${formContentsSpinnerBoxDisplayClass}`}
+              >
                 <Spinner />
                 {/* <Spinner animation="border" role="status">
               <span className="visually-hidden">Loading...</span>
             </Spinner> */}
               </div>
 
-              <div className={`form-contents-box ${formContentsBoxDisplayClass}`}>
+              <div
+                className={`form-contents-box ${formContentsBoxDisplayClass}`}
+              >
                 <textarea
                   placeholder={"상세내용을 입력해주세요."}
                   value={contentsReplyTextAra}
@@ -285,7 +317,10 @@ export default function RecipeFeedbackView() {
                 <div className={"image-box"}>
                   <FileUploadInput callbackUploadFiles={procFileUpload} />
 
-                  <button onClick={handerBtnSend} className={btnSendEnabledClass}>
+                  <button
+                    onClick={handerBtnSend}
+                    className={btnSendEnabledClass}
+                  >
                     전송
                   </button>
                 </div>

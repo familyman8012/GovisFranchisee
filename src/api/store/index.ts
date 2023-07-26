@@ -1,30 +1,21 @@
-import AxiosUtil, { AxiosUtilResponse } from "..";
+import AxiosUtil from "..";
 
 export interface iStoreSwitchStoreListItem {
   mus_idx: number;
-  created_at: string;
-  updated_at: string;
-  user_id: number;
-  store_id: number;
+  store_idx: number;
   store_name: string;
 }
 
 export const getStoreSwitchStoerListApi = async () => {
-  const result = await AxiosUtil.get("store/switch/store/list");
-  return result.data;
+  const result = await AxiosUtil.get<
+    IResponse<{
+      selected_store_idx: number;
+      selected_store_name: string;
+      store_list: iStoreSwitchStoreListItem[];
+    }>
+  >("/fc/v2/store/switch/list");
+  return result.data.data;
 };
-
-// export const getStoreSwitchStoerListApi = async (): Promise<iStoreSwitchStoreListItem[]> => {
-//   const url = "store/switch/store/list";
-
-//   const response = await AxiosUtil.get<AxiosUtilResponse<any>>(url);
-
-//   console.log("response response", response);
-
-//   const { store_list } = response.data.data;
-
-//   return store_list;
-// };
 
 export interface iStoreSwitchStoreInfo {
   store_id: number;
@@ -32,11 +23,13 @@ export interface iStoreSwitchStoreInfo {
   store_token: string;
 }
 
-export const getStoreSwitchStoreInfoApi = async (mus_idx: number): Promise<iStoreSwitchStoreInfo> => {
-  const url = `store/switch/${mus_idx}`;
-  const response = await AxiosUtil.get<AxiosUtilResponse<any>>(url);
+export const changeStore = async (mus_idx: number) => {
+  const response = await AxiosUtil.put<
+    IResponse<{
+      selected_store_idx: number;
+      selected_store_name: string;
+    }>
+  >(`/fc/v2/store/switch/${mus_idx}`);
 
-  const storeInfo = response.data.data;
-
-  return storeInfo;
+  return response.data.data;
 };

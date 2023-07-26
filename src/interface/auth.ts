@@ -1,24 +1,16 @@
-export interface AuthType {
-  email: string;
-  password: string;
-}
-
-
 export interface ILoginResponse {
   "GO-AUTH": string;
 }
-
 
 export interface ILoginParams {
   email: string;
   password: string;
 }
 
-
 export interface ILoginUserResponse {
-  user_idx: number;//	사용자 고유식별 번호
-  selected_store_idx: number;//	선택한 매장 고유식별 번호
-  selected_store_name: string;//	선택한 매장명
+  user_idx: number; //	사용자 고유식별 번호
+  selected_store_idx: number; //	선택한 매장 고유식별 번호
+  selected_store_name: string; //	선택한 매장명
   user_info: {
     user_idx: number; // 사용자 고유식별 번호
     user_name: string; // 사용자 이름
@@ -27,7 +19,7 @@ export interface ILoginUserResponse {
     is_staff: number; // 소속 (0=본사, 1=매장, 2=외부 업체)
     security_level: number; // 시스템 권한 (0=일반, 3=SV, 7=운영자, 9=관리자)
     is_permit: number; // 승인 여부 (0=대기, 1=승인)
-  }
+  };
   store: {
     store_idx: number; // 매장 고유식별 번호
     store_name: string; // 매장명

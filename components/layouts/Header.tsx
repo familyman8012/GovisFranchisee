@@ -16,7 +16,7 @@ import { LayoutHead, StoreList } from "./styles";
 import { fqs, manageMenu, newsMenu } from "./menu";
 import { MenuList } from ".";
 import Modal, { ModalBody, ModalHeader } from "ComponentsFarm/elements/Modal";
-import { changeStore, getStoreSwitchStoerListApi } from "src/api/store";
+import { changeStore, fetchSwitchStores } from "src/api/store";
 
 import { authStore } from "src/mobx/store";
 import { observer } from "mobx-react";
@@ -64,7 +64,7 @@ function Header({
   });
 
   // useQuery
-  const storeListQuery = useQuery(["storeList"], getStoreSwitchStoerListApi, {
+  const storeListQuery = useQuery(["switch-stores"], fetchSwitchStores, {
     enabled: authStore.isLoggedIn && open,
   });
 
@@ -76,6 +76,7 @@ function Header({
       router.reload();
     },
   });
+
   const openStoreModal = useCallback(() => {
     setOpen(true);
   }, []);

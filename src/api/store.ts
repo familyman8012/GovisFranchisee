@@ -1,4 +1,4 @@
-import AxiosUtil from "..";
+import AxiosUtil from "./index";
 
 export interface iStoreSwitchStoreListItem {
   mus_idx: number;
@@ -6,7 +6,7 @@ export interface iStoreSwitchStoreListItem {
   store_name: string;
 }
 
-export const getStoreSwitchStoerListApi = async () => {
+export const fetchSwitchStores = async () => {
   const result = await AxiosUtil.get<
     IResponse<{
       selected_store_idx: number;
@@ -16,12 +16,6 @@ export const getStoreSwitchStoerListApi = async () => {
   >("/fc/v2/store/switch/list");
   return result.data.data;
 };
-
-export interface iStoreSwitchStoreInfo {
-  store_id: number;
-  store_name: string;
-  store_token: string;
-}
 
 export const changeStore = async (mus_idx: number) => {
   const response = await AxiosUtil.put<

@@ -21,7 +21,10 @@ import type { CalendarWeekProps } from "ComponentsFarm/pageComp/calendar/calenda
 import Layout from "ComponentsFarm/layouts";
 
 const Calendar = dynamic<CalendarProps>(
-  () => import("ComponentsFarm/pageComp/calendar").then((module) => module.Calendar).catch((error) => error),
+  () =>
+    import("ComponentsFarm/pageComp/calendar")
+      .then((module) => module.Calendar)
+      .catch((error) => error),
   {
     ssr: false,
   }
@@ -48,21 +51,31 @@ const calendars = CALENDARS.map((cal) => ({
 
 export default function CalendarPage() {
   const router = useRouter();
-  const qs = React.useMemo(() => new URLSearchParams(router.asPath.split("?")[1]), []);
+  const qs = React.useMemo(
+    () => new URLSearchParams(router.asPath.split("?")[1]),
+    []
+  );
 
   const [dates, setDates] = useState({
     search_start_period: "",
     search_end_period: "",
   });
 
-  const [params, setParams] = useQueryString<{ visible_week_view: string; selected_date: string }>({
+  const [params, setParams] = useQueryString<{
+    visible_week_view: string;
+    selected_date: string;
+  }>({
     visible_week_view: qs.get("visible_week_view") ?? "",
     selected_date: qs.get("selected_date") ?? "",
   });
 
-  const { data } = useQuery<IScheduleFindAll>(["calendars", dates], () => CalendarService.fetchScheduleList(dates), {
-    enabled: !!(dates.search_end_period && dates.search_end_period),
-  });
+  const { data } = useQuery<IScheduleFindAll>(
+    ["calendars", dates],
+    () => CalendarService.fetchScheduleList(dates),
+    {
+      enabled: !!(dates.search_end_period && dates.search_end_period),
+    }
+  );
 
   const schedules = React.useMemo(
     () =>
@@ -78,8 +91,10 @@ export default function CalendarPage() {
     [data]
   );
 
-  const handleChangeSearchDate = (search_start_period: string, search_end_period: string) =>
-    setDates({ search_start_period, search_end_period });
+  const handleChangeSearchDate = (
+    search_start_period: string,
+    search_end_period: string
+  ) => setDates({ search_start_period, search_end_period });
 
   const handleClickDay = (date: string) => {
     const _date = dayjs(date);

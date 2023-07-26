@@ -9,7 +9,8 @@ import {
 import { manageMenu, newsMenu } from "./menu";
 import Link from "next/link";
 import { MenuList } from ".";
-import { BoxArrowRight } from "@emotion-icons/bootstrap";
+import { BoxArrowRight } from "@emotion-icons/bootstrap/BoxArrowRight";
+import { BoxArrowUpRight } from "@emotion-icons/bootstrap/BoxArrowUpRight";
 import dayjs from "dayjs";
 import { authStore } from "src/mobx/store";
 import { ILoginUserResponse } from "InterfaceFarm/auth";
@@ -31,9 +32,16 @@ function Left({
     <SideMenu className={sideMenuShow ? "on" : ""}>
       <MenuSection>
         <UserInfoBox>
-          <p className="name">{session?.user_name}</p>
+          <p className="name">
+            {session?.user_name}
+            <a className="btn_welfare" href="/redirect-welfare" target="_blank">
+              복지몰 이동
+              <BoxArrowUpRight />
+            </a>
+          </p>
           <p className="email">{session?.user_email}</p>
         </UserInfoBox>
+
         <MenuListItem title="매장 관리" menuData={manageMenu} />
         <MenuListItem title="본사 소식" menuData={newsMenu} />
       </MenuSection>
@@ -41,6 +49,7 @@ function Left({
         <button className="btn_logout" onClick={handlerBtnLogout}>
           <BoxArrowRight width={20} height={20} /> 로그아웃
         </button>
+
         <div className="copyright">
           Copyright {year}. GOPIZZA inc. all rights reserved.
         </div>

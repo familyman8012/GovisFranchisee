@@ -170,16 +170,43 @@ export const MenuSection = styled.div`
 export const UserInfoBox = styled.div`
   padding-bottom: 19px;
   border-bottom: 1px solid #efefef;
-
+  display: flex;
+  flex-direction: column;
   .name {
     margin-bottom: 4px;
     color: #212529;
     font-size: 1.25rem;
     font-weight: 500;
     line-height: 1.2;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   .email {
     color: #bdbdbd;
+  }
+
+  .btn_welfare {
+    position: relative;
+    right: -10px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid currentColor;
+    padding: 5px 8px;
+    border-radius: 4px;
+    margin-right: 10px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #fff;
+    color: #4f4f4f;
+
+    svg {
+      width: 14px;
+      height: 14px;
+      margin-left: 5px;
+    }
   }
 `;
 
@@ -207,13 +234,17 @@ export const MenuListBox = styled.div`
 `;
 
 export const LnbBottom = styled.div`
+  /* position: relative; */
   flex: none;
   color: #828282;
   background-color: #f2f2f2;
+  display: flex;
+  flex-direction: column;
 
   .btn_logout {
     display: flex;
     width: 100%;
+    flex: 1;
     align-items: center;
     padding: 15px 20px;
     font-size: 14px;

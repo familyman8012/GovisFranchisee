@@ -34,10 +34,10 @@ function Left({
         <UserInfoBox>
           <p className="name">
             {session?.user_name}
-            <a className="btn_welfare" href="/redirect-welfare" target="_blank">
+            {/* <a className="btn_welfare" href="/redirect-welfare" target="_blank">
               복지몰 이동
               <BoxArrowUpRight />
-            </a>
+            </a> */}
           </p>
           <p className="email">{session?.user_email}</p>
         </UserInfoBox>

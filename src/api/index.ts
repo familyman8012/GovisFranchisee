@@ -1,4 +1,9 @@
-import axios, { AxiosRequestConfig } from "axios";
+import axios, {
+  AxiosError,
+  AxiosInstance,
+  AxiosRequestConfig,
+  AxiosResponse,
+} from "axios";
 import { authStore } from "src/mobx/store";
 import { BaseExceptionModule, AuthExceptionModule } from "LibFarm/error";
 
@@ -19,7 +24,7 @@ const getBaseUrl = () => {
     (hostSplit && hostSplit[0].indexOf("localhost") >= 0) ||
     (hostSplit && hostSplit[0] === "local")
   ) {
-    reVal = "https://dev.api.gopizza.kr";
+    reVal = "https://feature.api.gopizza.kr";
     // reVal = "http://feature.api.gopizza.kr";
     //reVal = "http://api.gopizza.kr";
     // reVal = "http://192.168.0.10:8000";
@@ -68,3 +73,82 @@ AxiosUtil.interceptors.response.use((response) => {
 });
 
 export default AxiosUtil;
+
+// Common Request 생성
+export const CommonRequest = axios.create({
+  baseURL: `${getBaseUrl()}/com/v2/`,
+  // timeout: 3000,
+});
+
+// 공통 Request
+const handleRequestFullfilled = async (request: any) => {
+  if (!authStore.isLoggedIn) {
+    authStore.init();
+  }
+
+  // (request.headers as unknown) = {
+  //   Authorization: `jwt ${String(authStore.token)}`,
+  //   // Authorization: `jwt Q/aupDRJRa1klgevswkLSClrCGzvtfwGL1xfq20t5fZzA2/87YvQm/cXSD4kYw8vzu7m7bd4nZX9oJyvQOIv3kJF5R3KAjIW5Rik2K3qrJXKgLMES/kt/LyVw08suRlZ77MfSanHyW5jh1uydTRTKEP3cfFfADjglnN+JPNnhJg0s+rxNTOzh3FJ+t+cdjhrXpza3u74i2dFejqayvDKORHC+I1F1BSzU8NNUO1K57tfIg+LUc8T4EJZrJ331RK+WVTzVos4aoZqgPn2L2n7sA==`,
+  //   ...request.headers,
+  // };
+  if (authStore.token) {
+    // @ts-ignore
+    request.headers = {
+      "GO-AUTH": `${String(authStore.token)}`,
+      ...request.headers,
+    };
+  }
+
+  return request;
+};
+
+// 공통 Request - error
+const handleRequestReject = (e: unknown) => Promise.reject(e);
+
+export const handleResponseFullfilled = (
+  response: AxiosResponse<IResponse<unknown>>
+) => {
+  if (response.data.code && response.data.code !== "0000") {
+    /* eslint-disable no-throw-literal */
+    throw {
+      code: response?.data?.code,
+      message: response.data.message,
+      response,
+    };
+  }
+
+  return response;
+};
+
+interface IErrorResponse {
+  message: string;
+  [key: string]: unknown; // 오류 응답이 다른 프로퍼티를 포함할 수 있습니다.
+}
+
+export const handleResponseReject = (error: AxiosError) => {
+  if (
+    error.response &&
+    (error.response.data as IErrorResponse).message === "Signature has expired."
+  ) {
+    alert("로그인 시간이 만료되었습니다. 다시 로그인 해주세요");
+    localStorage.clear();
+    window.location.href = "/";
+    return;
+  }
+
+  // eslint-disable-next-line consistent-return
+  return Promise.reject(error);
+};
+
+const registerInterceptors = (instance: AxiosInstance) => {
+  instance.interceptors.request.use(
+    handleRequestFullfilled,
+    handleRequestReject
+  );
+  instance.interceptors.response.use(
+    handleResponseFullfilled,
+    handleResponseReject
+  );
+};
+
+registerInterceptors(CommonRequest);

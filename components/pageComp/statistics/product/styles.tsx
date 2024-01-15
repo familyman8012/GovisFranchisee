@@ -183,12 +183,27 @@ export const ProductSalesListContainer = styled.section`
 
   .product-item {
     display: flex;
-    flex-direction: column;
+    align-items: center;
+    width: 100%;
     padding: 0.5rem 0.5rem;
 
     &:not(:first-of-type) {
       border-top: 1px solid ${PALLETES["typo-5"]};
     }
+  }
+
+  .item-info {
+    .product-item-category {
+      display: block;
+      margin-top: 0.35rem;
+    }
+  }
+
+  .order-info {
+    margin-left: auto;
+    font-size: 12px;
+    letter-spacing: -0.02em;
+    font-weight: 500;
   }
 
   .product-item-name {
@@ -197,21 +212,6 @@ export const ProductSalesListContainer = styled.section`
 
   .product-item-order-count {
     font-size: 13px;
-    font-weight: 500;
-  }
-
-  .product-item-top,
-  .product-item-bottom {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-  }
-
-  .product-item-bottom {
-    margin-top: 0.35rem;
-    font-size: 12px;
-    letter-spacing: -0.02em;
-    color: ${PALLETES["typo-3"]};
     font-weight: 500;
   }
 `;

@@ -15,13 +15,15 @@ function GomarketLayout({ children }: Props) {
       <GoMarketWrap>
         <GoMarketMenu>
           <div className="inner">
-            <ul className="list">
-              {MenuArr.map((el: any, i) => (
-                <li className={`${i === 0 ? "on" : ""}`}>
-                  <Link href="/gomarket">{el}</Link>
-                </li>
-              ))}
-            </ul>
+            <div className="box_menu">
+              <ul className="list">
+                {MenuArr.map((el: any, i) => (
+                  <li className={`${i === 0 ? "on" : ""}`}>
+                    <Link href="/gomarket">{el}</Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
             <aside>
               <div className="ico-market-search" data-type="icon">
                 <span className="hiddenZoneV">검색</span>

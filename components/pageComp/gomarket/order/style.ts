@@ -119,7 +119,7 @@ export const OrderAddressWrap = styled.section`
   button {
     height: 51px;
     margin-left: 10px;
-    padding: 0 20px;
+    padding: 0 10px;
     color: #4053ff;
     font-size: 14px;
     border-radius: 6px;
@@ -178,7 +178,7 @@ export const OrderPayMethodWrap = styled.section`
     li {
       width: calc(50% - 5px);
       margin-bottom: 10px;
-      padding: 16px 16px;
+      padding: 16px 12px;
       border: 1px solid #ececec;
       border-radius: 6px;
       line-height: 16px;
@@ -205,6 +205,12 @@ export const PayBtn = styled.button`
   font-size: 18px;
   font-weight: bold;
   background: #000;
+  ${mq[0]} {
+    left: 0;
+    bottom: 0;
+    margin-bottom: 0;
+    padding: 18px 0;
+  }
 `;
 
 // 결제요청완료

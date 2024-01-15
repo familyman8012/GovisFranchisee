@@ -22,6 +22,10 @@ export const GomarketDetail = styled.div`
     max-width: 832px;
     padding: 160px 16px 0;
     margin: 0 auto;
+
+    ${mq[0]} {
+      padding-top: 50px;
+    }
   }
 `;
 
@@ -72,6 +76,15 @@ export const PaymentInfoWrap = styled.div`
     dt {
       width: 90px;
       font-weight: bold;
+    }
+  }
+
+  ${mq[0]} {
+    .price {
+      margin: 5px 0;
+    }
+    .delivery_fee {
+      margin: 10px 0 20px;
     }
   }
 

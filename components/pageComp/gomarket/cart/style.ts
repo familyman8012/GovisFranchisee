@@ -182,6 +182,7 @@ export const CartWrap = styled.div`
     margin-top: 40px;
 
     .btn_black {
+      max-width: 100%;
       margin-left: auto;
 
       ${mq[0]} {

@@ -295,6 +295,10 @@ const reset = css`
         border: 1px solid var(--color-lightGray);
         font-size: var(--size-formInput);
         -webkit-appearance: none;
+
+        &:focus {
+          border: 1px solid #4053ff;
+        }
       }
 
       &:last-child {
@@ -346,7 +350,8 @@ const reset = css`
 
   .box_btn {
     button {
-      min-width: 160px;
+      width: calc(50% - 10px);
+      max-width: 160px;
       min-height: 54px;
       white-space: nowrap;
       font-size: 14px;

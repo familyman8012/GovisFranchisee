@@ -34,6 +34,10 @@ export const GoMarketMenu = styled.div`
       margin-right: 15px;
       cursor: pointer;
 
+      ${mq[0]} {
+        margin-right: 10px;
+      }
+
       &.on a {
         color: var(--color-orange);
       }
@@ -67,10 +71,27 @@ export const GoMarketMenu = styled.div`
     }
   }
   ${mq[0]} {
-    font-size: 16px;
-    aside [class^="ico-market"],
-    .box_cart .txt_number {
-      font-size: 14px !important;
+    .inner {
+      padding: 20px 16px 5px;
+      border-top: 1px solid #ececec;
+      .box_menu {
+        overflow-x: auto;
+        width: calc(100vw - 150px);
+        padding-bottom: 15px;
+
+        .list {
+          width: max-content;
+        }
+      }
+
+      font-size: 16px;
+    }
+    aside {
+      width: 102px;
+      &[class^="ico-market"],
+      .box_cart .txt_number {
+        font-size: 14px !important;
+      }
     }
   }
 `;

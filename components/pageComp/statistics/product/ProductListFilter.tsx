@@ -14,20 +14,35 @@ import { Button } from "ComponentsFarm/elements/Button";
 
 import { ProductFilterForm, ProductListFilterContainer } from "./styles";
 import { Checkbox } from "./Checkbox";
+import { convertEnv } from "LibFarm/convertEnvironment";
 
 interface ProductListFilter {
   onSubmit: (params: IProductFilter) => void;
 }
 
 const ProductListFilter = ({ onSubmit }: ProductListFilter) => {
-  const { reset, register, watch, setValue, handleSubmit } = useForm<IProductFilter>({
-    defaultValues: {},
-  });
+  const env = convertEnv("product_category");
+  const { reset, register, watch, setValue, handleSubmit } =
+    useForm<IProductFilter>({
+      defaultValues: {},
+    });
   const [showFilter, setShowFilter] = useState(false);
   const [filterCount, setFilterCount] = useState<number>(0);
 
+  // const categories = useMemo(
+  //   () =>
+  //     Object.entries(PRODUCT_CATEGORIES).map(([key, val]) => ({
+  //       value: key,
+  //       ...val,
+  //     })),
+  //   []
+  // );
+
   const categories = useMemo(
-    () => Object.entries(PRODUCT_CATEGORIES).map(([key, val]) => ({ value: key, ...val })),
+    () =>
+      env.map((el: any) => {
+        return { label: el.label, value: String(el.value) };
+      }),
     []
   );
 
@@ -42,9 +57,15 @@ const ProductListFilter = ({ onSubmit }: ProductListFilter) => {
   const handleToggleCheck = useCallback(
     (val: any) => {
       if (selectedCategories.includes(val)) {
-        setValue("search_product_category", selectedCategories.filter((v) => val !== v).join(","));
+        setValue(
+          "search_product_category",
+          selectedCategories.filter((v) => val !== v).join(",")
+        );
       } else {
-        setValue("search_product_category", [...selectedCategories, val].join(","));
+        setValue(
+          "search_product_category",
+          [...selectedCategories, val].join(",")
+        );
       }
     },
     [selectedCategories]
@@ -74,23 +95,43 @@ const ProductListFilter = ({ onSubmit }: ProductListFilter) => {
       <h3 className="title">제품별 주문 현황</h3>
       <div className="right-area">
         {filterCount > 0 && (
-          <Button color={PALLETES["error-1"]} rightIcon={<XCircleFill />} size="sm" clear onClick={handleRequestReset}>
+          <Button
+            color={PALLETES["error-1"]}
+            rightIcon={<XCircleFill />}
+            size="sm"
+            clear
+            onClick={handleRequestReset}
+          >
             필터 조건 초기화
           </Button>
         )}
-        <Button color={PALLETES["black"]} leftIcon={<Filter />} size="sm" clear onClick={() => setShowFilter(true)}>
+        <Button
+          color={PALLETES["black"]}
+          leftIcon={<Filter />}
+          size="sm"
+          clear
+          onClick={() => setShowFilter(true)}
+        >
           필터
         </Button>
       </div>
 
-      <Modal open={showFilter} className="gv-modal" onClose={() => setShowFilter(false)}>
+      <Modal
+        open={showFilter}
+        className="gv-modal"
+        onClose={() => setShowFilter(false)}
+      >
         <ModalFooter>
           <ProductFilterForm>
             <div className="product-filter-item">
               <label htmlFor="product-search" className="product-filter-label">
                 제품명
               </label>
-              <input {...register("search_product_name")} type="text" className="product-filter-input" />
+              <input
+                {...register("search_product_name")}
+                type="text"
+                className="product-filter-input"
+              />
             </div>
             <div className="product-filter-item">
               <label htmlFor="product-search" className="product-filter-label">

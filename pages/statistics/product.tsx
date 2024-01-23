@@ -26,6 +26,7 @@ import ProductBarChart from "ComponentsFarm/pageComp/statistics/product/ProductB
 import ProductViewType from "ComponentsFarm/pageComp/statistics/product/ProductViewType";
 import ProductSalesList from "ComponentsFarm/pageComp/statistics/product/ProductSalesList";
 import ProductListFilter from "ComponentsFarm/pageComp/statistics/product/ProductListFilter";
+import { convertEnv } from "LibFarm/convertEnvironment";
 
 const yesterday = dayjs().add(-1, "day");
 
@@ -43,9 +44,14 @@ export default function ProductStatisticsPage() {
     search_dt_end: qs.get("search_dt_end") ?? yesterday.format("YYYY-MM-DD"),
   });
 
-  const productChartQuery = useQuery(["product-result-chart", params], () =>
-    ProductService.fetchProductSaleResult(params)
+  // const productChartQuery = useQuery(["product-result-chart", params], () =>
+  //   ProductService.fetchProductSaleResult(params)
+  // );
+
+  const pizzaChartQuery = useQuery(["pizza-result-chart", params], () =>
+    ProductService.fetchPizzaSaleResult(params)
   );
+
   const productListQuery = useQuery(
     ["product-result-list", params.search_dt_start, params.search_dt_end],
     () =>
@@ -54,6 +60,17 @@ export default function ProductStatisticsPage() {
         search_dt_end: params.search_dt_end,
       })
   );
+
+  const pizzaListQuery = useQuery(
+    ["pizza-result-list", params.search_dt_start, params.search_dt_end],
+    () =>
+      ProductService.fetchPizzaSaleList({
+        search_dt_start: params.search_dt_start,
+        search_dt_end: params.search_dt_end,
+      })
+  );
+
+  console.log("pizzaListQuery", pizzaListQuery);
 
   const handleChangeSearchDate = React.useCallback(
     ([search_dt_start, search_dt_end]: string[]) =>
@@ -81,8 +98,8 @@ export default function ProductStatisticsPage() {
             }
           />
           <ProductBarChart
-            data={productChartQuery.data?.list ?? []}
-            loading={productChartQuery.isLoading}
+            data={pizzaChartQuery.data?.list ?? []}
+            loading={pizzaChartQuery.isLoading}
             tickWidth={70}
           />
         </ContentCard>
@@ -90,8 +107,8 @@ export default function ProductStatisticsPage() {
           <ProductListFilter onSubmit={setFilterParams} />
           <ProductSalesList
             filterParams={filterParams}
-            loading={productListQuery.isLoading}
-            list={productListQuery?.data?.list ?? []}
+            loading={pizzaListQuery.isLoading}
+            list={pizzaListQuery?.data?.list ?? []}
           />
         </ContentCard>
       </PageContainer>

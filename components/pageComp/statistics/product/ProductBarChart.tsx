@@ -20,17 +20,20 @@ import { ListLoading } from "ComponentsFarm/elements/Loading";
 import { PRODUCT_CATEGORIES } from "./constants";
 
 import OverflowChartWrapper from "./OverflowChartWrapper";
-import { IProductResultChartItem } from "InterfaceFarm/Product";
+import {
+  IPizzaResultChartItem,
+  IProductResultChartItem,
+} from "InterfaceFarm/Product";
 import { EmptyView } from "ComponentsFarm/elements/EmptyView";
 
 interface ProductBarChartProps {
-  data: IProductResultChartItem[];
+  data: IPizzaResultChartItem[];
   loading?: boolean;
   tickWidth?: number;
 }
 
 interface ITooltipItem {
-  payload: IProductResultChartItem;
+  payload: IPizzaResultChartItem;
   dataKey: string;
   color: string;
   value: number;
@@ -45,29 +48,23 @@ const CustomTooltip = ({ active, payload }: any) => {
             <p
               className={`text-typo-1 weight-bold w-100 d-flex justify-content-between`}
             >
-              {item.payload?.display_label}
-              <span className="ps-3 text-typo-3 weight-bold">{`총 주문 수: ${item.value}`}</span>
+              {item.payload?.item_label}
+              <span className="ps-3 text-typo-3 weight-bold">{`총 주문 수: ${item.payload.total_value}`}</span>
             </p>
             <ul className="mt-1">
-              {item.payload.display_item
-                .sort((a, b) => b.order_count - a.order_count)
-                .map((displayItem) => {
-                  const category =
-                    PRODUCT_CATEGORIES[displayItem.product_category];
-                  return (
-                    <li
-                      key={displayItem.product_category}
-                      className={`mb-0 mt-0 weight-bold w-100 d-flex justify-content-between`}
-                    >
-                      {category.label}
-                      <span className="text-typo-3">{`${
-                        displayItem.order_count
-                      } (${Math.round(
-                        (displayItem.order_count / item.value) * 100
-                      )}%)`}</span>
-                    </li>
-                  );
-                })}
+              {item.payload.value_list.map((el) => {
+                return (
+                  <li
+                    key={el.value_key}
+                    className={`mb-0 mt-0 weight-bold w-100 d-flex justify-content-between`}
+                  >
+                    {el.value_label}
+                    <span className="text-typo-3">{`(${(
+                      Number(el.value / item.payload.total_value) * 100
+                    ).toFixed(1)}%)`}</span>
+                  </li>
+                );
+              })}
             </ul>
           </li>
         ))}
@@ -89,17 +86,14 @@ const ProductBarChart = ({
     [width, data, tickWidth]
   );
 
-  const chartData = useMemo(
-    () =>
-      data?.map((item) => ({
-        ...item,
-        total_count: item.display_item.reduce(
-          (tot, item) => tot + item.order_count,
-          0
-        ),
-      })) ?? [],
-    [data]
-  );
+  // const chartData = useMemo(
+  //   () =>
+  //     data?.map((item) => ({
+  //       ...item,
+  //       total_count: item.total_value,
+  //     })) ?? [],
+  //   [data]
+  // );
 
   const $tooltip = React.useCallback(
     (props: any) => <CustomTooltip {...props} />,
@@ -133,14 +127,14 @@ const ProductBarChart = ({
         height="100%"
         className={"chart-wrapper-bar__view"}
       >
-        <BarChart margin={{ top: 20, left: 0, right: 0 }} data={chartData}>
+        <BarChart margin={{ top: 20, left: 0, right: 0 }} data={data}>
           <Tooltip content={$tooltip} cursor={{ fill: PALLETES["typo-6"] }} />
           <XAxis
             tickLine={false}
             axisLine={{
               stroke: PALLETES["typo-4"],
             }}
-            dataKey="display_label"
+            dataKey="item_label"
             interval={0}
           />
           <Bar
@@ -151,7 +145,7 @@ const ProductBarChart = ({
               fill: PALLETES["typo-3"],
               position: "top",
             }}
-            dataKey={"total_count"}
+            dataKey={"total_value"}
             fill={PALLETES["p-orange-1"]}
           />
         </BarChart>

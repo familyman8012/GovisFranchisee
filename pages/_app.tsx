@@ -23,7 +23,9 @@ import "StyleFarm/index.scss";
 import "StyleFarm/icon.css";
 import { Global } from "@emotion/react";
 import reset from "ComponentsFarm/pageComp/gomarket/reset";
-import { authStore } from "src/mobx/store";
+import { EnvStore, authStore } from "src/mobx/store";
+import { fetchEnvironment } from "ApiFarm/environment";
+import useIsomorphicLayoutEffect from "HookFarm/useIsomorphicLayoutEffect";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -63,6 +65,18 @@ function MyApp({ Component, pageProps }: AppProps) {
     registerLocale("ko", ko);
     authStore.init();
     setLoadedStore(true);
+  }, []);
+
+  useIsomorphicLayoutEffect(() => {
+    const saveSessionEnvironment = async () => {
+      const environment = await fetchEnvironment();
+      sessionStorage.setItem("environment", JSON.stringify(environment));
+    };
+    if (!sessionStorage.getItem("environment")) {
+      saveSessionEnvironment();
+    }
+
+    EnvStore.init();
   }, []);
 
   return (

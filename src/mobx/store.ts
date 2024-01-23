@@ -1,7 +1,11 @@
-import { observable } from "mobx";
+import { action, makeObservable, observable } from "mobx";
 import { ILoginUserResponse } from "InterfaceFarm/auth";
 import { toast } from "react-toastify";
 import router from "next/router";
+import {
+  IEnvironmentRes,
+  IEnvironmentResItem,
+} from "InterfaceFarm/environment";
 
 const TOKEN_STORAGE_KEY = "FC_AUTH_TOKEN";
 const USER_STORAGE_KEY = "FC_USER_INFO";
@@ -183,3 +187,49 @@ export const authStore = observable<IAuthStore>({
 //   setAccountStoreInfo(String(data.store_id), String(data.store_name), String(data.store_token));
 // },
 // }
+
+class EnvironmentStore {
+  data: {
+    list: IEnvironmentResItem[];
+  } | null = null;
+
+  constructor() {
+    makeObservable(this, {
+      data: observable,
+      init: action,
+      getData: action,
+    });
+  }
+
+  init(): void {
+    if (typeof window !== "undefined" && window.sessionStorage) {
+      if (!this.data) {
+        this.data = JSON.parse(
+          String(sessionStorage.getItem("environment") ?? "null")
+        );
+      }
+    }
+  }
+
+  getData(reqData: { name: string }): IEnvironmentRes {
+    const keys = reqData.name?.split(",");
+
+    if (!this.data) {
+      this.init();
+    }
+
+    const result = {
+      list: keys.flatMap(
+        (key) =>
+          this.data?.list.filter(
+            (item: IEnvironmentResItem) => item.name === key
+          ) ?? []
+      ),
+    };
+
+    // 결과 객체 반환
+    return result;
+  }
+}
+
+export const EnvStore = new EnvironmentStore();

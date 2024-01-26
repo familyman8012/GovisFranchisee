@@ -1,0 +1,239 @@
+/* eslint-disable react/destructuring-assignment */
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
+import { css } from '@emotion/react';
+import styled from '@emotion/styled';
+import StoryLayout from '@ComponentFarm/modules/story_layout/StoryLayout';
+import { BarCharts } from './BarCharts';
+import { Progress } from './Progress';
+import ProgressBarChart from './ProgressBarChart';
+
+const meta: Meta = {
+  title: 'CHART/BarCharts',
+  tags: ['autodocs'],
+  args: {
+    TotalProps: {
+      props: ``,
+    },
+  },
+  parameters: {
+    docs: {
+      story: { inline: true }, // render the story in an iframe
+      canvas: { sourceState: 'shown' }, // start with the source open
+      source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
+      description: {
+        component: '![Alt text](/images/storybook/chart_desc.png)',
+      },
+    },
+  },
+};
+
+export default meta;
+
+interface Props {
+  darkMode: boolean;
+}
+
+const StoryBarChartsGroup: Story<Props> = args => {
+  const data = [
+    { name: '00시', value: 5000 },
+    { name: '01시', value: 5000 },
+    { name: '02시', value: 5000 },
+    { name: '03시', value: 5000 },
+    { name: '04시', value: 5000 },
+    { name: '05시', value: 5000 },
+    { name: '06시', value: 5000 },
+    { name: '07시', value: 5000 },
+    { name: '08시', value: 5000 },
+    { name: '09시', value: 5000 },
+    { name: '10시', value: 5000 },
+    { name: '11시', value: 5000 },
+    { name: '12시', value: 5000 },
+    { name: '13시', value: 5000 },
+    { name: '14시', value: 5000 },
+    { name: '15시', value: 5000 },
+    { name: '16시', value: 5000 },
+    { name: '17시', value: 5000 },
+    { name: '18시', value: 5000 },
+    { name: '19시', value: 5000 },
+    { name: '20시', value: 5000 },
+    { name: '21시', value: 5000 },
+    { name: '22시', value: 5000 },
+    { name: '23시', value: 5000 },
+  ];
+  return (
+    <StoryLayout
+      {...args}
+      customCss={css`
+        /* display: flex; */
+        & > div + div {
+          margin-top: 1rem; /* Corresponds to space-y-5 in Tailwind CSS */
+        }
+      `}
+    >
+      <div>
+        <BarCharts
+          chartData={data}
+          barSize={6}
+          tickCount={14}
+          domain={[0, (dataMax: number) => dataMax * 1.2]}
+          fill="var(--color-orange90)"
+        />
+      </div>
+    </StoryLayout>
+  );
+};
+export const Default = StoryBarChartsGroup.bind({});
+
+const StoryBarChartsGroup2: Story<Props> = args => {
+  const data = [
+    { name: '배달', value: 0.5, fill: '#FF4600' },
+    { name: '내점', value: -0.8, fill: '#2264E5' },
+    { name: '포장', value: 1.8, fill: '#FF4600' },
+  ];
+
+  return (
+    <StoryLayout
+      {...args}
+      customCss={css`
+        /* display: flex; */
+        & > div + div {
+          margin-top: 1rem; /* Corresponds to space-y-5 in Tailwind CSS */
+        }
+      `}
+    >
+      <div>
+        <BarCharts
+          chartData={data}
+          domain={[-2, 2]}
+          yTickFormatter={formatValue => formatValue.toFixed(1)}
+          isLabelList
+          LabelListFormatter={(value: number) =>
+            `${value > 0 ? '+' : ''}${(value * 100).toFixed(0)}%`
+          }
+        />
+      </div>
+    </StoryLayout>
+  );
+};
+export const BarIncreaseRate = StoryBarChartsGroup2.bind({});
+
+const StoryBarChartsGroup3: Story<Props> = args => {
+  const data3 = [
+    {
+      item_label: 'Category 1',
+      base_sales_count: 4000,
+      comparison_sales_count: 2400,
+    },
+    {
+      item_label: 'Category 2',
+      base_sales_count: 3000,
+      comparison_sales_count: 1398,
+    },
+    {
+      item_label: 'Category 3',
+      base_sales_count: 2000,
+      comparison_sales_count: 9800,
+    },
+    {
+      item_label: 'Category 4',
+      base_sales_count: 2780,
+      comparison_sales_count: 3908,
+    },
+  ];
+
+  return (
+    <StoryLayout
+      {...args}
+      customCss={css`
+        /* display: flex; */
+        & > div + div {
+          margin-top: 1rem; /* Corresponds to space-y-5 in Tailwind CSS */
+        }
+      `}
+    >
+      <div>
+        <BarCharts
+          type="diff"
+          chartData={data3}
+          tickCount={11}
+          isLegend
+          // diffFill={['#8884d8', '#82ca9d']}
+        />
+      </div>
+    </StoryLayout>
+  );
+};
+export const BarDiffChart = StoryBarChartsGroup3.bind({});
+
+const StoryBarChartsGroup4: Story<Props> = args => {
+  const data = [
+    {
+      name: '피자',
+      uv: 3054,
+      fill: '#ff672e',
+    },
+  ];
+
+  return (
+    <StoryLayout
+      {...args}
+      customCss={css`
+        /* display: flex; */
+        & > div + div {
+          margin-top: 1rem; /* Corresponds to space-y-5 in Tailwind CSS */
+        }
+      `}
+    >
+      <div style={{ height: 40 }}>
+        <ProgressBarChart chartData={data} />
+      </div>
+    </StoryLayout>
+  );
+};
+export const ProgressBar = StoryBarChartsGroup4.bind({});
+
+const StoryBarChartsGroup5: Story<Props> = args => {
+  const ProgressStatus = styled.div`
+    display: flex;
+    align-items: center;
+    height: 40rem;
+    color: var(--color-gray8);
+    font-size: 1.4rem;
+    font-weight: 600;
+    line-height: 120%;
+
+    .label {
+      width: 6.9rem;
+      margin-right: 1rem;
+    }
+
+    .txt_progress {
+      margin-left: 1rem;
+    }
+  `;
+
+  return (
+    <StoryLayout
+      {...args}
+      customCss={css`
+        /* display: flex; */
+        & > div + div {
+          margin-top: 1rem; /* Corresponds to space-y-5 in Tailwind CSS */
+        }
+      `}
+    >
+      <ProgressStatus>
+        <span className="label">제조수</span>
+        <Progress
+          width="31.4rem"
+          height="0.8rem"
+          color="var(--color-green30)"
+          progress="50%"
+        />
+        <span className="txt_progress">14%</span>
+      </ProgressStatus>
+    </StoryLayout>
+  );
+};
+export const ProgressBar2 = StoryBarChartsGroup5.bind({});

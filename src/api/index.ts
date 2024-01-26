@@ -80,6 +80,11 @@ export const CommonRequest = axios.create({
   // timeout: 3000,
 });
 
+export const BoRequest = axios.create({
+  baseURL: `${getBaseUrl()}/bo/v1/`,
+});
+export const BoV2Request = axios.create({ baseURL: `${getBaseUrl()}/bo/v2` });
+
 // 공통 Request
 const handleRequestFullfilled = async (request: any) => {
   if (!authStore.isLoggedIn) {
@@ -152,3 +157,5 @@ const registerInterceptors = (instance: AxiosInstance) => {
 };
 
 registerInterceptors(CommonRequest);
+registerInterceptors(BoRequest);
+registerInterceptors(BoV2Request);

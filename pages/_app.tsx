@@ -13,19 +13,21 @@ import {
 import { toast, ToastContainer } from "react-toastify";
 import { registerLocale } from "react-datepicker";
 import ko from "date-fns/locale/ko";
-
 import useErrorHandler from "HookFarm/useErrorHandler";
-
-import "react-toastify/dist/ReactToastify.css";
-/** @tui-calendar css */
-import "tui-calendar/dist/tui-calendar.css";
-import "StyleFarm/index.scss";
-import "StyleFarm/icon.css";
 import { Global } from "@emotion/react";
 import reset from "ComponentsFarm/pageComp/gomarket/reset";
 import { EnvStore, authStore } from "src/mobx/store";
 import { fetchEnvironment } from "ApiFarm/environment";
 import useIsomorphicLayoutEffect from "HookFarm/useIsomorphicLayoutEffect";
+import common from "@ComponentFarm/common";
+import "StyleFarm/index.scss";
+import "StyleFarm/icon.css";
+import "react-loading-skeleton/dist/skeleton.css";
+import "swiper/css";
+import "swiper/css/pagination";
+import "react-toastify/dist/ReactToastify.css";
+/** @tui-calendar css */
+import "tui-calendar/dist/tui-calendar.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -61,6 +63,17 @@ function MyApp({ Component, pageProps }: AppProps) {
     })
   );
 
+  // useIsomorphicLayoutEffect(() => {
+  //   const loadStyle = async () => {
+  //     if (!router.asPath.includes("test")) {
+  //       //@ts-ignore
+  //       await import("StyleFarm/index.scss");
+  //     }
+  //   };
+
+  //   loadStyle();
+  // }, [router.asPath]);
+
   useEffect(() => {
     registerLocale("ko", ko);
     authStore.init();
@@ -91,7 +104,8 @@ function MyApp({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/img/favicon.ico" />
       </Head>
       <QueryClientProvider client={queryClient}>
-        {router.asPath.includes("gomarket") && <Global styles={reset} />}
+        {/* {router.asPath.includes("gomarket") && <Global styles={reset} />} */}
+        {router.asPath.includes("aistt") && <Global styles={common} />}
         <Hydrate state={pageProps.dehydratedState}>
           <ToastContainer
             position="top-right"

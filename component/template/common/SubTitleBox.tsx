@@ -4,11 +4,16 @@ import Skeleton from "react-loading-skeleton";
 import styled from "@emotion/styled";
 import { mq } from "@ComponentFarm/common";
 
-export const SubTitleBoxWrap = styled.div<{ hideUnderline?: boolean }>`
+export const SubTitleBoxWrap = styled.div<{
+  hideUnderline?: boolean;
+  type?: string;
+}>`
   display: flex;
   align-items: center;
   width: 100%;
-  margin: 3.2rem 0;
+  margin: 6.4rem 0 3.2rem;
+
+  ${(props) => `${props.type === "fst" && "margin-top: 3.2rem;"}`};
 
   h2 {
     margin-bottom: 0;
@@ -19,7 +24,8 @@ export const SubTitleBoxWrap = styled.div<{ hideUnderline?: boolean }>`
   }
 
   ${mq[0]} {
-    margin: 3.2rem 0 2.4rem;
+    margin: 6.4rem 0 2.4rem;
+    ${(props) => `${props.type === "fst" && "margin-top: 3.2rem;"}`};
 
     h2 {
       color: var(--color-neutral10);
@@ -83,7 +89,10 @@ export const SubTitleBoxWrap = styled.div<{ hideUnderline?: boolean }>`
   }
 `;
 
+type SubTitleType = "fst";
+
 interface ISubTitleBoxProps {
+  type?: SubTitleType;
   title?: string;
   desc?: string;
   moreLink?: string;
@@ -92,6 +101,7 @@ interface ISubTitleBoxProps {
 }
 
 const SubTitleBox: FC<ISubTitleBoxProps> = ({
+  type,
   title,
   desc,
   moreLink,
@@ -99,7 +109,7 @@ const SubTitleBox: FC<ISubTitleBoxProps> = ({
   descBottom,
 }) => {
   return (
-    <SubTitleBoxWrap hideUnderline={hideUnderline}>
+    <SubTitleBoxWrap hideUnderline={hideUnderline} type={type}>
       <div>
         {title && <h2>{title}</h2>}
         {descBottom && (

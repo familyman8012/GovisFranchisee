@@ -56,7 +56,7 @@ const AisttQualityState = () => {
           activeTabIndex={activeTabIndex}
           onTabChange={(index) => hanldeTabMove(index)}
         />
-        <SubTitleBox title="전체 현황" />
+        <SubTitleBox type="fst" title="전체 현황" />
         <FilterTableForm
           params={params}
           updateParams={updateParams}

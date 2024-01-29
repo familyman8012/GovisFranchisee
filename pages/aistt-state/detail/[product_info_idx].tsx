@@ -16,6 +16,8 @@ import { SummaryInfoTable } from "@ComponentFarm/template/aistt/state/detail/Sum
 import StateInfoBox from "@ComponentFarm/template/common/StateInfoBox";
 import SubTitleBox from "@ComponentFarm/template/common/SubTitleBox";
 import Layout from "ComponentsFarm/layouts";
+import { InfoArea } from "@ComponentFarm/template/aistt/common/style";
+import { css } from "@emotion/react";
 
 export const DetailInfoWrap = styled.div`
   padding: 0 2rem;
@@ -52,22 +54,6 @@ export const Detail = () => {
 
   return (
     <Layout>
-      <TitleArea
-        title="현황"
-        BtnBox={
-          <Button
-            variant="gostSecondary"
-            onClick={() =>
-              router.push({
-                pathname: `/aistt-state/quality`,
-                query: rest,
-              })
-            }
-          >
-            이전
-          </Button>
-        }
-      />
       <Tabs
         id="aistt-detail"
         tabs={aisttDetailInfo}
@@ -75,23 +61,31 @@ export const Detail = () => {
         onTabChange={(index) => hanldeTabMove(index)}
       />
       <DetailInfoWrap>
-        <SubTitleBox title="내역" hideUnderline />
+        <SubTitleBox type="fst" title="내역" hideUnderline />
         <SummaryInfoTable isLoading={isLoading} data={data} />
         <SubTitleBox title="지표 하이라이트" hideUnderline />
-        <StateInfoBox
-          items={[
-            {
-              title: "총 제조 수",
-              txt1: String(data?.highlight.manufacturing_count),
-              txt2: "개",
-            },
-            {
-              title: "평균 제조 점수",
-              txt1: String(data?.highlight.converted_score_avarage),
-              txt2: "점",
-            },
-          ]}
-        />
+        <InfoArea
+          css={css`
+            grid-template-columns: repeat(2, 1fr);
+          `}
+        >
+          <dl>
+            <dt>총 제조 수</dt>
+            <dd>
+              <span className="num">{data?.highlight.manufacturing_count}</span>
+              <span className="txt">건</span>
+            </dd>
+          </dl>
+          <dl>
+            <dt>평균 제조 점수</dt>
+            <dd>
+              <span className="num">
+                {data?.highlight.converted_score_avarage}
+              </span>
+              <span className="txt">점</span>
+            </dd>
+          </dl>
+        </InfoArea>
         <SubTitleBox
           title={`주요 개선 필요 요인 : 총 ${totalFrequencyCount ?? "-"}건`}
           hideUnderline

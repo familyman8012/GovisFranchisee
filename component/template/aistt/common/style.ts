@@ -3,7 +3,6 @@ import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 
 export const AreaManufacturingQuality = styled.div`
-  margin-bottom: 6.4rem;
   padding: 3.2rem;
   border-radius: 0.8rem;
   border: 1px solid var(--color-neutral90);
@@ -298,6 +297,56 @@ export const MobileTableSty = css`
       &:last-of-type {
         padding-bottom: 1.6rem;
       }
+    }
+  }
+`;
+
+export const InfoArea = styled.div`
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  margin-bottom: 3.2rem;
+  border: 1px solid var(--color-neutral90);
+  border-radius: 0.8rem;
+  background: #fff;
+
+  ${mq[0]} {
+    margin-bottom: 1.6rem;
+  }
+
+  dl {
+    padding: 2.4rem 0;
+    &:nth-of-type(2) {
+      border-left: 1px solid var(--color-neutral90);
+    }
+    .center {
+      border-left: 1px solid var(--color-neutral90);
+      border-right: 1px solid var(--color-neutral90);
+      background: var(--color-blue_gray10);
+    }
+  }
+  dt {
+    margin-bottom: 0.8rem;
+    color: var(--color-neutral20);
+    font-size: 1.4rem;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 120%;
+    text-align: center;
+  }
+  dd {
+    color: var(--color-neutral-10, #181818);
+    font-family: Pretendard;
+    font-size: 2.4rem;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 110%; /* 2.64rem */
+    text-align: center;
+
+    .txt {
+      margin-left: 0.8rem;
+      color: var(--color-neutral40);
+      font-size: 1.4rem;
+      font-weight: 400;
     }
   }
 `;

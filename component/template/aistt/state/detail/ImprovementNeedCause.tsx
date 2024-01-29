@@ -7,6 +7,7 @@ import { IDetailStateRes } from "InterfaceFarm/aistt";
 import { Badge } from "@ComponentFarm/atom/Badge/Badge";
 import Empty from "@ComponentFarm/atom/Empty/Empty";
 import { AreaBox } from "@ComponentFarm/template/common/AreaBox";
+import { mq } from "@ComponentFarm/common";
 
 export const ImprovementNeedCauseWrap = styled.div`
   display: grid;
@@ -21,7 +22,13 @@ export const ImprovementNeedCauseWrap = styled.div`
       order: 2;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       margin-bottom: 1.2rem;
+      padding: 2.4rem 3.2rem;
+      border-radius: 0rem 0rem 0.8rem 0.8rem;
+      border-top: none;
+      border: 1px solid var(--color-neutral90);
+      background: #fff;
 
       span[aria-busy="true"] {
         width: 100%;
@@ -40,12 +47,24 @@ export const ImprovementNeedCauseWrap = styled.div`
       order: 1;
       overflow: hidden;
       width: 100%;
-      margin-bottom: 2.4rem;
-      border-radius: 0.8rem;
+      border-radius: 0.8rem 0.8rem 0rem 0rem;
 
       img {
         width: 100%;
-        border-radius: 0.8rem;
+        border-radius: 0.8rem 0.8rem 0rem 0rem;
+      }
+    }
+  }
+
+  ${mq[0]} {
+    display: block;
+
+    dl dt {
+      padding: 2.4rem 0rem;
+      justify-content: space-around;
+
+      .txt {
+        font-size: 1.4rem;
       }
     }
   }

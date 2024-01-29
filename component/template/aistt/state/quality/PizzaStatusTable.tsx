@@ -15,51 +15,10 @@ import { TableSty1 } from "@ComponentFarm/template/common/table/TableSty";
 import { QueryParams } from "HookFarm/useQueryParams";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 import { mq } from "@ComponentFarm/common";
-import { MobileTableSty } from "../../common/style";
+import { InfoArea, MobileTableSty } from "../../common/style";
 
 const PizzaStatusTableWrap = styled.div`
   width: 100%;
-
-  .area_info {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-bottom: 3.2rem;
-    border: 1px solid var(--color-neutral90);
-    border-radius: 0.8rem;
-    background: #fff;
-
-    ${mq[0]} {
-      margin-bottom: 1.6rem;
-    }
-
-    dl {
-      padding: 2.4rem 0;
-      &:nth-of-type(2) {
-        border-left: 1px solid var(--color-neutral90);
-        border-right: 1px solid var(--color-neutral90);
-        background: var(--color-blue_gray10);
-      }
-    }
-    dt {
-      margin-bottom: 0.8rem;
-      color: var(--color-neutral20);
-      font-size: 1.4rem;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 120%;
-      text-align: center;
-    }
-    dd {
-      color: var(--color-neutral-10, #181818);
-      font-family: Pretendard;
-      font-size: 2.4rem;
-      font-style: normal;
-      font-weight: 700;
-      line-height: 110%; /* 2.64rem */
-      text-align: center;
-    }
-  }
-
   .area_table {
     overflow: hidden;
     border: 1px solid var(--color-neutral90);
@@ -184,12 +143,12 @@ export const PizzaStatusTable = ({ params }: { params: QueryParams }) => {
 
   return (
     <PizzaStatusTableWrap>
-      <div className="area_info">
+      <InfoArea>
         <dl>
           <dt>평균 점수</dt>
           <dd>{data?.summary.converted_score_avarage_total}</dd>
         </dl>
-        <dl>
+        <dl className="center">
           <dt>총 메뉴 수</dt>
           <dd>{data?.summary.product_count}</dd>
         </dl>
@@ -197,7 +156,7 @@ export const PizzaStatusTable = ({ params }: { params: QueryParams }) => {
           <dt>총 제조 수</dt>
           <dd>{data?.summary.manufacturing_count_total.toLocaleString()}</dd>
         </dl>
-      </div>
+      </InfoArea>
       <div className="area_table">
         <TableSty1 css={tablePageSty}>
           <colgroup>

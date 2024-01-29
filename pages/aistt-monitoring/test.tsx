@@ -1,18 +1,18 @@
-import React from 'react';
-import dynamic from 'next/dynamic';
-import styled from '@emotion/styled';
-import FqsVideo from '@ComponentFarm/template/aistt/common/FqsVideo';
-import type { VideoTimeDiff } from '@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator';
+import React from "react";
+import dynamic from "next/dynamic";
+import styled from "@emotion/styled";
+import FqsVideo from "@ComponentFarm/template/aistt/common/FqsVideo";
+import type { VideoTimeDiff } from "@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator";
 
 const VideoTimeDiffCalculator = dynamic(
-  () => import('@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator'),
+  () => import("@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator"),
   {
     ssr: false,
   }
 );
 
 const src =
-  'https://dev-govis-ai.s3.ap-northeast-2.amazonaws.com/cctv/2024/01/02/cctv_11_20240102120000_20240102130000_dev.mp4';
+  "https://dev-govis-ai.s3.ap-northeast-2.amazonaws.com/cctv/2024/01/02/cctv_11_20240102120000_20240102130000_dev.mp4";
 
 const MonitoringPageWrap = styled.div`
   button {
@@ -40,7 +40,7 @@ const AisttMonitoringPage = () => {
   const [data, setData] = React.useState<VideoTimeDiff[]>([]);
 
   React.useLayoutEffect(() => {
-    videoRef.current?.addEventListener('loadedmetadata', () => {
+    videoRef.current?.addEventListener("loadedmetadata", () => {
       setDuration(videoRef.current?.duration ?? 0);
     });
   }, [videoRef.current, src, data, ocrLoading]);
@@ -66,7 +66,7 @@ const AisttMonitoringPage = () => {
     let closestSmaller: VideoTimeDiff | undefined;
     let closestLarger: VideoTimeDiff | undefined;
 
-    data.forEach(entry => {
+    data.forEach((entry) => {
       if (
         entry.videoTime <= time &&
         (!closestSmaller || entry.videoTime > closestSmaller.videoTime)
@@ -105,8 +105,9 @@ const AisttMonitoringPage = () => {
       {JSON.stringify(data)}
       <VideoTimeDiffCalculator
         videoSrc={src}
+        frameCount={1}
         debug
-        onLoaded={loadData => {
+        onLoaded={(loadData) => {
           setData(loadData);
           setOcrLoading(false);
         }}
@@ -118,7 +119,7 @@ const AisttMonitoringPage = () => {
         crossOrigin="anonymous"
       />
       <ul>
-        {videoTimes.map(time => (
+        {videoTimes.map((time) => (
           <li key={time}>
             <button
               type="button"

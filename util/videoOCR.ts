@@ -1,24 +1,27 @@
-import dayjs from 'dayjs';
-import { createWorker, createScheduler } from 'tesseract.js';
+import dayjs from "dayjs";
+import { createWorker, createScheduler } from "tesseract.js";
 
 const scheduler = createScheduler();
-const newWorker = createWorker('eng');
-const newWorker2 = createWorker('eng');
+const newWorker = createWorker("eng");
+const newWorker2 = createWorker("eng");
 
-newWorker.then(worker => scheduler.addWorker(worker));
-newWorker2.then(worker => scheduler.addWorker(worker));
+newWorker.then((worker) => scheduler.addWorker(worker));
+newWorker2.then((worker) => scheduler.addWorker(worker));
 
 /**
  * 비디오의 currentTime을 수정한 후, 프레임이 변경될 때까지 대기합니다.
  * @param video - HTMLVideoElement입니다.
  * @returns 프레임이 변경되면 해결되는 프로미스 또는 오류 발생 시 거부되는 프로미스입니다.
  */
-const waitChangeFrame = (video: HTMLVideoElement) =>
-  new Promise((resolve, reject) => {
+const waitChangeFrame = (time: number, video: HTMLVideoElement) => {
+  video.currentTime = Math.min(time, video.duration);
+
+  return new Promise((resolve, reject) => {
     video.onseeked = () => requestAnimationFrame(resolve);
     video.onended = () => requestAnimationFrame(resolve);
     video.onerror = reject;
   });
+};
 
 function thresholdFilter(pixels: Uint8ClampedArray, level = 0.5) {
   const thresh = Math.floor(level * 255);
@@ -51,13 +54,12 @@ export const getVideoFrame = async (
   video: HTMLVideoElement,
   canvas: HTMLCanvasElement
 ) => {
-  const ctx = canvas?.getContext('2d', {
+  const ctx = canvas?.getContext("2d", {
     willReadFrequently: true,
   });
   if (!ctx) return null;
 
-  video.currentTime = Math.min(time, video.duration);
-  await waitChangeFrame(video);
+  await waitChangeFrame(time, video);
 
   ctx.drawImage(
     video,
@@ -92,10 +94,18 @@ export const getTimeWithOCR = async (
   time: number,
   duration: number
 ) => {
-  const ret = await scheduler.addJob('recognize', dataURL);
-  const timeText = ret.data?.text?.trim() ?? '';
+  const allSettled = await Promise.allSettled([newWorker, newWorker2]);
+
+  // loaded worker가 없는 경우, null을 반환합니다.
+  if (allSettled.every((promise) => promise.status === "rejected")) {
+    return null;
+  }
+
+  const ret = await scheduler.addJob("recognize", dataURL);
+  const timeText = ret.data?.text?.trim() ?? "";
 
   const ocrDate = dayjs(`1970-01-01 ${timeText}`);
+
   // 시간이 다음시간 0분인 경우, 1시간을 더해줍니다.
   const timeSecond =
     time + 15 >= duration && ocrDate.minute() < 6

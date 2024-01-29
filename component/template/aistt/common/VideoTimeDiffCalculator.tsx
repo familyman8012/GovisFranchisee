@@ -1,9 +1,9 @@
 /**
  * 비디오 프레임 간의 시간 차이를 OCR을 사용하여 계산합니다.
  */
-import React from 'react';
-import styled from '@emotion/styled';
-import { getTimeWithOCR, getVideoFrame } from '@UtilFarm/videoOCR';
+import React from "react";
+import styled from "@emotion/styled";
+import { getTimeWithOCR, getVideoFrame } from "@UtilFarm/videoOCR";
 
 export type VideoTimeDiff = {
   time: number;
@@ -12,6 +12,7 @@ export type VideoTimeDiff = {
 };
 
 interface Props {
+  frameCount?: number;
   videoSrc?: string;
   debug?: boolean;
   onLoaded: (data: VideoTimeDiff[]) => void;
@@ -36,15 +37,16 @@ const VideoTimeDiffWrap = styled.div`
   }
 `;
 
-const FRAME_COUNT = 4 as const;
+const DEFAULT_FRAME_COUNT = 4 as const;
 
 async function* frameAsyncIterable(
   totalDuration: number,
   video: HTMLVideoElement,
-  canvas: HTMLCanvasElement
+  canvas: HTMLCanvasElement,
+  frameCount: number
 ) {
-  const cycle = totalDuration / FRAME_COUNT;
-  let i = FRAME_COUNT;
+  const cycle = totalDuration / frameCount;
+  let i = frameCount;
 
   while (i >= 0) {
     // eslint-disable-next-line no-await-in-loop
@@ -58,18 +60,29 @@ async function* frameAsyncIterable(
 const getFrameListByDuration = async (
   totalDuration: number,
   video: HTMLVideoElement,
-  canvas: HTMLCanvasElement
+  canvas: HTMLCanvasElement,
+  frameCount: number
 ) => {
   const arr = [];
   // eslint-disable-next-line no-restricted-syntax
-  for await (const data of frameAsyncIterable(totalDuration, video, canvas)) {
+  for await (const data of frameAsyncIterable(
+    totalDuration,
+    video,
+    canvas,
+    frameCount
+  )) {
     arr.push(data);
   }
 
   return arr;
 };
 
-const VideoTimeDiffCalculator = ({ videoSrc, debug, onLoaded }: Props) => {
+const VideoTimeDiffCalculator = ({
+  videoSrc,
+  frameCount = DEFAULT_FRAME_COUNT,
+  debug,
+  onLoaded,
+}: Props) => {
   const ref = React.useRef<HTMLVideoElement>(null);
   const canvasRef = React.useRef<HTMLCanvasElement>(null);
 
@@ -86,18 +99,19 @@ const VideoTimeDiffCalculator = ({ videoSrc, debug, onLoaded }: Props) => {
     const frameList = await getFrameListByDuration(
       video.duration,
       video,
-      canvas
+      canvas,
+      frameCount
     );
 
     const timeDiffInfoList = await Promise.all(
-      frameList.map(async data => {
+      frameList.map(async (data) => {
         const timeSecond = await getTimeWithOCR(
-          data?.dataURL ?? '',
+          data?.dataURL ?? "",
           data.time,
           video.duration
         );
 
-        if (typeof timeSecond !== 'number') return null;
+        if (typeof timeSecond !== "number") return null;
 
         return {
           time: data.time,
@@ -105,15 +119,16 @@ const VideoTimeDiffCalculator = ({ videoSrc, debug, onLoaded }: Props) => {
           diff: timeSecond - data.time,
         };
       })
-    ).catch(error => console.error(error));
+    ).catch((error) => console.error(error));
 
     onLoaded(
-      (timeDiffInfoList?.filter(item => item !== null) ?? []) as VideoTimeDiff[]
+      (timeDiffInfoList?.filter((item) => item !== null) ??
+        []) as VideoTimeDiff[]
     );
-  }, [onLoaded]);
+  }, [onLoaded, frameCount]);
 
   return (
-    <VideoTimeDiffWrap className={debug ? 'debug' : ''}>
+    <VideoTimeDiffWrap className={debug ? "debug" : ""}>
       <video
         ref={ref}
         src={videoSrc}

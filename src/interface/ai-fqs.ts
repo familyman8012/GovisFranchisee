@@ -184,16 +184,13 @@ export interface IFqsStoreCameraVideoList {
 }
 
 export type FqsStoreInfoParams = Partial<
-  Omit<IFqsStoreInfoResponse, 'info'>
+  Omit<IFqsStoreInfoResponse, "info">
 > & {
   store_idx: number | string;
-  info: Omit<IFqsStoreInfoResponse['info'], 'store_name'>;
+  info: Omit<IFqsStoreInfoResponse["info"], "store_name">;
 };
 
 export interface IFqsMonitoringVideoInfo {
-  record_date: string;
-  record_count: number;
-  video_length_sum: number;
   store_stt_cctv_idx: number;
   record_dt: string;
   record_finish_dt: string;

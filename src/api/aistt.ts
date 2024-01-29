@@ -35,7 +35,7 @@ import {
   IimprovementStatusRes,
 } from "InterfaceFarm/aistt";
 import { QueryParams } from "HookFarm/useQueryParams";
-import { BoV2Request } from ".";
+import AxiosUtil, { BoV2Request } from ".";
 
 // 제품 분석
 export const fetchInspectionList = (params: QueryParams) => {
@@ -321,74 +321,52 @@ export const fetchReportMailSendList = async ({
 };
 
 // 매장 모니터링
-export const fetchMonitoringStoreList = (params: QueryParams) => {
-  return BoV2Request.get<IResponse<IFqsStoreDeviceListResponse>>(
-    `/aifqs/monitoring/store/list`,
-    { params }
-  ).then((res) => res.data.data);
-};
-
-export const fetchMonitoringInspectionList = (params: QueryParams) => {
-  return BoV2Request.get<IResponse<IFqsInspectionListResponse>>(
-    "/aifqs/monitoring/product/manufacturing/list",
-    { params }
-  ).then((res) => res.data.data);
-};
-
 export const fetchMonitoringInspectionInfo = (inspection_info_idx: number) => {
   return BoV2Request.get<IResponse<IFqsInspectionInfo>>(
     `/aifqs/monitoring/product/manufacturing/info/${inspection_info_idx}`
   ).then((res) => res.data.data);
 };
 
-export const fetchMonitoringStoreRecordList = (store_idx: number | string) => {
-  return BoV2Request.get<
+export const fetchMonitoringStoreRecordList = () => {
+  return AxiosUtil.get<
     IResponse<{
-      info: {
-        store_idx: number;
-        store_name: string;
-      };
       list: {
         record_date: string;
         record_count: number;
         video_length_sum: number;
       }[];
     }>
-  >(`/aifqs/monitoring/table/record/${store_idx}`).then((res) => res.data.data);
+  >(`/fc/v2/aifqs/monitoring/table/record`).then((res) => res.data.data);
 };
 
 export const fetchMonitoringStoreVideoList = ({
-  store_idx,
   record_date,
 }: {
-  store_idx: number | string;
   record_date: string;
 }) => {
-  return BoV2Request.get<
+  return AxiosUtil.get<
     IResponse<{
       list: IFqsMonitoringVideoInfo[];
     }>
-  >(`/aifqs/monitoring/table/record/${store_idx}/list/${record_date}`).then(
+  >(`/fc/v2/aifqs/monitoring/table/record/list/${record_date}`).then(
     (res) => res.data.data
   );
 };
 
 export const fetchMonitoringStoreProductList = ({
-  store_idx,
-  record_date,
   store_stt_cctv_idx,
+  record_date,
 }: {
-  store_idx: number | string;
-  record_date: string;
   store_stt_cctv_idx: number;
+  record_date: string;
 }) => {
-  return BoV2Request.get<
+  return AxiosUtil.get<
     IResponse<{
       total_count: number;
       list: IFqsMonitoringMakeHistory[];
     }>
   >(
-    `/aifqs/monitoring/table/record/${store_idx}/list/${record_date}/${store_stt_cctv_idx}/inspection`,
+    `/fc/v2/aifqs/monitoring/table/record/list/${record_date}/${store_stt_cctv_idx}/inspection`,
     {
       params: {
         current_num: 1,

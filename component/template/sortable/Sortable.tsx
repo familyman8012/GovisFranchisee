@@ -1,19 +1,19 @@
-import React from 'react';
-import { DndContext, closestCenter, DndContextProps } from '@dnd-kit/core';
+import React from "react";
+import { DndContext, closestCenter, DndContextProps } from "@dnd-kit/core";
 import {
   restrictToVerticalAxis,
   restrictToFirstScrollableAncestor,
   restrictToParentElement,
-} from '@dnd-kit/modifiers';
-import { SortableContext } from '@dnd-kit/sortable';
-import { Table, TableWrap } from '@ComponentFarm/common';
+} from "@dnd-kit/modifiers";
+import { SortableContext } from "@dnd-kit/sortable";
+import { Table, TableWrap } from "@ComponentFarm/common";
 
 type UniqueIdentifier = string | number;
 
 interface Props
   extends Pick<
     DndContextProps,
-    'onDragCancel' | 'onDragEnd' | 'onDragMove' | 'onDragOver' | 'onDragStart'
+    "onDragCancel" | "onDragEnd" | "onDragMove" | "onDragOver" | "onDragStart"
   > {
   caption?: React.ReactNode;
   cols?: React.ReactNode;

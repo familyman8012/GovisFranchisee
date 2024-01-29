@@ -69,13 +69,11 @@ const MonitoringVideoViewStyle = styled.div`
 `;
 
 interface MonitoringVideoViewProps {
-  storeIdx: number | string;
   activeDate: string;
   videoInfo: IFqsMonitoringVideoInfo;
 }
 
 const MonitoringVideoView = ({
-  storeIdx,
   activeDate,
   videoInfo,
 }: MonitoringVideoViewProps) => {
@@ -93,13 +91,11 @@ const MonitoringVideoView = ({
   const { data } = useQuery(
     [
       "aistt-monitoring-time-products",
-      storeIdx,
       activeDate,
       videoInfo.store_stt_cctv_idx,
     ],
     () =>
       fetchMonitoringStoreProductList({
-        store_idx: storeIdx,
         record_date: activeDate,
         store_stt_cctv_idx: videoInfo.store_stt_cctv_idx,
       })
@@ -176,6 +172,7 @@ const MonitoringVideoView = ({
           />
           <VideoTimeDiffCalculator
             videoSrc={videoInfo.cctv_video_url}
+            frameCount={1}
             onLoaded={(diffList) => {
               setIsVideoLoaded(true);
               setTimeDiffList(diffList);
@@ -196,9 +193,9 @@ const MonitoringVideoView = ({
                 data={item}
                 active={item.manufacture_dt === makingTime}
                 onClickAnalysis={() => {
-                  router.push(
-                    `/aistt-monitoring/${storeIdx}/analysis/${item.inspection_info_idx}`
-                  );
+                  // router.push(
+                  //   `/aistt-monitoring/${storeIdx}/analysis/${item.inspection_info_idx}`
+                  // );
                 }}
                 onClickItem={(clickItem) => {
                   router.replace(

@@ -71,7 +71,6 @@ const PizzaInfo = styled.dl`
         .link_list {
           width: 8.6rem;
           margin-left: auto;
-          padding: 1.2rem 1.6rem;
         }
 
         .product_name {

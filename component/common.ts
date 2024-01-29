@@ -725,7 +725,14 @@ export const Table = styled.table`
 
   td {
     min-height: 4.9rem;
-    border-top: 1px solid var(--color-neutral90);
+
+    border-bottom: 1px solid var(--color-neutral90);
+
+    dl {
+      dt {
+        display: none;
+      }
+    }
 
     span[aria-busy="true"] {
       display: block;
@@ -740,7 +747,7 @@ export const Table = styled.table`
 
   &.basic {
     width: 100%;
-    background-color: var(--color-gray1);
+
     tr:not(.empty) {
       &:hover {
         cursor: pointer;
@@ -763,7 +770,7 @@ export const Table = styled.table`
     td {
       padding: 1.2rem 0 1.2rem 2rem;
       color: var(--color-neutral10);
-
+      background-color: var(--color-gray1);
       &.code {
         color: var(--color-blue60);
       }

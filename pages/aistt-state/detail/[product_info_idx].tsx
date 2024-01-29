@@ -53,7 +53,13 @@ export const Detail = () => {
   );
 
   return (
-    <Layout>
+    <Layout
+      css={css`
+        @media (min-width: 768px) and (max-width: 1200px) {
+          max-width: 100%;
+        }
+      `}
+    >
       <Tabs
         id="aistt-detail"
         tabs={aisttDetailInfo}

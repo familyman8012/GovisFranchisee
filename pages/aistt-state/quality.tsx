@@ -6,6 +6,7 @@ import { useQuery } from "react-query";
 import {
   fetchManufacturingQuality,
   fetchManufacturingTime,
+  fetchPizzaStatus,
 } from "ApiFarm/aistt";
 import { IAisttStateReq } from "InterfaceFarm/aistt";
 import { Tabs } from "@ComponentFarm/atom/Tab/Tab";
@@ -20,6 +21,12 @@ import { ContentArea } from "@ComponentFarm/common";
 import { AreaManufacturingQuality } from "@ComponentFarm/template/aistt/common/style";
 import { ManufacturingQualityList } from "@ComponentFarm/template/aistt/common/ManufacturingQuality";
 import { css } from "@emotion/react";
+
+const ManufacturingQualityAddText = css`
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+`;
 
 const AisttQualityState = () => {
   const router = useRouter();
@@ -39,6 +46,11 @@ const AisttQualityState = () => {
   const { data: manufacturingQualityData } = useQuery(
     ["manufacturingQualityList", rest],
     () => fetchManufacturingQuality(params as IAisttStateReq)
+  );
+
+  const { data: pizzaStatusListData } = useQuery(
+    ["pizzaStatusList", params],
+    () => fetchPizzaStatus(params as IAisttStateReq)
   );
 
   return (
@@ -62,7 +74,16 @@ const AisttQualityState = () => {
           updateParams={updateParams}
           resetParams={resetParams}
         />
-        <SubTitleBox title="점수대 별 제조 현황" hideUnderline />
+        <SubTitleBox
+          title="점수대 별 제조 현황"
+          hideUnderline
+          addText={
+            <dl className="add_text">
+              <dt>총 제조 수</dt>
+              <dd>{pizzaStatusListData?.summary.manufacturing_count_total}</dd>
+            </dl>
+          }
+        />
         <AreaManufacturingQuality>
           <ManufacturingQualityList
             type="state"
@@ -72,7 +93,7 @@ const AisttQualityState = () => {
           />
         </AreaManufacturingQuality>
         <SubTitleBox title="피자 종류 별 현황" hideUnderline />
-        <PizzaStatusTable params={params} />
+        <PizzaStatusTable data={pizzaStatusListData} params={params} />
       </ContentArea>
     </Layout>
   );

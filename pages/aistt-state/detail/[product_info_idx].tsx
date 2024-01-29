@@ -93,8 +93,14 @@ export const Detail = () => {
           </dl>
         </InfoArea>
         <SubTitleBox
-          title={`주요 개선 필요 요인 : 총 ${totalFrequencyCount ?? "-"}건`}
+          title={`주요 개선 필요 요인`}
           hideUnderline
+          addText={
+            <dl className="add_text">
+              <dt>총 제조 수</dt>
+              <dd>{` ${totalFrequencyCount ?? "-"}`}</dd>
+            </dl>
+          }
         />
         <ImprovementNeedCause isLoading={isLoading} data={data} />
         {/* <SubTitleBox

@@ -14,7 +14,12 @@ export interface BoardPagerProps {
   onChange: (page: number) => any;
 }
 
-const renderPagerItems = (active: number, pagerLength: number, mini: boolean, onClick: (val: number) => any) => {
+const renderPagerItems = (
+  active: number,
+  pagerLength: number,
+  mini: boolean,
+  onClick: (val: number) => any
+) => {
   const items = [];
   const range = mini ? 2 : 4;
   let first = Math.max(active - range / 2, 1),
@@ -26,7 +31,11 @@ const renderPagerItems = (active: number, pagerLength: number, mini: boolean, on
 
   for (let i = first; i <= last; i++) {
     items.push(
-      <li className={`page-item ${active === i ? "active" : ""}`} key={i} onClick={() => onClick(i)}>
+      <li
+        className={`page-item ${active === i ? "active" : ""}`}
+        key={i}
+        onClick={() => onClick(i)}
+      >
         <a className="page-link" role="button" href="#">
           {i}
         </a>
@@ -37,7 +46,15 @@ const renderPagerItems = (active: number, pagerLength: number, mini: boolean, on
   return items;
 };
 
-function BoardPager({ page, size, disabled, count, className, mini, onChange }: BoardPagerProps) {
+function BoardPager({
+  page,
+  size,
+  disabled,
+  count,
+  className,
+  mini,
+  onChange,
+}: BoardPagerProps) {
   const handleChange = (value: number) => {
     if (disabled) {
       return;
@@ -63,18 +80,28 @@ function BoardPager({ page, size, disabled, count, className, mini, onChange }: 
             </a>
           </li>
         )}
-        <li className="page-item" onClick={() => handleChange(Math.max(page - 1, 1))}>
+        <li
+          className="page-item"
+          onClick={() => handleChange(Math.max(page - 1, 1))}
+        >
           <a className="page-link" role="button" href="#">
             <span>
               <ArrowIosBackOutline className={style.pagination__icon} />
             </span>
           </a>
         </li>
-        {renderPagerItems(page, pagerLength, mini || false, (val) => handleChange(val))}
-        <li className="page-item" onClick={() => handleChange(Math.min(page + 1, pagerLength))}>
+        {renderPagerItems(page, pagerLength, mini || false, (val) =>
+          handleChange(val)
+        )}
+        <li
+          className="page-item"
+          onClick={() => handleChange(Math.min(page + 1, pagerLength))}
+        >
           <a className="page-link" role="button" href="#">
             <span>
-              <ArrowIosBackOutline className={`${style.pagination__icon} ${style["pagination__icon--rotate"]}`} />
+              <ArrowIosBackOutline
+                className={`${style.pagination__icon} ${style["pagination__icon--rotate"]}`}
+              />
             </span>
           </a>
         </li>
@@ -83,7 +110,9 @@ function BoardPager({ page, size, disabled, count, className, mini, onChange }: 
           <li className="page-item" onClick={() => handleChange(pagerLength)}>
             <a className="page-link" role="button" href="#">
               <span>
-                <ArrowIosBackOutline className={`${style.pagination__icon} ${style["pagination__icon--rotate"]}`} />
+                <ArrowIosBackOutline
+                  className={`${style.pagination__icon} ${style["pagination__icon--rotate"]}`}
+                />
               </span>
             </a>
           </li>

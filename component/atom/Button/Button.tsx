@@ -1,9 +1,10 @@
 import { FC, ButtonHTMLAttributes, ReactElement } from "react";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { theme } from "@ComponentFarm/theme";
+
 import Cross from "../icons/Cross";
 import Spinner from "../Spinner/Spinner";
+import { theme } from "@ComponentFarm/theme";
 
 type ButtonVariant =
   | "primary"

@@ -233,3 +233,50 @@ class EnvironmentStore {
 }
 
 export const EnvStore = new EnvironmentStore();
+
+interface ModalState {
+  isOpen: boolean;
+  title?: string;
+  content?: React.ReactNode;
+  onFormSubmit?: () => void;
+  onCancel?: () => void;
+  onClose?: () => void;
+  submitButtonText?: string;
+  cancelButtonText?: string;
+  showCloseButton?: boolean;
+  showCancelButton?: boolean;
+  showButtons?: boolean;
+}
+
+interface ModalActions {
+  openModal: (options: Omit<ModalState, "isOpen">) => void;
+  closeModal: () => void;
+}
+
+export type ModalStore = ModalState & ModalActions;
+
+export const confirmModalStore = observable({
+  isOpen: false,
+  title: "",
+  content: null,
+  onFormSubmit: () => {},
+  onCancel() {
+    this.isOpen = false;
+  },
+  onClose() {
+    this.isOpen = false;
+  },
+  submitButtonText: "확인",
+  cancelButtonText: "취소",
+  onCancle: null,
+  showCloseButton: false,
+  showCancelButton: true,
+  showButtons: true,
+  openModal(options: Omit<ModalState, "isOpen">) {
+    this.isOpen = true;
+    Object.assign(this, options);
+  },
+  closeModal() {
+    this.isOpen = false;
+  },
+});

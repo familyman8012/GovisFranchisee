@@ -10,7 +10,6 @@ import {
 } from "ApiFarm/aistt";
 import { IAisttStateReq } from "InterfaceFarm/aistt";
 import { Tabs } from "@ComponentFarm/atom/Tab/Tab";
-import TitleArea from "@ComponentFarm/layout/TitleArea";
 
 import { aisttStateListTabData } from "@ComponentFarm/template/aistt/const";
 import { ImprovementStatusList } from "@ComponentFarm/template/aistt/state/all/ImprovementStatusList";

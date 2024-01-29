@@ -1,6 +1,6 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { Button } from '@ComponentFarm/token';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { Button } from "@ComponentFarm/token";
 
 export const MenuOptionListStyle = styled.section`
   border-radius: 0.4rem;
@@ -362,11 +362,11 @@ export const FormStyle = css`
     width: 32.6rem;
   }
 
-  [class^='line'] {
+  [class^="line"] {
     margin-bottom: 3.2rem;
   }
 
-  [class^='field'] {
+  [class^="field"] {
     display: inline-flex;
     gap: 0.8rem;
     width: 100%;

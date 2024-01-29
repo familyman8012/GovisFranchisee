@@ -4,13 +4,13 @@ import { useQuery } from "react-query";
 import { fetchAisttDeviceCameraVideoList } from "ApiFarm/aistt";
 import { IFqsStoreCameraInfo } from "InterfaceFarm/ai-fqs";
 import Empty from "@ComponentFarm/atom/Empty/Empty";
-import SkeletonTh from "@ComponentFarm/atom/Skeleton/SkeletonTh";
 import { Table, TableWrap } from "@ComponentFarm/common";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 import StateInfoBox from "../../common/StateInfoBox";
 import TableExpandRow from "../../common/TableExpandRow";
 import FqsVideo, { VideoWrapStyle } from "../common/FqsVideo";
 import { FqsInfoTable, SectionStyle } from "../style";
+import SkeletonTh from "@ComponentFarm/atom/Skeleton/SkeletonTh";
 
 interface Props {
   storeId: number;

@@ -1,8 +1,8 @@
 import React, { HTMLAttributes, useState } from "react";
 import { useQuery } from "react-query";
 import styled from "@emotion/styled";
-import { fetchMenuProductList } from "ApiFarm/menu";
-import { ProductInfo } from "InterfaceFarm/product";
+
+import { ProductInfo } from "InterfaceFarm/product-bo";
 import Modal from "@ComponentFarm/modules/Modal/Modal";
 import { Button } from "@ComponentFarm/atom/Button/Button";
 import Empty from "@ComponentFarm/atom/Empty/Empty";
@@ -12,6 +12,7 @@ import useSyncedRef from "HookFarm/useSyncedRef";
 import SearchKeyword, {
   SearchkeywordType,
 } from "../SearchKeyword/SearchKeyword";
+import { fetchMenuProductList } from "ApiFarm/menu";
 
 interface ProductSelectProps
   extends Omit<HTMLAttributes<HTMLInputElement>, "onSelect"> {

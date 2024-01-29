@@ -28,7 +28,9 @@ export const CalendarWeek: React.FC<CalendarWeekProps> = ({
   const modules = useMemo(() => [Navigation, Pagination, Virtual], []);
   const [swiper, setSwiper] = useState<TSwiper | null>(null);
   const [slides, setSlides] = useState<string[]>([]);
-  const [currentDate, setCurrentDate] = useState(date || dayjs().format("YYYY-MM-DD"));
+  const [currentDate, setCurrentDate] = useState(
+    date || dayjs().format("YYYY-MM-DD")
+  );
 
   useEffect(() => {
     const _date = dayjs(date);
@@ -62,14 +64,24 @@ export const CalendarWeek: React.FC<CalendarWeekProps> = ({
     setCurrentDate(slides[swiper.activeIndex]);
   };
 
-  const handleScheduleClick = (schedule: ISchedule) => onScheduleClick && onScheduleClick(schedule.sbc_idx);
+  const handleScheduleClick = (schedule: ISchedule) =>
+    onScheduleClick && onScheduleClick(schedule.sbc_idx);
 
   return (
-    <Modal open={show} className={"gv-modal gv-calendar-week-view"} onClose={onClose}>
+    <Modal
+      open={show}
+      className={"gv-modal gv-calendar-week-view"}
+      onClose={onClose}
+    >
       <ModalBody>
         <CloseButton clear className="gv-modal__close" onClick={onClose} />
-        <h3 className="gv-calendar-week-view__title-date">{currentDate.substring(0, 7).replace("-", ".")}</h3>
-        <Days date={currentDate} onChangeDate={(date) => setCurrentDate(date)} />
+        <h3 className="gv-calendar-week-view__title-date">
+          {currentDate.substring(0, 7).replace("-", ".")}
+        </h3>
+        <Days
+          date={currentDate}
+          onChangeDate={(date) => setCurrentDate(date)}
+        />
         <Swiper
           onSwiper={handleLoadedSwiper}
           slidesPerView={1}
@@ -81,7 +93,11 @@ export const CalendarWeek: React.FC<CalendarWeekProps> = ({
           {slides.map((date, i) => {
             return (
               <SwiperSlide key={date} virtualIndex={dayjs(date).unix()}>
-                <ScheduleList date={date} load={currentDate === date} onScheduleClick={handleScheduleClick} />
+                <ScheduleList
+                  date={date}
+                  load={currentDate === date}
+                  onScheduleClick={handleScheduleClick}
+                />
               </SwiperSlide>
             );
           })}

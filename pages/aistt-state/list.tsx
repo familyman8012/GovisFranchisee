@@ -11,7 +11,7 @@ import TitleArea from "@ComponentFarm/layout/TitleArea";
 import { aisttList } from "@ComponentFarm/template/aistt/const";
 import AisttListTable from "@ComponentFarm/template/aistt/state/list/AisttListTable";
 import SubTitleBox from "@ComponentFarm/template/common/SubTitleBox";
-import { materialListTabData } from "@ComponentFarm/template/product/material/const";
+
 import useQueryParams from "HookFarm/useQueryParams";
 import Layout from "ComponentsFarm/layouts";
 
@@ -33,7 +33,7 @@ const Manage = () => {
 
   const hanldeTabMove = (index: number) => {
     setActiveTabIndex(index);
-    router.push(materialListTabData[index].url);
+    // router.push(materialListTabData[index].url);
   };
 
   const {

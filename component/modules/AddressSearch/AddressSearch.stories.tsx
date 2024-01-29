@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { useForm } from 'react-hook-form';
-import { AddressSearch } from './AddressSearch';
+import React, { useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { useForm } from "react-hook-form";
+import { AddressSearch } from "./AddressSearch";
 
 const meta: Meta = {
-  title: 'MODULES/AddressSearch',
-  tags: ['autodocs'],
+  title: "MODULES/AddressSearch",
+  tags: ["autodocs"],
   args: {
-    value: '서울특별시 강남구 역삼동',
-    placeholder: '주소를 입력해주세요',
+    value: "서울특별시 강남구 역삼동",
+    placeholder: "주소를 입력해주세요",
     disabled: false,
     // TotalProps: {
     //   props: `selectedDate, onChange, dateFormat, minDate, maxDate, placeholderText, showYearDropdown,
@@ -27,8 +27,8 @@ const meta: Meta = {
   parameters: {
     docs: {
       story: { inline: true }, // render the story in an iframe
-      canvas: { sourceState: 'shown' }, // start with the source open
-      source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
+      canvas: { sourceState: "shown" }, // start with the source open
+      source: { type: "code" }, // forces the raw source code (rather than the rendered JSX).
     },
   },
 };
@@ -52,7 +52,7 @@ export const AddressSearchDefault: Story<Props> = ({
     <AddressSearch
       value={address}
       disabled={disabled}
-      placeholder={placeholder}
+      // placeholder={placeholder}
       onSearch={setAddress}
     />
   );
@@ -72,11 +72,11 @@ export const ReactHookForm: Story<Props> = ({
   return (
     <>
       <AddressSearch
-        {...register('address')}
+        {...register("address")}
         disabled={disabled}
-        placeholder={placeholder}
+        // placeholder={placeholder}
       />
-      <p>입력주소: {watch('address')}</p>
+      <p>입력주소: {watch("address")}</p>
     </>
   );
 };

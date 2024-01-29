@@ -4,7 +4,7 @@ import duration from "dayjs/plugin/duration";
 import { useRouter } from "next/router";
 import { IoAlertCircleOutline } from "react-icons/io5";
 import Skeleton from "react-loading-skeleton";
-import { Pagination } from "swiper/modules";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useQuery } from "react-query";
 import { css, keyframes } from "@emotion/react";
@@ -17,6 +17,7 @@ import RingChart from "@ComponentFarm/chart/RingChart";
 import ScoreLabel from "@ComponentFarm/chart/ScoreLabel";
 import { QueryParams } from "HookFarm/useQueryParams";
 import { Badge } from "@ComponentFarm/atom/Badge/Badge";
+import { Pagination } from "swiper";
 
 dayjs.extend(duration);
 

@@ -1,21 +1,22 @@
-import React, { useMemo, useState } from 'react';
-import { Meta, Story } from '@storybook/react';
-import { css } from '@emotion/react';
-import StoryLayout from '@ComponentFarm/modules/story_layout/StoryLayout';
-import Sortable from './Sortable';
-import SortableItem from './SortableItem';
+//@ts-nocheck
+import React, { useMemo, useState } from "react";
+import { Meta, Story } from "@storybook/react";
+import { css } from "@emotion/react";
+import StoryLayout from "@ComponentFarm/modules/story_layout/StoryLayout";
+import Sortable from "./Sortable";
+import SortableItem from "./SortableItem";
 
 const meta: Meta = {
-  title: 'TEMPLATE/Sortable',
-  tags: ['autodocs'],
+  title: "TEMPLATE/Sortable",
+  tags: ["autodocs"],
   args: {
     disabled: false,
   },
   parameters: {
     docs: {
       story: { inline: true }, // render the story in an iframe
-      canvas: { sourceState: 'shown' }, // start with the source open
-      source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
+      canvas: { sourceState: "shown" }, // start with the source open
+      source: { type: "code" }, // forces the raw source code (rather than the rendered JSX).
     },
   },
 };
@@ -38,20 +39,20 @@ export const Default: Story<Props> = ({ darkMode, disabled }) => {
   const [sortableItems, setSortableItems] = useState([
     {
       id: 1,
-      name: '도우',
+      name: "도우",
     },
     {
       id: 2,
-      name: '토마토 소스',
+      name: "토마토 소스",
     },
     {
       id: 3,
-      name: '페퍼로니',
+      name: "페퍼로니",
     },
   ]);
 
   const ids = useMemo(
-    () => sortableItems.map(item => item.id),
+    () => sortableItems.map((item) => item.id),
     [sortableItems]
   );
 
@@ -81,22 +82,22 @@ export const Default: Story<Props> = ({ darkMode, disabled }) => {
           </tr>
         }
         ids={ids}
-        onDragEnd={event => {
+        onDragEnd={(event: any) => {
           const { active, over } = event;
           if (!over?.id) return;
 
           if (active.id !== over.id) {
-            setSortableItems(items =>
+            setSortableItems((items) =>
               swap(
                 items,
-                items.findIndex(item => item.id === active.id),
-                items.findIndex(item => item.id === over.id)
+                items.findIndex((item) => item.id === active.id),
+                items.findIndex((item) => item.id === over.id)
               )
             );
           }
         }}
       >
-        {sortableItems.map(item => (
+        {sortableItems.map((item) => (
           <SortableItem key={item.id} id={item.id}>
             <td>{item.name}</td>
           </SortableItem>

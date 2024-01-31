@@ -89,7 +89,10 @@ export const FilterTable = styled.div`
   }
 
   ${mq[0]} {
-    padding: 0 1.6rem;
+    display: flex;
+    gap: 1rem;
+    padding: 0 1rem;
+
     dl.control_filter_line {
       display: block;
       padding: 1.2rem 0;
@@ -122,6 +125,10 @@ export const FilterTable = styled.div`
     dl.control_filter_line:first-of-type {
       border-bottom: 1px solid var(--color-neutral95);
 
+      .icoInput {
+        font-size: 1.3rem;
+      }
+
       .area_diff_dateranger {
         display: block;
         width: 100%;
@@ -135,6 +142,7 @@ export const FilterTable = styled.div`
     }
 
     dl.control_filter_line:nth-of-type(2) {
+      width: 95px;
       dd.box_filter_inp .inner {
         width: 100%;
         .btn_box {
@@ -147,7 +155,7 @@ export const FilterTable = styled.div`
           justify-content: center;
           align-items: center;
           color: var(--color-orange60);
-          font-size: 1.4rem;
+          font-size: 1.3rem;
           font-weight: 400;
           border-radius: 0.4rem;
           border: 1px solid var(--color-orange60);

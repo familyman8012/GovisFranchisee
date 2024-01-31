@@ -56,12 +56,6 @@ const Manage = () => {
       `}
     >
       <ContentArea>
-        <Tabs
-          id="material"
-          tabs={aisttList}
-          activeTabIndex={activeTabIndex}
-          onTabChange={(index) => hanldeTabMove(index)}
-        />
         <SubTitleBox type="fst" title="전체 항목" hideUnderline />
         <AisttListTable
           isLoading={isLoading}

@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import dayjs from 'dayjs';
-import styled from '@emotion/styled';
-import DateRangePicker from '@ComponentFarm/modules/DateRange/DateRange';
-import { BtnDelete, Button } from '@ComponentFarm/atom/Button/Button';
-import Sync from '@ComponentFarm/atom/icons/Sync';
-import { getTableWidthPercentage } from '@UtilFarm/calcSize';
+import React, { useEffect, useState } from "react";
+import dayjs from "dayjs";
+import styled from "@emotion/styled";
+import DateRangePicker from "@ComponentFarm/modules/DateRange/DateRange";
+import { BtnDelete, Button } from "@ComponentFarm/atom/Button/Button";
+import Sync from "@ComponentFarm/atom/icons/Sync";
+import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 
 export const FilterTable = styled.table`
   width: 100%;
@@ -83,10 +83,10 @@ const FilterTableForm = ({ params, updateParams }: any) => {
   });
 
   const handleDateRangeChange = (
-    rangeIdentifier: 'range1' | 'range2',
+    rangeIdentifier: "range1" | "range2",
     update: DateRangeType
   ) => {
-    setSelectedDateRanges(prevRanges => ({
+    setSelectedDateRanges((prevRanges) => ({
       ...prevRanges,
       [rangeIdentifier]: update,
     }));
@@ -95,18 +95,18 @@ const FilterTableForm = ({ params, updateParams }: any) => {
   const handleCheckDateRanges = () => {
     const { range1, range2 } = selectedDateRanges;
     if (
-      range1.every(date => date !== null) &&
-      range2.every(date => date !== null)
+      range1.every((date) => date !== null) &&
+      range2.every((date) => date !== null)
     ) {
       updateParams({
-        base_dt_start: dayjs(range1[0]).format('YYYY-MM-DD'), // dayjs로 날짜 포맷팅
-        base_dt_finish: dayjs(range1[1]).format('YYYY-MM-DD'),
+        base_dt_start: dayjs(range1[0]).format("YYYY-MM-DD"), // dayjs로 날짜 포맷팅
+        base_dt_finish: dayjs(range1[1]).format("YYYY-MM-DD"),
         comparison_dt_start: range2[0]
-          ? dayjs(range2[0]).format('YYYY-MM-DD')
-          : '0000-00-00',
+          ? dayjs(range2[0]).format("YYYY-MM-DD")
+          : "0000-00-00",
         comparison_dt_finish: range2[1]
-          ? dayjs(range2[1]).format('YYYY-MM-DD')
-          : '0000-00-00',
+          ? dayjs(range2[1]).format("YYYY-MM-DD")
+          : "0000-00-00",
       });
     }
   };
@@ -145,8 +145,8 @@ const FilterTableForm = ({ params, updateParams }: any) => {
               <DiffDateRangerWrap>
                 <span>
                   <DateRangePicker
-                    onDateRangeChange={update =>
-                      handleDateRangeChange('range1', update)
+                    onDateRangeChange={(update) =>
+                      handleDateRangeChange("range1", update)
                     }
                     initialDateRange={selectedDateRanges.range1}
                   />
@@ -154,8 +154,8 @@ const FilterTableForm = ({ params, updateParams }: any) => {
                 <span className="bar">~</span>
                 <span>
                   <DateRangePicker
-                    onDateRangeChange={update =>
-                      handleDateRangeChange('range2', update)
+                    onDateRangeChange={(update) =>
+                      handleDateRangeChange("range2", update)
                     }
                     initialDateRange={selectedDateRanges.range2}
                   />

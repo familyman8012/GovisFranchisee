@@ -3,35 +3,30 @@ import { useState } from "react";
 import dayjs from "dayjs";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
-import { css } from "@emotion/react";
-import {
-  fetchManufacturingQuality,
-  fetchManufacturingTime,
-} from "ApiFarm/aistt";
+import { fetchManufacturingQuality, fetchPizzaStatus } from "ApiFarm/aistt";
 import { IAisttStateReq } from "InterfaceFarm/aistt";
 import { Tabs } from "@ComponentFarm/atom/Tab/Tab";
 
 import { aisttStateListTabData } from "@ComponentFarm/template/aistt/const";
-import { ImprovementStatusList } from "@ComponentFarm/template/aistt/state/all/ImprovementStatusList";
-import { ManufacturingTimeList } from "@ComponentFarm/template/aistt/state/all/ManufacturingTimeList";
-import { StoreManufacturingTable } from "@ComponentFarm/template/aistt/state/all/StoreManufacturingTable";
-import { AddTab, AreaBox } from "@ComponentFarm/template/common/AreaBox";
+import { PizzaStatusTable } from "@ComponentFarm/template/aistt/state/quality/PizzaStatusTable";
 import FilterTableForm from "@ComponentFarm/template/common/FilterTable/FilterTableForm";
 import SubTitleBox from "@ComponentFarm/template/common/SubTitleBox";
 import useQueryParams from "HookFarm/useQueryParams";
 import Layout from "ComponentsFarm/layouts";
-import styled from "@emotion/styled";
+import { ContentArea } from "@ComponentFarm/common";
 import { AreaManufacturingQuality } from "@ComponentFarm/template/aistt/common/style";
 import { ManufacturingQualityList } from "@ComponentFarm/template/aistt/common/ManufacturingQuality";
+import { css } from "@emotion/react";
 
-const AisttState = () => {
+const AisttQualityState = () => {
   const router = useRouter();
-  const [statusSelect, setstatusSelect] = useState(0);
-  const [activeTabIndex, setActiveTabIndex] = useState(0);
+  const [activeTabIndex, setActiveTabIndex] = useState(1);
   const [params, updateParams, resetParams] = useQueryParams({
     search_start_dt: dayjs().format("YYYY-MM-DD"),
     search_end_dt: dayjs().format("YYYY-MM-DD"),
   });
+
+  const { score_range, ...rest } = router.query;
 
   const hanldeTabMove = (index: number) => {
     setActiveTabIndex(index);
@@ -39,46 +34,53 @@ const AisttState = () => {
   };
 
   const { data: manufacturingQualityData } = useQuery(
-    ["manufacturingQualityList", params],
+    ["manufacturingQualityList", rest],
     () => fetchManufacturingQuality(params as IAisttStateReq)
   );
 
-  const { data: manufacturingTimeData } = useQuery(
-    ["manufacturingTimeList", params],
-    () => fetchManufacturingTime(params as IAisttStateReq)
+  const { data: pizzaStatusListData } = useQuery(
+    ["pizzaStatusList", params],
+    () => fetchPizzaStatus(params as IAisttStateReq)
   );
 
   return (
-    <Layout>
-      <Tabs
-        id="tab_aistt_state"
-        tabs={aisttStateListTabData}
-        activeTabIndex={activeTabIndex}
-        onTabChange={(index) => hanldeTabMove(index)}
-      />
-      <SubTitleBox title="전체 현황" />
-      <FilterTableForm
-        params={params}
-        updateParams={updateParams}
-        resetParams={resetParams}
-      />
-      <SubTitleBox title="확인 필요 피자 현황" hideUnderline />
-      <ImprovementStatusList params={params} />
-      <SubTitleBox title="점수대별 제조 현황" hideUnderline />
-      <AreaManufacturingQuality>
-        <ManufacturingQualityList
-          type="state"
+    <Layout
+      css={css`
+        @media (min-width: 768px) and (max-width: 1200px) {
+          max-width: 100%;
+        }
+      `}
+    >
+      <ContentArea>
+        <SubTitleBox type="fst" title="기간 및 제품 구분 검색" />
+        <FilterTableForm
           params={params}
           updateParams={updateParams}
-          data={manufacturingQualityData?.list}
+          resetParams={resetParams}
         />
-      </AreaManufacturingQuality>
-      <SubTitleBox title="피자 종류별 현황" hideUnderline />
-      <AreaBox title="매장별 제조 현황" className="noPadding">
-        <StoreManufacturingTable params={params} />
-      </AreaBox>
+        <SubTitleBox
+          title="점수대 별 제조 현황"
+          hideUnderline
+          addText={
+            <dl className="add_text">
+              <dt>총 제조 수</dt>
+              <dd>{pizzaStatusListData?.summary.manufacturing_count_total}</dd>
+            </dl>
+          }
+        />
+        <AreaManufacturingQuality>
+          <ManufacturingQualityList
+            type="state"
+            params={params}
+            updateParams={updateParams}
+            data={manufacturingQualityData?.list}
+          />
+        </AreaManufacturingQuality>
+        <SubTitleBox title="피자 종류 별 현황" hideUnderline />
+        <PizzaStatusTable data={pizzaStatusListData} params={params} />
+      </ContentArea>
     </Layout>
   );
 };
 
-export default AisttState;
+export default AisttQualityState;

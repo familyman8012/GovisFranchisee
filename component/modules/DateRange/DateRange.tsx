@@ -249,75 +249,78 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
       </div>
       {open && (
         <DateRageBox ref={ref}>
-          <div className="area_calendar">
-            <div className="box_calendar">
-              <DatePicker
-                selected={dateRange[0]}
-                startDate={dateRange[0]}
-                endDate={dateRange[1]}
-                // minDate={dateRange[0]}
-                onChange={onChange}
-                selectsRange
-                inline
-                monthsShown={2}
-                locale={ko}
-                showYearDropdown
-                showMonthDropdown
-                yearDropdownItemNumber={8}
-                dateFormatCalendar="yyyy년 MM월"
-                excludeDates={getExcludedDates(exceptDateRange)}
-                maxDate={maxDate}
-              />
-            </div>
-            <div className="box_btn">
-              <button type="button" onClick={() => setRangeSetting(1)}>
-                오늘
-              </button>
-              <button type="button" onClick={() => setRangeSetting(7)}>
-                최근 7일
-              </button>
-              <button type="button" onClick={() => setRangeSetting(30)}>
-                최근 30일
-              </button>
-              <button type="button" onClick={handleResetClick}>
-                초기화
-              </button>
-            </div>
-          </div>
-          <div className="area_direct_input">
-            <dl>
-              <dt>시작일</dt>
-              <dd>
-                <input
-                  type="text"
-                  id="startDate"
-                  className="inp"
-                  // placeholder="시작일"
-                  value={startDateInput ?? ""}
-                  onChange={handleStartDateChange}
-                  onKeyDown={handleStartDateKeyDown}
-                  onFocus={handleFocus}
+          <div className="dimm" onClick={() => setOpen(false)} />
+          <div className="wrap_date_range">
+            <div className="area_calendar">
+              <div className="box_calendar">
+                <DatePicker
+                  selected={dateRange[0]}
+                  startDate={dateRange[0]}
+                  endDate={dateRange[1]}
+                  // minDate={dateRange[0]}
+                  onChange={onChange}
+                  selectsRange
+                  inline
+                  monthsShown={2}
+                  locale={ko}
+                  showYearDropdown
+                  showMonthDropdown
+                  yearDropdownItemNumber={8}
+                  dateFormatCalendar="yyyy년 MM월"
+                  excludeDates={getExcludedDates(exceptDateRange)}
+                  maxDate={maxDate}
                 />
-              </dd>
-            </dl>
-            <span className="bar">-</span>
-            <dl>
-              <dt>종료일</dt>
-              <dd>
-                <input
-                  type="text"
-                  id="endDate"
-                  className="inp"
-                  // placeholder="종료일"
-                  value={endDateInput ?? ""}
-                  onChange={handleEndDateChange}
-                  onKeyDown={handleEndDateKeyDown}
-                  onFocus={handleFocus}
-                  disabled={!validateDate(String(startDateInput))}
-                  ref={refEndDate}
-                />
-              </dd>
-            </dl>
+              </div>
+              <div className="box_btn">
+                <button type="button" onClick={() => setRangeSetting(1)}>
+                  오늘
+                </button>
+                <button type="button" onClick={() => setRangeSetting(7)}>
+                  최근 7일
+                </button>
+                <button type="button" onClick={() => setRangeSetting(30)}>
+                  최근 30일
+                </button>
+                <button type="button" onClick={handleResetClick}>
+                  초기화
+                </button>
+              </div>
+            </div>
+            <div className="area_direct_input">
+              <dl>
+                <dt>시작일</dt>
+                <dd>
+                  <input
+                    type="text"
+                    id="startDate"
+                    className="inp"
+                    // placeholder="시작일"
+                    value={startDateInput ?? ""}
+                    onChange={handleStartDateChange}
+                    onKeyDown={handleStartDateKeyDown}
+                    onFocus={handleFocus}
+                  />
+                </dd>
+              </dl>
+              <span className="bar">-</span>
+              <dl>
+                <dt>종료일</dt>
+                <dd>
+                  <input
+                    type="text"
+                    id="endDate"
+                    className="inp"
+                    // placeholder="종료일"
+                    value={endDateInput ?? ""}
+                    onChange={handleEndDateChange}
+                    onKeyDown={handleEndDateKeyDown}
+                    onFocus={handleFocus}
+                    disabled={!validateDate(String(startDateInput))}
+                    ref={refEndDate}
+                  />
+                </dd>
+              </dl>
+            </div>
           </div>
         </DateRageBox>
       )}

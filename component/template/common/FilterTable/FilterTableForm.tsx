@@ -129,9 +129,9 @@ const FilterTableForm = ({
     <>
       <FilterTableWrap>
         <FilterTable>
-          <dl>
-            <dt>기간 선택</dt>
-            <dd>
+          <dl className="control_filter_line">
+            <dt className="tit_filter">기간 선택</dt>
+            <dd className="box_filter_inp">
               <DiffDateRanger
                 type={type}
                 selectedDateRanges={selectedDateRanges}
@@ -141,25 +141,20 @@ const FilterTableForm = ({
               />
             </dd>
           </dl>
-          <dl>
-            <dt>
+          <dl className="control_filter_line">
+            <dt className="tit_filter">
               <span className="txt">제품 구분</span>
-              <button
-                className="btn_search"
-                onClick={() => productSelect.setIsOpen(true)}
-              >
-                <Search />
-                <span className="hiddenZoneV">검색</span>
-              </button>
             </dt>
-            <dd>
+            <dd className="box_filter_inp">
               <div className="inner">
                 <span className="btn_box">
                   <Button
+                    className="btn_search"
                     variant="gostSecondary"
                     onClick={() => productSelect.setIsOpen(true)}
                   >
-                    검색
+                    <span className="txt_mobile">제품 구분 검색</span>
+                    <span className="txt_pc">검색</span>
                   </Button>
                   <Button
                     className="btn_reset"

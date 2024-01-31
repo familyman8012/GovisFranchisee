@@ -113,6 +113,8 @@ const AisttListTable = ({
     { id: 7, label: "제조 일자", sort: "manufacture_dt" },
   ];
 
+  console.log("data", data);
+
   return (
     <AreaTable>
       <Table className="basic" css={pageSty}>
@@ -167,16 +169,14 @@ const AisttListTable = ({
                       {item.inspection_image_url ? (
                         <img
                           src={item.inspection_image_url}
-                          alt={item.product_info_name}
+                          alt={item.product_name}
                         />
                       ) : (
                         <Pic size={25} />
                       )}
                     </div>
                     <div className="txt_product_info">
-                      <div className="product_name">
-                        {item.product_info_name}
-                      </div>
+                      <div className="product_name">{item.product_name}</div>
                       <div className="category">전체</div>
                     </div>
                   </div>

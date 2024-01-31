@@ -1,10 +1,10 @@
-import styled from '@emotion/styled';
-import { TableWrap } from '@ComponentFarm/common';
+import styled from "@emotion/styled";
+import { TableWrap, mq } from "@ComponentFarm/common";
 
 export const SearchBox = styled.form<{ width?: string }>`
   position: relative;
   z-index: 100;
-  width: ${props => `${props.width}`};
+  width: ${(props) => `${props.width}`};
   border-radius: 4px;
   border: 1px solid var(--color-neutral90);
 
@@ -44,10 +44,50 @@ export const SearchBox = styled.form<{ width?: string }>`
       }
     }
   }
+
+  ${mq[0]} {
+    width: 100%;
+    border: none;
+    table {
+      tbody,
+      tr,
+      th,
+      td {
+        display: block;
+        width: 100%;
+        height: auto;
+        padding: 0;
+        border: none;
+      }
+
+      tr:nth-of-type(2) th {
+        margin-top: 1.6rem;
+      }
+
+      th {
+        margin-bottom: 0.8rem;
+        color: var(--color-gray10);
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 120%; /* 1.68rem */
+        background: none;
+      }
+
+      td {
+        .wrap_input {
+          gap: 1.2rem;
+
+          > div {
+            width: 50%;
+          }
+        }
+      }
+    }
+  }
 `;
 
 export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
-  width: ${props => `${props.width}`};
+  width: ${(props) => `${props.width}`};
   margin-top: 1.5rem;
   border: 1px solid var(--color-neutral90);
   border-radius: 0.6rem;
@@ -56,46 +96,40 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
     border: none;
     display: block;
     width: 100%;
+
+    th,
+    td {
+      width: auto;
+    }
   }
 
-  tabel {
+  table thead,
+  table tbody tr {
+    display: table;
     width: 100%;
-    table-layout: fixed;
   }
 
-  thead th {
-    position: sticky;
-    top: 0; /* 상단에 고정 */
-    background: white; /* 배경색 설정 */
-    z-index: 10; /* 다른 요소들 위에 위치하도록 z-index 설정 */
+  table thead tr:nth-of-type(1) th {
+    background: none;
   }
 
-  tbody {
+  th {
+    padding-left: 0;
+    .label_checkbox {
+      display: block;
+    }
+  }
+
+  table tbody {
     display: block;
-    width: ${props => `${props.width}`};
-    height: 300px; /* 원하는 높이 설정 */
-    overflow-y: auto; /* 스크롤 가능하게 설정 */
-  }
-
-  thead tr:first-of-type th {
-    background: #fff;
+    max-height: 30rem;
+    overflow-y: scroll;
   }
 
   td {
-    ${props =>
-      props.col
-        ?.map(
-          (width, index) =>
-            `&:nth-of-type(${
-              index + 1
-            }) { width: calc((${width} / 694) * 100%); }`
-        )
-        .join('')}
-  }
-
-  th,
-  td {
-    width: fit-content;
+    label {
+      margin-bottom: 0;
+    }
     .txt_box {
       position: absolute;
       width: 1px;
@@ -109,15 +143,46 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
     }
   }
 
-  tbody td {
-    height: 6.4rem;
+  th,
+  td {
+    &:nth-of-type(1) {
+      width: 7%;
+    }
+    &:nth-of-type(2) {
+      width: 15%;
+    }
+    &:nth-of-type(3) {
+      width: 50%;
+    }
+    &:nth-of-type(4) {
+      width: 28%;
+    }
+  }
 
-    label {
-      margin-bottom: 0;
+  ${mq[0]} {
+    width: 100%;
+    margin-top: 0;
+    border: none;
+
+    table thead tr:nth-of-type(1) {
+      &:hover {
+        background: none;
+      }
+      th {
+        margin-bottom: 0.8rem;
+        padding: 0;
+        color: var(--color-gray10);
+        font-size: 1.4rem;
+        font-weight: 500;
+        line-height: 120%;
+        background: none;
+      }
     }
 
-    input[type='radio'] {
-      margin: 0;
+    table tbody {
+      display: block;
+      max-height: 19.2rem;
+      overflow-y: scroll;
     }
   }
 `;

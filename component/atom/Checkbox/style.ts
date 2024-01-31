@@ -1,20 +1,21 @@
-import styled from '@emotion/styled';
+import { mq } from "@ComponentFarm/common";
+import styled from "@emotion/styled";
 
-export type CheckBoxSize = 'sm' | 'md';
+export type CheckBoxSize = "sm" | "md";
 
 export const sizes = {
-  sm: '1.6rem',
-  md: '2.4rem',
+  sm: "1.6rem",
+  md: "2.4rem",
 };
 
 export const LabelFontSize = {
-  sm: '1.4rem',
-  md: '1.6rem',
+  sm: "1.4rem",
+  md: "1.6rem",
 };
 
 export const LineHeight = {
-  sm: '2rem',
-  md: '2.4rem',
+  sm: "2rem",
+  md: "2.4rem",
 };
 
 export const Label = styled.label<{ chksize?: CheckBoxSize }>`
@@ -35,22 +36,22 @@ export const Label = styled.label<{ chksize?: CheckBoxSize }>`
 
     .title {
       color: var(--color-neutral10);
-      font-size: ${props => LabelFontSize[props.chksize || 'md']};
+      font-size: ${(props) => LabelFontSize[props.chksize || "md"]};
       font-weight: 500;
-      line-height: ${props => LineHeight[props.chksize || 'md']};
+      line-height: ${(props) => LineHeight[props.chksize || "md"]};
     }
     .sub-text {
       color: var(--color-neutral50);
-      font-size: ${props => LabelFontSize[props.chksize || 'md']};
+      font-size: ${(props) => LabelFontSize[props.chksize || "md"]};
       font-weight: 400;
-      line-height: ${props => LineHeight[props.chksize || 'md']};
+      line-height: ${(props) => LineHeight[props.chksize || "md"]};
     }
   }
 `;
 
 export const CheckBoxWrap = styled.input<{ chksize?: CheckBoxSize }>`
-  width: ${props => sizes[props.chksize || 'md']};
-  height: ${props => sizes[props.chksize || 'md']};
+  width: ${(props) => sizes[props.chksize || "md"]};
+  height: ${(props) => sizes[props.chksize || "md"]};
   /* margin-top: 0.25em;
   vertical-align: top; */
   background: #fff no-repeat 50% / contain;
@@ -62,14 +63,14 @@ export const CheckBoxWrap = styled.input<{ chksize?: CheckBoxSize }>`
   &:checked {
     border: 1px solid var(--input-checkBoxCheckedBorder);
     background-color: var(--bg-inputCheckBox);
-    background-image: url('/images/common/ico_checkbox.svg');
+    background-image: url("/images/common/ico_checkbox.svg");
   }
 
   &.readonly {
     border: 1px solid var(--input-checkBoxReadOnlyBorder);
     background-color: var(--bg-inputCheckBoxReadOnly);
     &:checked {
-      background-image: url('/images/common/ico_checkbox_disabled.svg');
+      background-image: url("/images/common/ico_checkbox_disabled.svg");
     }
     pointer-events: none;
   }
@@ -78,12 +79,17 @@ export const CheckBoxWrap = styled.input<{ chksize?: CheckBoxSize }>`
     border: 1px solid var(--input-checkBoxDisabeldBorder);
     background-color: var(--bg-inputCheckBoxDisabled);
     &:checked {
-      background-image: url('/images/common/ico_checkbox_disabled.svg');
+      background-image: url("/images/common/ico_checkbox_disabled.svg");
     }
     pointer-events: none;
 
     ~ .form-check-label {
       opacity: 0.5;
     }
+  }
+
+  ${mq[0]} {
+    width: 1.6rem;
+    height: 1.6rem;
   }
 `;

@@ -12,19 +12,19 @@ export const FilterTable = styled.div`
   width: 100%;
   background-color: var(--color-gray1);
 
-  dl {
+  dl.control_filter_line {
     width: 100%;
     display: flex;
   }
 
-  dl:first-of-type {
-    dt,
-    dd {
+  dl.control_filter_line:first-of-type {
+    dt.tit_filter,
+    dd.box_filter_inp {
       border-bottom: 1px solid var(--color-gray6);
     }
   }
 
-  dt {
+  dt.tit_filter {
     width: 8%;
     padding: 1.95rem 2rem 1.95rem 0;
     color: var(--color-neutral50);
@@ -39,7 +39,7 @@ export const FilterTable = styled.div`
     }
   }
 
-  dd {
+  dd.box_filter_inp {
     display: flex;
     align-items: center;
     width: 92%;
@@ -64,6 +64,16 @@ export const FilterTable = styled.div`
       .list_select_item {
         display: flex;
         gap: 1rem;
+
+        .txt_notice {
+          display: none;
+          font-size: 1.3rem;
+          color: var(--color-neutral60);
+
+          ${mq[0]} {
+            display: block;
+          }
+        }
       }
 
       .select_box {
@@ -79,23 +89,27 @@ export const FilterTable = styled.div`
   }
 
   ${mq[0]} {
-    padding: 2.4rem 1.6rem;
-    dl {
+    padding: 0 1.6rem;
+    dl.control_filter_line {
       display: block;
+      padding: 1.2rem 0;
 
-      dt,
-      dd {
+      dt.tit_filter,
+      dd.box_filter_inp {
         width: 100%;
         border: none !important;
         background: none;
       }
 
-      dt {
-        padding: 0 0 1.6rem;
+      dt.tit_filter {
+        display: none;
+        /* width: 9rem;
+        margin: 0;
+        padding: 0.5rem 2rem 0.5rem 0;
         text-align: left;
-        color: var(--color-gray10);
+        color: var(--color-gray10); */
       }
-      dd {
+      dd.box_filter_inp {
         .box_daterange_input {
           margin: 0;
         }
@@ -105,9 +119,7 @@ export const FilterTable = styled.div`
       }
     }
 
-    dl:first-of-type {
-      padding-bottom: 2.4rem;
-      margin-bottom: 2.4rem;
+    dl.control_filter_line:first-of-type {
       border-bottom: 1px solid var(--color-neutral95);
 
       .area_diff_dateranger {
@@ -122,41 +134,38 @@ export const FilterTable = styled.div`
       }
     }
 
-    dl:nth-of-type(2) {
-      dt {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-
-        .btn_search {
-          display: block;
-          margin-left: auto;
-        }
-      }
-      dd .inner {
+    dl.control_filter_line:nth-of-type(2) {
+      dd.box_filter_inp .inner {
         width: 100%;
         .btn_box {
+          width: 100%;
+        }
+        .btn_search {
+          width: 100%;
+          margin-right: 0;
+          padding: 1.1rem 1.2rem 1.2rem 1.2rem;
+          justify-content: center;
+          align-items: center;
+          color: var(--color-orange60);
+          font-size: 1.4rem;
+          font-weight: 400;
+          border-radius: 0.4rem;
+          border: 1px solid var(--color-orange60);
+          background: #fff;
+
+          .txt_mobile {
+            display: block;
+          }
+          .txt_pc {
+            display: none;
+          }
+        }
+        .btn_reset {
           display: none;
         }
 
         .list_select_item {
-          display: block;
-          width: 100%;
-          padding: 1.6rem;
-          border-radius: 0.8rem;
-          background: var(--color-neutral95);
-
-          > button {
-            width: 100%;
-            &:not(&:last-of-type) {
-              margin-bottom: 1.6rem;
-            }
-            background: #fff;
-
-            .btn_close {
-              margin-left: auto;
-            }
-          }
+          display: none;
         }
       }
     }
@@ -169,7 +178,7 @@ export const FilterTableBtnBox = styled.div`
   margin: 3.6rem auto;
 
   ${mq[0]} {
-    margin: 3.2rem auto 6.4rem;
+    margin: 2rem auto 0;
   }
 
   button {

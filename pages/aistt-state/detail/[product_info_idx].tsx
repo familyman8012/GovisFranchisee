@@ -60,12 +60,6 @@ export const Detail = () => {
         }
       `}
     >
-      <Tabs
-        id="aistt-detail"
-        tabs={aisttDetailInfo}
-        activeTabIndex={activeTabIndex}
-        onTabChange={(index) => hanldeTabMove(index)}
-      />
       <DetailInfoWrap>
         <SubTitleBox type="fst" title="내역" hideUnderline />
         <SummaryInfoTable isLoading={isLoading} data={data} />
@@ -97,7 +91,7 @@ export const Detail = () => {
           hideUnderline
           addText={
             <dl className="add_text">
-              <dt>총 제조 수</dt>
+              <dt>총 </dt>
               <dd>{` ${totalFrequencyCount ?? "-"}`}</dd>
             </dl>
           }

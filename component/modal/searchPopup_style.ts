@@ -180,9 +180,10 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
     }
 
     table tbody {
+      overflow-y: scroll;
       display: block;
       max-height: 19.2rem;
-      overflow-y: scroll;
+      height: 19.2rem;
     }
   }
 `;

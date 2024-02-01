@@ -28,11 +28,6 @@ const AisttQualityState = () => {
 
   const { score_range, ...rest } = router.query;
 
-  const hanldeTabMove = (index: number) => {
-    setActiveTabIndex(index);
-    router.push(aisttStateListTabData[index].url);
-  };
-
   const { data: manufacturingQualityData } = useQuery(
     ["manufacturingQualityList", rest],
     () => fetchManufacturingQuality(params as IAisttStateReq)

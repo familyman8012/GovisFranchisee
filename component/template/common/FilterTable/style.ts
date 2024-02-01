@@ -17,10 +17,17 @@ export const FilterTable = styled.div`
     display: flex;
   }
 
-  dl.control_filter_line:first-of-type {
-    dt.tit_filter,
-    dd.box_filter_inp {
-      border-bottom: 1px solid var(--color-gray6);
+  dl.control_filter_line {
+    &:first-of-type {
+      dt.tit_filter,
+      dd.box_filter_inp {
+        border-bottom: 1px solid var(--color-gray6);
+      }
+    }
+    &:nth-of-type(2) {
+      .txt_mobile {
+        display: none;
+      }
     }
   }
 

@@ -101,6 +101,7 @@ export const SubTitleBoxWrap = styled.div<{
       color: var(--color-gray9);
     }
     dd {
+      min-width: 3.7rem;
       margin-left: 1.6rem;
       color: var(--color-orange60);
     }

@@ -18,6 +18,7 @@ import SubTitleBox from "@ComponentFarm/template/common/SubTitleBox";
 import Layout from "ComponentsFarm/layouts";
 import { InfoArea } from "@ComponentFarm/template/aistt/common/style";
 import { css } from "@emotion/react";
+import Skeleton from "react-loading-skeleton";
 
 export const DetailInfoWrap = styled.div`
   padding: 0 2rem;
@@ -72,7 +73,13 @@ export const Detail = () => {
           <dl>
             <dt>총 제조 수</dt>
             <dd>
-              <span className="num">{data?.highlight.manufacturing_count}</span>
+              <span className="num">
+                {data?.highlight.manufacturing_count ?? (
+                  <span className="box_skeleton">
+                    <Skeleton baseColor="#fcfcfc" />
+                  </span>
+                )}
+              </span>
               <span className="txt">건</span>
             </dd>
           </dl>
@@ -80,7 +87,11 @@ export const Detail = () => {
             <dt>평균 제조 점수</dt>
             <dd>
               <span className="num">
-                {data?.highlight.converted_score_avarage}
+                {data?.highlight.converted_score_avarage ?? (
+                  <span className="box_skeleton">
+                    <Skeleton baseColor="#fcfcfc" />
+                  </span>
+                )}
               </span>
               <span className="txt">점</span>
             </dd>

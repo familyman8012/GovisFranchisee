@@ -307,10 +307,10 @@ export const DateRageBox = styled.div`
           button {
             width: auto;
             height: 4.4rem;
-          }
 
-          button:last-of-type {
-            display: none;
+            &:first-of-type {
+              display: none;
+            }
           }
         }
       }

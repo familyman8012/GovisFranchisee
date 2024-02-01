@@ -18,6 +18,19 @@ export const ImprovementNeedCauseWrap = styled.div`
   dl {
     display: flex;
     flex-direction: column;
+
+    &.loading_area {
+      dd {
+        width: 100% !important;
+        height: 20.8rem !important;
+        border: 1px solid var(--color-neutral90);
+        .react-loading-skeleton {
+          display: block;
+          margin: 0 auto;
+        }
+      }
+    }
+
     dt {
       order: 2;
       display: flex;
@@ -59,12 +72,14 @@ export const ImprovementNeedCauseWrap = styled.div`
   ${mq[0]} {
     display: block;
 
-    dl dt {
-      padding: 2.4rem 0rem;
-      justify-content: space-around;
+    dl {
+      dt {
+        padding: 2.4rem 0rem;
+        justify-content: space-around;
 
-      .txt {
-        font-size: 1.4rem;
+        .txt {
+          font-size: 1.4rem;
+        }
       }
     }
   }
@@ -99,7 +114,7 @@ export const ImprovementNeedCause = ({
     <ImprovementNeedCauseWrap>
       {isLoading
         ? Array.from({ length: 3 }, (_, i) => (
-            <dl key={i}>
+            <dl key={i} className="loading_area">
               <dt>
                 <Skeleton width="100%" height="100%" baseColor="#fcfcfc" />
               </dt>

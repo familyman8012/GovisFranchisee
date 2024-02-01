@@ -1,21 +1,21 @@
-import { FC, ButtonHTMLAttributes, ReactElement } from 'react';
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { theme } from '@ComponentFarm/theme';
-import Spinner from '../Spinner/Spinner';
+import { FC, ButtonHTMLAttributes, ReactElement } from "react";
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { theme } from "@ComponentFarm/theme";
+import Spinner from "../Spinner/Spinner";
 
 type ButtonVariant =
-  | 'transparent'
-  | 'outline'
-  | 'white'
-  | 'black'
-  | 'primary'
-  | 'secondary'
-  | 'secondaryGray'
-  | 'tertiary'
-  | 'tertiaryGray';
+  | "transparent"
+  | "outline"
+  | "white"
+  | "black"
+  | "primary"
+  | "secondary"
+  | "secondaryGray"
+  | "tertiary"
+  | "tertiaryGray";
 
-type ButtonSize = 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+type ButtonSize = "sm" | "md" | "lg" | "xl" | "2xl";
 
 const buttonSizes = {
   sm: css`
@@ -39,7 +39,7 @@ const buttonSizes = {
     padding: 0 2rem;
     font-size: 1.6rem;
   `,
-  '2xl': css`
+  "2xl": css`
     height: 6rem;
     padding: 0 2.8rem;
     font-size: 1.8rem;
@@ -179,15 +179,15 @@ export const StyledButton = styled.button<{
     cursor: 'not-allowed';
   }
 
-  ${props => buttonVariants[props.variant]}
-  ${props => buttonSizes[props.size]}
-  ${props => props.IconOnly && { justifyContent: 'center' }}
+  ${(props) => buttonVariants[props.variant]}
+  ${(props) => buttonSizes[props.size]}
+  ${(props) => props.IconOnly && { justifyContent: "center" }}
 `;
 
 export const Button: FC<ButtonProps> = ({
   children,
   variant,
-  size = 'md',
+  size = "md",
   LeadingIcon,
   TrailingIcon,
   IconOnly,
@@ -212,19 +212,19 @@ export const Button: FC<ButtonProps> = ({
         <Leading
           {...LeadingIcon.props}
           css={css`
-            margin-right: ${size === '2xl' ? '0.75rem' : '0.5rem'};
+            margin-right: ${size === "2xl" ? "0.75rem" : "0.5rem"};
           `}
         />
       )}
       {!isLoading ? children : <Spinner color="white" />}
       {IconOnlyType && (
-        <IconOnlyType {...IconOnly.props} size={size === '2xl' ? 24 : 20} />
+        <IconOnlyType {...IconOnly.props} size={size === "2xl" ? 24 : 20} />
       )}
       {Trailing && (
         <Trailing
           {...TrailingIcon.props}
           css={css`
-            margin-left: ${size === '2xl' ? '0.75rem' : '0.5rem'};
+            margin-left: ${size === "2xl" ? "0.75rem" : "0.5rem"};
           `}
         />
       )}

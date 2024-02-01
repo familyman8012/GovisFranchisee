@@ -197,7 +197,7 @@ export const Button: Token = {
   textBlack: "var(--color-neutral10)",
   disableBackground: "var(--color-neutral95)",
   disableColor: "var(--color-neutral90)",
-  primaryHoverBg: "#121672",
+  primaryHoverBg: "var(--color-orange50)",
   ghostPrimaryHoverBg: "#F7F7FA",
   ghostSecodaryHoverBg: "var(--color-gray3)",
 };

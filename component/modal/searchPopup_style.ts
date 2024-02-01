@@ -182,8 +182,8 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
     table tbody {
       overflow-y: scroll;
       display: block;
-      max-height: 19.2rem;
-      height: 19.2rem;
+      max-height: calc(100vh - 50rem);
+      height: calc(100vh - 50rem);
     }
   }
 `;

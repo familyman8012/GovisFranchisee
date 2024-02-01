@@ -59,7 +59,9 @@ const AisttQualityState = () => {
           addText={
             <dl className="add_text">
               <dt>총 제조 수</dt>
-              <dd>{pizzaStatusListData?.summary.manufacturing_count_total}</dd>
+              <dd>
+                {pizzaStatusListData?.summary.manufacturing_count_total ?? "-"}
+              </dd>
             </dl>
           }
         />

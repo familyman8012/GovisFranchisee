@@ -1,9 +1,14 @@
-import styled from '@emotion/styled';
+import { mq } from "@ComponentFarm/common";
+import styled from "@emotion/styled";
 
 export const DateRangeWrap = styled.div`
   width: fit-content;
+
+  .ico_input {
+    min-width: 15rem;
+  }
   .box_daterange_input {
-    width: 20.5rem;
+    width: 100%;
   }
 
   .react-datepicker {
@@ -34,7 +39,7 @@ export const DateRangeWrap = styled.div`
     .react-datepicker__header {
       position: relative;
       &:before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -90,7 +95,7 @@ export const DateRangeWrap = styled.div`
 
       .react-datepicker__year-read-view--selected-year {
         &:after {
-          content: '년';
+          content: "년";
         }
       }
     }
@@ -183,6 +188,7 @@ export const DateRageBox = styled.div`
   border-radius: 8px;
   box-shadow: 0px 4px 8px 0px rgba(16, 24, 40, 0.05);
   background: #fff;
+
   .area_calendar {
     display: flex;
     .box_btn {
@@ -235,6 +241,87 @@ export const DateRageBox = styled.div`
       font-size: 1.4rem;
       font-weight: 400;
       line-height: 1.68rem;
+    }
+  }
+
+  .dimm {
+    ${mq[0]} {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.7);
+    }
+  }
+
+  .wrap_date_range {
+    @media (min-width: 500px) and (max-width: 800px) {
+      width: 90% !important;
+    }
+
+    ${mq[0]} {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: calc(100vw - 2rem);
+      border: 1px solid #eee;
+      background: #fff;
+
+      .react-datepicker__month-container:last-of-type {
+        display: none;
+      }
+
+      .area_calendar {
+        display: block;
+
+        .react-datepicker,
+        .react-datepicker__month,
+        .react-datepicker__month-container {
+          width: 100%;
+        }
+
+        .react-datepicker__day-name,
+        .react-datepicker__day {
+          width: calc(100% / 7);
+          margin: 0;
+        }
+
+        .react-datepicker__day {
+          border-radius: 2rem;
+
+          &.react-datepicker__day--selected {
+            position: relative;
+            z-index: 10;
+          }
+        }
+
+        .box_btn {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.8rem;
+          margin-left: 0;
+          padding: 0 1.6rem;
+
+          button {
+            width: auto;
+            height: 4.4rem;
+          }
+
+          button:last-of-type {
+            display: none;
+          }
+        }
+      }
+
+      .area_direct_input {
+        padding: 1.6rem;
+
+        dd input {
+          width: 100%;
+        }
+      }
     }
   }
 `;

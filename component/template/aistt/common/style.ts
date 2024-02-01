@@ -210,6 +210,26 @@ export const SkeletonWrap = styled.div`
 `;
 
 export const MobileTableSty = css`
+  &.basic {
+    ${mq[0]} {
+      td {
+        min-height: auto;
+        padding: 0 2.4rem 1.2rem;
+        background: var(--color-blue_gray10);
+
+        &:not(&:nth-of-type(2)) {
+          padding-left: 2.4rem;
+        }
+        .thumb {
+          padding: 0;
+        }
+        .box_rank {
+          width: 6rem;
+          margin-right: 0 !important;
+        }
+      }
+    }
+  }
   ${mq[0]} {
     display: block;
     colgroup {
@@ -268,7 +288,7 @@ export const MobileTableSty = css`
         .inner {
           .box_rank {
             display: block;
-            width: 3rem;
+            min-width: 3rem;
             margin-right: 0.8rem;
             color: var(--color-neutral60);
             font-family: "Noto Sans KR";
@@ -318,7 +338,7 @@ export const InfoArea = styled.div`
     &:nth-of-type(2) {
       border-left: 1px solid var(--color-neutral90);
     }
-    .center {
+    &.center {
       border-left: 1px solid var(--color-neutral90);
       border-right: 1px solid var(--color-neutral90);
       background: var(--color-blue_gray10);

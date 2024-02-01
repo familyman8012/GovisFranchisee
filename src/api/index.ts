@@ -84,6 +84,7 @@ export const BoRequest = axios.create({
   baseURL: `${getBaseUrl()}/bo/v1/`,
 });
 export const BoV2Request = axios.create({ baseURL: `${getBaseUrl()}/bo/v2` });
+export const FcV2Request = axios.create({ baseURL: `${getBaseUrl()}/fc/v2` });
 
 // 공통 Request
 const handleRequestFullfilled = async (request: any) => {
@@ -159,3 +160,4 @@ const registerInterceptors = (instance: AxiosInstance) => {
 registerInterceptors(CommonRequest);
 registerInterceptors(BoRequest);
 registerInterceptors(BoV2Request);
+registerInterceptors(FcV2Request);

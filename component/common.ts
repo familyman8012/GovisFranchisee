@@ -18,7 +18,8 @@ import {
   TABLE,
 } from "./token";
 
-export const breakpoints = [200, 767, 800, 1200, 1600] as const;
+export const breakpoints = [200, 800, 1200, 1600] as const;
+
 export const mq = breakpoints.map(
   (bp, i) =>
     `@media (min-width:${breakpoints[i]}px) and (max-width: ${
@@ -28,7 +29,7 @@ export const mq = breakpoints.map(
 
 export const folder = `@media (max-width: 359px)`;
 
-export const mediaMaxWidth = (maxWidth: number) =>
+export const mqMaxWidth = (maxWidth: number) =>
   `@media (max-width: ${maxWidth - 1}px)`;
 
 export const Content = styled.div``;
@@ -729,7 +730,14 @@ export const Table = styled.table`
 
   td {
     min-height: 4.9rem;
-    border-top: 1px solid var(--color-neutral90);
+
+    border-bottom: 1px solid var(--color-neutral90);
+
+    dl {
+      dt {
+        display: none;
+      }
+    }
 
     span[aria-busy="true"] {
       display: block;
@@ -744,7 +752,7 @@ export const Table = styled.table`
 
   &.basic {
     width: 100%;
-    background-color: var(--color-gray1);
+
     tr:not(.empty) {
       &:hover {
         cursor: pointer;
@@ -767,7 +775,7 @@ export const Table = styled.table`
     td {
       padding: 1.2rem 0 1.2rem 2rem;
       color: var(--color-neutral10);
-
+      background-color: var(--color-gray1);
       &.code {
         color: var(--color-blue60);
       }

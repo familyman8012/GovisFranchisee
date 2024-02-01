@@ -14,6 +14,8 @@ import SubTitleBox from "@ComponentFarm/template/common/SubTitleBox";
 
 import useQueryParams from "HookFarm/useQueryParams";
 import Layout from "ComponentsFarm/layouts";
+import { css } from "@emotion/react";
+import { ContentArea } from "@ComponentFarm/common";
 
 const Manage = () => {
   const router = useRouter();
@@ -46,41 +48,27 @@ const Manage = () => {
   } = params;
 
   return (
-    <Layout>
-      <TitleArea
-        title="현황"
-        BtnBox={
-          <Button
-            variant="gostSecondary"
-            onClick={() =>
-              router.push({
-                pathname: `/aistt-state/detail/${product_info_idx}`,
-                query: rest,
-              })
-            }
-          >
-            이전
-          </Button>
+    <Layout
+      css={css`
+        @media (min-width: 768px) and (max-width: 1200px) {
+          max-width: 100%;
         }
-      />
-      <Tabs
-        id="material"
-        tabs={aisttList}
-        activeTabIndex={activeTabIndex}
-        onTabChange={(index) => hanldeTabMove(index)}
-      />
-      <SubTitleBox title="전체 항목" hideUnderline />
-      <AisttListTable
-        isLoading={isLoading}
-        data={data}
-        params={params}
-        updateParams={updateParams}
-      />
-      <Pagination
-        pageInfo={[Number(params.current_num), Number(params.per_num)]}
-        totalCount={Number(data?.total_count)}
-        handlePageChange={handlePageChange}
-      />
+      `}
+    >
+      <ContentArea>
+        <SubTitleBox type="fst" title="전체 항목" hideUnderline />
+        <AisttListTable
+          isLoading={isLoading}
+          data={data}
+          params={params}
+          updateParams={updateParams}
+        />
+        <Pagination
+          pageInfo={[Number(params.current_num), Number(params.per_num)]}
+          totalCount={Number(data?.total_count)}
+          handlePageChange={handlePageChange}
+        />
+      </ContentArea>
     </Layout>
   );
 };

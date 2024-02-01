@@ -53,13 +53,13 @@ export const Detail = () => {
   );
 
   return (
-    <Layout>
-      <Tabs
-        id="aistt-detail"
-        tabs={aisttDetailInfo}
-        activeTabIndex={activeTabIndex}
-        onTabChange={(index) => hanldeTabMove(index)}
-      />
+    <Layout
+      css={css`
+        @media (min-width: 768px) and (max-width: 1200px) {
+          max-width: 100%;
+        }
+      `}
+    >
       <DetailInfoWrap>
         <SubTitleBox type="fst" title="내역" hideUnderline />
         <SummaryInfoTable isLoading={isLoading} data={data} />
@@ -87,8 +87,14 @@ export const Detail = () => {
           </dl>
         </InfoArea>
         <SubTitleBox
-          title={`주요 개선 필요 요인 : 총 ${totalFrequencyCount ?? "-"}건`}
+          title={`주요 개선 필요 요인`}
           hideUnderline
+          addText={
+            <dl className="add_text">
+              <dt>총 </dt>
+              <dd>{` ${totalFrequencyCount ?? "-"}`}</dd>
+            </dl>
+          }
         />
         <ImprovementNeedCause isLoading={isLoading} data={data} />
         {/* <SubTitleBox

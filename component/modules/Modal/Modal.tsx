@@ -1,16 +1,20 @@
-import React, { FC, ReactNode, useLayoutEffect, useEffect } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { css, SerializedStyles } from '@emotion/react';
-import styled from '@emotion/styled';
-import { Button } from '@ComponentFarm/atom/Button/Button';
-import { Cross } from '@ComponentFarm/atom/icons';
-import { IconViewArea } from '@ComponentFarm/common';
-import Portal from './Portal';
+import React, { FC, ReactNode, useLayoutEffect, useEffect } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import { css, SerializedStyles } from "@emotion/react";
+import styled from "@emotion/styled";
+import { Button } from "@ComponentFarm/atom/Button/Button";
+import { Cross } from "@ComponentFarm/atom/icons";
+import { IconViewArea, mq } from "@ComponentFarm/common";
+import Portal from "./Portal";
+import {
+  SearchBox,
+  SearchResult,
+} from "@ComponentFarm/modal/searchPopup_style";
 
 const modalOpenQueue: string[] = [];
 
 const useIsomorphicLayoutEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
 
 interface ModalProps {
   isOpen: boolean;
@@ -82,6 +86,14 @@ const HeaderContentContainer = styled.div`
       line-height: var(--font-size7);
     }
   }
+
+  ${mq[0]} {
+    padding: 1.6rem;
+
+    h2 {
+      font-size: 1.8rem;
+    }
+  }
 `;
 
 const ButtonContainer = styled.div`
@@ -106,8 +118,8 @@ const Modal: FC<ModalProps> = ({
   onFormSubmit,
   onCancel,
   disabledFormSubmit,
-  submitButtonText = '확인',
-  cancelButtonText = '취소',
+  submitButtonText = "확인",
+  cancelButtonText = "취소",
   showCloseButton = false,
   showCancelButton = true,
   showButtons = true,
@@ -127,6 +139,11 @@ const Modal: FC<ModalProps> = ({
     overflow-y: auto;
     // modal z-index 추가
     z-index: 100;
+
+    ${mq[0]} {
+      min-width: auto;
+      width: 94%;
+    }
   `;
 
   const combinedStyles = css`
@@ -139,12 +156,12 @@ const Modal: FC<ModalProps> = ({
     const uuid = Math.random().toString(36).substr(2, 9);
     if (isOpen) {
       modalOpenQueue.push(uuid);
-      document.body.style.overflow = 'hidden';
+      document.body.style.overflow = "hidden";
     }
     return () => {
       modalOpenQueue.splice(modalOpenQueue.indexOf(uuid), 1);
       if (modalOpenQueue.length === 0) {
-        document.body.style.overflow = '';
+        document.body.style.overflow = "";
       }
     };
   }, [isOpen]);
@@ -158,14 +175,14 @@ const Modal: FC<ModalProps> = ({
         onClick={onClose} // 배경 클릭 시 모달 닫힘
       />
       <motion.div
-        initial={{ opacity: 0, x: '-50%', y: '-70%' }}
-        animate={{ opacity: 1, x: '-50%', y: '-50%' }}
-        exit={{ opacity: 0, x: '-50%', y: '-70%' }}
+        initial={{ opacity: 0, x: "-50%", y: "-70%" }}
+        animate={{ opacity: 1, x: "-50%", y: "-50%" }}
+        exit={{ opacity: 0, x: "-50%", y: "-70%" }}
         transition={{ duration: 0.2 }}
         className="modal"
         css={combinedStyles}
       >
-        <HeaderContentContainer className={showCloseButton ? 'left' : 'center'}>
+        <HeaderContentContainer className={showCloseButton ? "left" : "center"}>
           {title && (
             <h2>
               {title}

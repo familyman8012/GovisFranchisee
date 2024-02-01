@@ -87,6 +87,24 @@ export const SubTitleBoxWrap = styled.div<{
         1.6rem;
     }
   }
+
+  dl.add_text {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+    dt,
+    dd {
+      font-size: 1.6rem;
+      font-weight: 700;
+    }
+    dt {
+      color: var(--color-gray9);
+    }
+    dd {
+      margin-left: 1.6rem;
+      color: var(--color-orange60);
+    }
+  }
 `;
 
 type SubTitleType = "fst";
@@ -98,6 +116,7 @@ interface ISubTitleBoxProps {
   moreLink?: string;
   hideUnderline?: boolean;
   descBottom?: { label: string; value: string }[];
+  addText?: React.ReactElement;
 }
 
 const SubTitleBox: FC<ISubTitleBoxProps> = ({
@@ -107,6 +126,7 @@ const SubTitleBox: FC<ISubTitleBoxProps> = ({
   moreLink,
   hideUnderline,
   descBottom,
+  addText,
 }) => {
   return (
     <SubTitleBoxWrap hideUnderline={hideUnderline} type={type}>
@@ -126,6 +146,7 @@ const SubTitleBox: FC<ISubTitleBoxProps> = ({
         )}
       </div>
       <em className="desc">{desc}</em>
+      {addText}
       {moreLink && <Link href="/">더보기</Link>}
     </SubTitleBoxWrap>
   );

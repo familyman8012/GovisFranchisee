@@ -5,7 +5,7 @@ import { useQuery } from "react-query";
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { fetchPizzaStatus } from "ApiFarm/aistt";
-import { IAisttStateReq } from "InterfaceFarm/aistt";
+import { IAisttStateReq, IPizzaStatusRes } from "InterfaceFarm/aistt";
 import { TimeBadge } from "@ComponentFarm/atom/Badge/TimeBadge";
 import Empty from "@ComponentFarm/atom/Empty/Empty";
 import { Pic } from "@ComponentFarm/atom/icons";
@@ -133,11 +133,13 @@ const tablePageSty = css`
   ${MobileTableSty}
 `;
 
-export const PizzaStatusTable = ({ params }: { params: QueryParams }) => {
-  const { data } = useQuery(["pizzaStatusList", params], () =>
-    fetchPizzaStatus(params as IAisttStateReq)
-  );
-
+export const PizzaStatusTable = ({
+  data,
+  params,
+}: {
+  data?: IPizzaStatusRes;
+  params: QueryParams;
+}) => {
   // eslint-disable-next-line no-unused-vars
   const { product_info_idx, ...rest } = params;
 

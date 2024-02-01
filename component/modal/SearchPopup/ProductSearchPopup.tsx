@@ -36,7 +36,7 @@ const ProductSearchPopup = ({
 
   // 테이블 셋팅
   const tableCofig = {
-    th: ["제품 분류", "제품명", "제품 상태"],
+    th: ["분류", "제품명", "상태"],
     col: [46, 180, 240, 180],
   };
 

@@ -7,7 +7,7 @@ import { Badge } from "@ComponentFarm/atom/Badge/Badge";
 import CheckBox from "@ComponentFarm/atom/Checkbox/CheckBox";
 import Radio from "@ComponentFarm/atom/Radio/Radio";
 import { IOption, Select } from "@ComponentFarm/atom/Select/Select";
-import { Table, TableWrap } from "@ComponentFarm/common";
+import { Table, TableWrap, mq } from "@ComponentFarm/common";
 import SearchKeyword from "@ComponentFarm/template/common/FilterTable/SearchKeyword";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 import { SelectConfig } from "@UtilFarm/convertEnvironment";
@@ -264,6 +264,12 @@ const SearchPopup = <T extends ICommonResultData>({
       addStyles={css`
         max-width: unset;
         overflow-y: unset;
+        border-radius: 0;
+        ${mq[0]} {
+          h2 {
+            display: none !important;
+          }
+        }
       `}
       onFormSubmit={onFormSubmit}
     >

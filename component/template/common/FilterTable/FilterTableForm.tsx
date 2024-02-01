@@ -153,7 +153,9 @@ const FilterTableForm = ({
                     variant="gostSecondary"
                     onClick={() => productSelect.setIsOpen(true)}
                   >
-                    <span className="txt_mobile">제품 구분 검색</span>
+                    <span className="txt_mobile">
+                      제품 검색 ({productSelect.selectItems.length})
+                    </span>
                     <span className="txt_pc">검색</span>
                   </Button>
                   <Button

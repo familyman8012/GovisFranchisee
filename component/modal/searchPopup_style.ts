@@ -68,7 +68,7 @@ export const SearchBox = styled.form<{ width?: string }>`
         margin-bottom: 0.8rem;
         color: var(--color-gray10);
         font-size: 1.4rem;
-        font-weight: 500;
+        font-weight: 700;
         line-height: 120%; /* 1.68rem */
         background: none;
       }
@@ -173,7 +173,7 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
         padding: 0;
         color: var(--color-gray10);
         font-size: 1.4rem;
-        font-weight: 500;
+        font-weight: 700;
         line-height: 120%;
         background: none;
       }

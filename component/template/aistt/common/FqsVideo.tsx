@@ -59,18 +59,16 @@ export const VideoWrapStyle = styled.div`
   }
 
   &.viewport-out {
+    border-radius: 0;
     .video-position {
       position: fixed;
-      top: auto;
-      bottom: 0;
-      left: auto;
+      top: 5.7rem;
+      bottom: auto;
+      left: 0;
       right: 0;
       z-index: 98;
-      width: 33%;
-      height: 18.5625vw;
-      max-width: 1024px;
-      max-height: 576px;
-      border-top-left-radius: 0.4rem;
+      width: 100%;
+      height: 56.25vw;
       overflow: hidden;
     }
   }
@@ -117,13 +115,22 @@ const FqsVideo = React.forwardRef<
   useLayoutEffect(() => {
     if (!wrapperRef.current || !sticky) return () => {};
 
-    const io = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.target === wrapperRef.current) {
-          setViewportIn(entry.isIntersecting);
-        }
-      });
-    }, {});
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.target === wrapperRef.current) {
+            setViewportIn(
+              // 영상이 아래로 내려가면 viewport out
+              entry.boundingClientRect.top < 0 ? entry.isIntersecting : true
+            );
+          }
+        });
+      },
+      {
+        rootMargin: "0px",
+        threshold: [0.5, 1],
+      }
+    );
 
     io.observe(wrapperRef.current);
 

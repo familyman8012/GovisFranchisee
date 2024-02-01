@@ -1,19 +1,20 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import dayjs from "dayjs";
 import Up from "@ComponentFarm/atom/icons/Up";
 import styled from "@emotion/styled";
+import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
 
 const MonitoringRecordItemStyle = styled.div`
   .header {
     display: flex;
     align-items: center;
-    margin: 0;
-    padding: 0 1rem 0 1.6rem;
+    width: 100%;
+    padding: 0 1.6rem;
+    margin: 0 0 0.8rem;
+    color: var(--color-gray10);
+    background-color: var(--bage-grayBg);
     border-radius: 0.4rem;
-    border: 1px solid var(--color-grayborder);
-    background-color: var(--color-gray2);
-    margin-bottom: 1.2rem;
-    height: 4.5rem;
+    cursor: pointer;
 
     .title {
       flex: 1;
@@ -22,7 +23,6 @@ const MonitoringRecordItemStyle = styled.div`
       line-height: 1.1;
       width: 100%;
       font-weight: 600;
-      color: var(--color-neutral50);
       padding: 1.2rem 0;
 
       &:empty {
@@ -41,83 +41,48 @@ const MonitoringRecordItemStyle = styled.div`
     background: transparent;
     margin-left: 0.8rem;
     cursor: pointer;
-    color: var(--color-neutral10);
+    color: currentColor;
 
     &.expanded {
       transform: rotate(180deg);
     }
-  }
 
-  &.option + .option {
-    margin-top: 0.4rem;
-  }
-
-  &.option .header {
-    margin: 0;
-    padding: 0 0.8rem;
-    border-radius: 0.4rem;
-    cursor: pointer;
-    width: 100%;
-    background: transparent;
+    svg path {
+      fill: currentColor !important;
+    }
   }
 
   &.active .header {
-    background-color: var(--color-gray4);
+    background-color: #fff1ea;
+    color: var(--color-orange60);
   }
 
-  &.invalid .header {
-    border-color: var(--color-red50);
-  }
-
-  > .content button {
-    margin-left: 3.2rem;
-    width: calc(100% - 3.2rem);
-    justify-content: flex-start;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  > .content button + button {
-    margin-top: 1.2rem;
-  }
-
-  .content {
-    overflow: hidden;
-    box-sizing: border-box;
+  ${mediaMaxWidth(breakpoints[2])} {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    flex-wrap: wrap;
   }
 `;
 
 interface MonitoringRecordItemProps {
   recordDate: string;
   active?: boolean;
-  itemLoading?: boolean;
   onClickItem: (date: string) => void;
 }
 
-const MonitoringRecordItem = ({
+const MonitoringDayRecord = ({
   recordDate,
   active,
-  itemLoading,
   onClickItem,
   children,
 }: React.PropsWithChildren<MonitoringRecordItemProps>) => {
   const ref = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    if (active && !itemLoading) {
-      const { current } = ref;
-      current?.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-        inline: "start",
-      });
-    }
-  }, [active, itemLoading]);
   return (
     <MonitoringRecordItemStyle
       ref={ref}
-      className={`option ${active ? "active" : ""}`}
+      className={`${active ? "active" : ""}`}
     >
       <div
         role="button"
@@ -141,4 +106,4 @@ const MonitoringRecordItem = ({
   );
 };
 
-export default MonitoringRecordItem;
+export default MonitoringDayRecord;

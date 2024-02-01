@@ -1,6 +1,6 @@
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import Menu from '@ComponentFarm/atom/icons/Menu';
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import Menu from "@ComponentFarm/atom/icons/Menu";
 
 const SortableItem = ({
   id,
@@ -12,7 +12,7 @@ const SortableItem = ({
 
   const style = {
     transform: CSS.Transform.toString(transform),
-    zIndex: isDragging ? '1' : 'auto',
+    zIndex: isDragging ? "1" : "auto",
   };
 
   return (

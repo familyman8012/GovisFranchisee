@@ -8,8 +8,9 @@ import {
 } from "ApiFarm/aistt";
 import { IFqsMonitoringVideoInfo } from "InterfaceFarm/ai-fqs";
 import Empty from "@ComponentFarm/atom/Empty/Empty";
-import MonitoringRecordItem from "@ComponentFarm/template/aistt/monitoring/MonitoringRecordItem";
+
 import MonitoringVideoView from "@ComponentFarm/template/aistt/monitoring/MonitoringVideoView";
+
 import { confirmModalStore } from "MobxFarm/store";
 import Layout from "ComponentsFarm/layouts";
 import {
@@ -18,8 +19,12 @@ import {
 } from "@ComponentFarm/template/aistt/monitoring/style";
 import { Tabs } from "@ComponentFarm/atom/Tab/Tab";
 
+import { MonitoringViewLoading } from "@ComponentFarm/template/aistt/monitoring/MonitoringViewLoading";
+import MonitoringTimeFilter from "@ComponentFarm/template/aistt/monitoring/MonitoringTimeFilter";
+
 const MonitoringStoreVideos = () => {
   const router = useRouter();
+
   // video 탐색시 최초 한번되도록 하는 플래그
   const [initialVideoSearched, setInitialVideoSearched] = React.useState(false);
 
@@ -32,11 +37,11 @@ const MonitoringStoreVideos = () => {
     [router.query]
   );
 
-  const { data } = useQuery(["aistt-monitoring-record"], () =>
+  const { data, isLoading } = useQuery(["aistt-monitoring-record"], () =>
     fetchMonitoringStoreRecordList()
   );
 
-  const { data: storeVideoData, isLoading } = useQuery(
+  const { data: storeVideoData, isLoading: storeVideoLoading } = useQuery(
     ["aistt-monitoring-video", activeDate],
     () =>
       fetchMonitoringStoreVideoList({
@@ -67,7 +72,10 @@ const MonitoringStoreVideos = () => {
       const start = dayjs(video.record_dt);
       const end = dayjs(video.record_finish_dt);
 
-      return makingTime.isAfter(start) && makingTime.isBefore(end);
+      return (
+        (makingTime.isAfter(start) || makingTime.isSame(start)) &&
+        (makingTime.isBefore(end) || makingTime.isSame(end))
+      );
     });
 
     if (currentVideo) {
@@ -94,6 +102,16 @@ const MonitoringStoreVideos = () => {
     }
   }, [storeVideoData, router.isReady]);
 
+  if (isLoading) {
+    return (
+      <Layout>
+        <MonitoringPageStyle>
+          <MonitoringViewLoading />
+        </MonitoringPageStyle>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
       <Tabs
@@ -110,46 +128,16 @@ const MonitoringStoreVideos = () => {
         <MonitoringListStyle>
           <div className="wrap">
             <div className="side">
-              <h2 className="title">일자 선택</h2>
-              <div className="list">
-                {data?.list.map((record) => (
-                  <MonitoringRecordItem
-                    key={record.record_date}
-                    itemLoading={isLoading}
-                    recordDate={record.record_date}
-                    active={activeDate === record.record_date}
-                    onClickItem={(date) => setActiveDate(date)}
-                  >
-                    {storeVideoData?.list.map((video) => (
-                      <button
-                        key={video.store_stt_cctv_idx}
-                        type="button"
-                        className={`option ${
-                          activeVideo?.store_stt_cctv_idx ===
-                          video.store_stt_cctv_idx
-                            ? "active"
-                            : ""
-                        }`}
-                        onClick={() => setActiveVideo(video)}
-                      >
-                        {`${dayjs(video.record_dt).format("HH:mm")} ~ ${dayjs(
-                          video.record_finish_dt
-                        ).format("HH:mm")}`}
-                        <span className="sub">
-                          {dayjs("1970-01-01 00:00:00")
-                            .add(video.video_length, "second")
-                            .format("HH:mm")}
-                        </span>
-                      </button>
-                    ))}
-                  </MonitoringRecordItem>
-                ))}
-              </div>
+              <MonitoringTimeFilter
+                activeDate={activeDate}
+                activeVideo={activeVideo}
+                onChangeDate={(date) => setActiveDate(date)}
+                onChangeVideo={(videoInfo) => setActiveVideo(videoInfo)}
+              />
             </div>
             <div className="view">
               {activeVideo ? (
                 <MonitoringVideoView
-                  key={activeVideo.store_stt_cctv_idx}
                   activeDate={activeDate}
                   videoInfo={activeVideo}
                 />

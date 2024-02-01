@@ -1,18 +1,20 @@
+import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
 import styled from "@emotion/styled";
 
 export const MonitoringPageStyle = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 3.2rem;
-  /* margin: 0 -3.2rem -3.2rem;
-  padding: 0 3.2rem 3.2rem; */
-  min-height: calc(100vh - 13.4rem);
+  padding-top: 6.4rem;
+  /* min-height: calc(100vh - 13.4rem); */
+  ${mediaMaxWidth(breakpoints[2])} {
+    padding-top: 3.2rem;
+  }
 `;
 
 export const MonitoringListStyle = styled.div`
   border-radius: 0.4rem;
 
-  .title {
+  h2 {
     margin-bottom: 3.2rem;
     font-weight: 600;
   }
@@ -27,9 +29,9 @@ export const MonitoringListStyle = styled.div`
 
     > .view {
       flex: 1;
-      padding: 3.2rem;
+      padding-left: 2.4rem;
       width: calc(100% - 30rem);
-      min-height: 46.6rem;
+      min-height: 60rem;
     }
   }
 
@@ -37,16 +39,40 @@ export const MonitoringListStyle = styled.div`
     position: relative;
     flex: none;
     width: 30rem;
-    overflow-y: auto;
     max-width: 40rem;
-    border-radius: 0.4rem;
   }
 
   .list {
-    min-height: 46.6rem;
-    border-radius: 0.4rem;
+    width: 100%;
+    max-height: 60rem;
+    border-radius: 0.8rem;
     padding-bottom: 1.2rem;
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background-color: var(--color-gray1);
     border: 1px solid var(--color-neutral90);
+  }
+
+  ${mediaMaxWidth(breakpoints[2])} {
+    .wrap {
+      flex-direction: column;
+      padding: 0 1.6rem;
+
+      > .view {
+        width: 100%;
+        padding-left: 0;
+        min-height: 0;
+      }
+    }
+
+    .side {
+      width: 100%;
+      max-width: 100%;
+    }
+
+    .list {
+      max-height: 37.5rem;
+      overscroll-behavior: none;
+    }
   }
 `;

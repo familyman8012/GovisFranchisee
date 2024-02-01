@@ -9,7 +9,8 @@ import { IFqsMonitoringVideoInfo } from "InterfaceFarm/ai-fqs";
 import type { VideoTimeDiff } from "@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator";
 import MonitoringMakeHistory from "./MonitoringMakeHistory";
 import FqsVideo from "../common/FqsVideo";
-import { SectionStyle } from "../style";
+import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
+import { vi } from "date-fns/locale";
 
 const VideoTimeDiffCalculator = dynamic(
   () => import("@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator"),
@@ -21,10 +22,11 @@ const VideoTimeDiffCalculator = dynamic(
 const MonitoringVideoViewStyle = styled.div`
   position: relative;
   width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   position: relative;
 
   .video-wrap {
@@ -37,33 +39,69 @@ const MonitoringVideoViewStyle = styled.div`
   }
 
   .product-wrap {
-    margin-right: 27.6rem;
-    border: 1px solid var(--color-neutral90);
-    border-radius: 0.4rem;
+    margin-right: 37.6rem;
 
     .product-list {
       top: 0;
       overflow: auto;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: flex-start;
       position: absolute;
-      height: 100%;
-      width: 26.6rem;
+      max-height: 100%;
+      width: 36.6rem;
       margin-left: 1.6rem;
-      border: 1px solid var(--color-neutral90);
       border-radius: 0.4rem;
+      padding-top: 1px;
     }
 
-    .title {
-      font-size: 1.4rem;
+    .product-list > .title {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
     }
 
-    section {
-      position: sticky;
-      top: 0;
-      z-index: 1;
-      margin: 0;
-      padding: 0 0.8rem;
-      background-color: #f7f7fa;
-      border-bottom: 1px solid var(--color-neutral90);
+    .count {
+      font-weight: 600;
+      color: var(--color-gray9);
+
+      .number {
+        padding-left: 1rem;
+        color: var(--color-orange60);
+      }
+    }
+  }
+
+  ${mediaMaxWidth(breakpoints[2])} {
+    flex-direction: column;
+    .video-wrap {
+      max-width: 100%;
+      margin-right: 0;
+      padding-top: 1.6rem;
+    }
+
+    .video-wrap .title {
+      display: none;
+    }
+
+    .product-wrap {
+      margin-right: 0;
+      width: 100%;
+      max-width: 100%;
+      padding-top: 6.4rem;
+      position: static;
+      padding-bottom: 1.6rem;
+      .product-list {
+        position: static;
+        width: 100%;
+        margin-left: 0;
+        padding-top: 0;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        overflow: visible;
+      }
     }
   }
 `;
@@ -98,7 +136,10 @@ const MonitoringVideoView = ({
       fetchMonitoringStoreProductList({
         record_date: activeDate,
         store_stt_cctv_idx: videoInfo.store_stt_cctv_idx,
-      })
+      }),
+    {
+      keepPreviousData: true,
+    }
   );
 
   const setVideoRealTime = (time: number) => {
@@ -142,83 +183,89 @@ const MonitoringVideoView = ({
       (closestLarger.time - closestSmaller.time) * percentageDifference;
   };
 
+  // 비디오 및 OCR 로드 완료 시 시간 설정
   useEffect(() => {
     if (!isVideoLoaded || !makingTime) return;
+
+    const baseTime = dayjs(videoInfo.record_dt)
+      .set("second", 0)
+      .set("minute", 0);
+    const endTime = dayjs(videoInfo.record_finish_dt);
     const dt = dayjs(makingTime);
 
-    if (
-      dt.format("YYYY-MM-DD") !== activeDate ||
-      dt.format("HH") !== dayjs(videoInfo.record_dt).format("HH")
-    )
-      return;
+    const inTime = baseTime.unix() <= dt.unix() && endTime.unix() >= dt.unix();
 
-    const time = dt.minute() * 60 + dt.second();
+    if (!inTime) return;
 
-    if (dt.isValid()) setVideoRealTime(time);
+    if (dt.isValid()) setVideoRealTime(Math.abs(dt.diff(baseTime, "second")));
   }, [videoRef, makingTime, isVideoLoaded]);
 
+  // 비디오 변경 시 로드 완료 상태 변경
+  useEffect(() => {
+    if (!videoInfo.cctv_video_url) return;
+    setIsVideoLoaded(false);
+  }, [videoInfo.cctv_video_url]);
+
   return (
-    <>
-      <SectionStyle>
-        <h3 className="title">영상 정보</h3>
-      </SectionStyle>
-      <MonitoringVideoViewStyle>
-        <div className="video-wrap">
-          <FqsVideo
-            ref={videoRef}
-            loading={!isVideoLoaded}
-            src={videoInfo.cctv_video_url}
-            crossOrigin="anonymous"
-          />
-          <VideoTimeDiffCalculator
-            videoSrc={videoInfo.cctv_video_url}
-            frameCount={1}
-            onLoaded={(diffList) => {
-              setIsVideoLoaded(true);
-              setTimeDiffList(diffList);
-            }}
-          />
-        </div>
-        <div className="product-wrap">
-          <div className="product-list">
-            <SectionStyle>
-              <h3 className="title">제조 피자 목록</h3>
-              <span className="count">
-                총 <span className="number">{data?.total_count}</span> 건
-              </span>
-            </SectionStyle>
-            {data?.list.map((item) => (
-              <MonitoringMakeHistory
-                key={item.inspection_info_idx}
-                data={item}
-                active={item.manufacture_dt === makingTime}
-                onClickAnalysis={() => {
-                  // router.push(
-                  //   `/aistt-monitoring/${storeIdx}/analysis/${item.inspection_info_idx}`
-                  // );
-                }}
-                onClickItem={(clickItem) => {
-                  router.replace(
-                    {
-                      pathname: router.pathname,
-                      query: {
-                        ...router.query,
-                        d: clickItem.manufacture_dt,
-                      },
+    <MonitoringVideoViewStyle>
+      <div className="video-wrap">
+        <h2 className="title">모니터링 영상</h2>
+        <FqsVideo
+          ref={videoRef}
+          loading={!isVideoLoaded}
+          src={videoInfo.cctv_video_url}
+          crossOrigin="anonymous"
+          sticky
+        />
+        <VideoTimeDiffCalculator
+          videoSrc={videoInfo.cctv_video_url}
+          frameCount={2}
+          onLoaded={(diffList) => {
+            setIsVideoLoaded(true);
+            setTimeDiffList(diffList);
+          }}
+        />
+      </div>
+      <div className="product-wrap">
+        <div className="product-list">
+          <h2 className="title">
+            제조 피자 타임라인
+            <span className="count">
+              총 제조 수<span className="number">{data?.total_count}</span>
+            </span>
+          </h2>
+
+          {data?.list.map((item) => (
+            <MonitoringMakeHistory
+              key={item.inspection_info_idx}
+              data={item}
+              active={item.manufacture_dt === makingTime}
+              onClickAnalysis={() => {
+                // router.push(
+                //   `/aistt-monitoring/${storeIdx}/analysis/${item.inspection_info_idx}`
+                // );
+              }}
+              onClickItem={(clickItem) => {
+                router.replace(
+                  {
+                    pathname: router.pathname,
+                    query: {
+                      ...router.query,
+                      d: clickItem.manufacture_dt,
                     },
-                    undefined,
-                    {
-                      scroll: false,
-                      shallow: true,
-                    }
-                  );
-                }}
-              />
-            ))}
-          </div>
+                  },
+                  undefined,
+                  {
+                    scroll: false,
+                    shallow: true,
+                  }
+                );
+              }}
+            />
+          ))}
         </div>
-      </MonitoringVideoViewStyle>
-    </>
+      </div>
+    </MonitoringVideoViewStyle>
   );
 };
 

@@ -1,16 +1,21 @@
-import React, { FC, useMemo } from 'react';
-import { FiChevronDown } from 'react-icons/fi';
+// import Modal from "ComponentsFarm/elements/Modal";
+import Modal from "@ComponentFarm/modules/Modal/Modal";
+import React, { FC, useMemo } from "react";
+import { FiChevronDown } from "react-icons/fi";
 import {
   default as SelectLibrary,
   components,
   DropdownIndicatorProps,
   StylesConfig,
-} from 'react-select';
+  MenuProps,
+  GroupBase,
+} from "react-select";
 
 export interface IOption {
   value: string | number;
   label: string | React.ReactNode;
   status?: string;
+  subLabel?: string;
 }
 
 export interface SelectProps {
@@ -26,6 +31,7 @@ export interface SelectProps {
   formatOptionLabel?: (option: IOption) => React.ReactNode;
   formatStatus?: (status: string) => React.ReactNode;
   prefixLabel?: string;
+  responsive?: boolean;
 }
 
 const DropdownIndicator = (props: DropdownIndicatorProps<IOption, false>) => {
@@ -42,18 +48,26 @@ const CustomControl = (prefixLabel: string) => {
       <components.Control {...rest}>
         <span
           style={{
-            padding: '0 .2rem 0 1.2rem',
+            padding: "0 .2rem 0 1.2rem",
           }}
         >
-          <span style={{ color: 'var(--color-gray500)' }}>{prefixLabel}</span>
+          <span style={{ color: "var(--color-gray500)" }}>{prefixLabel}</span>
         </span>
         {children}
       </components.Control>
     );
   };
 
-  ControlComponent.displayName = 'CustomControl';
+  ControlComponent.displayName = "CustomControl";
   return ControlComponent;
+};
+
+const ResponsiveMenu = (props: MenuProps<any, false, GroupBase<IOption>>) => {
+  return (
+    <Modal isOpen onClose={() => {}} showButtons={false}>
+      <components.Menu {...props} />
+    </Modal>
+  );
 };
 
 export const Select: FC<SelectProps> = ({
@@ -75,48 +89,49 @@ export const Select: FC<SelectProps> = ({
     control: (provided, state) => ({
       ...provided,
       width,
-      minHeight: '4.4rem',
-      height: '4.4rem',
-      display: 'flex',
+      minHeight: "4.4rem",
+      height: "4.4rem",
+      display: "flex",
       border: state.menuIsOpen
-        ? '1px solid var(--input-selectFoucsBorder) !important'
-        : '1px solid var(--input-selectBorder) !important',
-      boxShadow: state.isFocused ? 'none' : undefined,
+        ? "1px solid var(--input-selectFoucsBorder) !important"
+        : "1px solid var(--input-selectBorder) !important",
+      boxShadow: state.isFocused ? "none" : undefined,
     }),
     valueContainer: (provided, state) => ({
       ...provided,
-      padding: '.2rem .4rem .2rem .8rem',
+      padding: ".2rem .4rem .2rem .8rem",
     }),
     dropdownIndicator: (provided, state) => ({
       ...provided,
       padding: state.selectProps.menuIsOpen
-        ? '.8rem 0 .8rem .8rem'
-        : '.8rem .8rem .8rem 0',
-      transform: state.selectProps.menuIsOpen ? 'rotate(180deg)' : undefined,
+        ? ".8rem 0 .8rem .8rem"
+        : ".8rem .8rem .8rem 0",
+      transform: state.selectProps.menuIsOpen ? "rotate(180deg)" : undefined,
     }),
     indicatorSeparator: () => ({
-      display: 'none',
+      display: "none",
     }),
-    menu: provided => ({
+    menu: (provided, state) => ({
       ...provided,
+      width: "auto",
       zIndex: 10,
-      border: '1px solid var(--input-selectBorder)',
-      boxShadow: 'none',
-      borderRadius: '0.4rem',
+      border: "1px solid var(--input-selectBorder)",
+      boxShadow: "none",
+      borderRadius: "0.4rem",
     }),
-    menuList: provided => ({
+    menuList: (provided) => ({
       paddingTop: 0,
-      overflowY: 'auto',
-      maxHeight: '27rem',
+      overflowY: "auto",
+      maxHeight: "27rem",
     }),
     option: (provided, state) => ({
       ...provided,
-      fontSize: '1.4rem',
-      lineHeight: '120%',
+      fontSize: "1.4rem",
+      lineHeight: "120%",
       backgroundColor: state.isFocused
-        ? 'var(--input-selectOptionSelected)'
-        : 'transparent',
-      color: state.isFocused ? 'var(--color-blue60)' : 'var(--color-neutral10)',
+        ? "var(--input-selectOptionSelected)"
+        : "transparent",
+      color: state.isFocused ? "var(--color-blue60)" : "var(--color-neutral10)",
       // color: state.isSelected ? 'white' : 'inherit',
     }),
   };
@@ -135,11 +150,11 @@ export const Select: FC<SelectProps> = ({
   };
 
   const computedSelectedOption = useMemo(() => {
-    if (typeof selectedOption === 'string') {
-      return options.find(el => String(el.value) === selectedOption);
+    if (typeof selectedOption === "string") {
+      return options.find((el) => String(el.value) === selectedOption);
     }
-    if (typeof selectedOption === 'number') {
-      return options.find(el => el.value === selectedOption);
+    if (typeof selectedOption === "number") {
+      return options.find((el) => el.value === selectedOption);
     }
     return selectedOption;
   }, [selectedOption, options]);
@@ -147,17 +162,18 @@ export const Select: FC<SelectProps> = ({
   return (
     <SelectLibrary
       classNames={{
-        control: state => 'select_library_control',
+        control: (state) => "select_library_control",
       }}
       styles={customStyles}
       components={{
         DropdownIndicator,
         Control: prefixLabel ? CustomControl(prefixLabel) : components.Control,
+        Menu: restProps.responsive ? ResponsiveMenu : components.Menu,
       }}
       options={options}
       value={computedSelectedOption}
       onChange={setSelectedOption}
-      placeholder={placeholder || 'Select...'}
+      placeholder={placeholder || "Select..."}
       isClearable={false}
       isSearchable={isSearchable}
       isDisabled={isDisabled}

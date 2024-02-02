@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from '@emotion/styled';
-import { ArrowDownFilled } from '@ComponentFarm/atom/icons';
+import React from "react";
+import styled from "@emotion/styled";
+import { ArrowDownFilled } from "@ComponentFarm/atom/icons";
 
 const DatePickerCustomHeader = styled.div`
   width: 33.75rem;
@@ -71,7 +71,7 @@ const CustomHeader = ({
   datePickerRef,
 }: any) => {
   const monthNames = Array.from({ length: 12 }, (_, i) =>
-    new Date(0, i).toLocaleDateString('ko', { month: 'long' })
+    new Date(0, i).toLocaleDateString("ko", { month: "long" })
   );
 
   const handleHeaderClick = () => {
@@ -108,17 +108,17 @@ const CustomHeader = ({
         type="button"
         className={
           showMonthYearPicker
-            ? 'react-datepicker__current-month'
-            : 'react-datepicker__current-month'
+            ? "react-datepicker__current-month"
+            : "react-datepicker__current-month"
         }
         onClick={handleHeaderClick}
       >
         <span className="area_current_date">
           {showMonthYearPicker
             ? params.date.getFullYear().toString()
-            : params.date.toLocaleDateString('ko', {
-                month: 'long',
-                year: 'numeric',
+            : params.date.toLocaleDateString("ko", {
+                month: "long",
+                year: "numeric",
               })}
           <ArrowDownFilled />
         </span>
@@ -146,7 +146,7 @@ const CustomHeader = ({
               type="button"
               key={monthName}
               onClick={() => handleMonthClick(idx)}
-              className={params.date.getMonth() === idx ? 'selected-month' : ''}
+              className={params.date.getMonth() === idx ? "selected-month" : ""}
             >
               {monthName}
             </button>

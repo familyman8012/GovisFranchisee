@@ -16,6 +16,7 @@ import useQueryParams from "HookFarm/useQueryParams";
 import Layout from "ComponentsFarm/layouts";
 import { css } from "@emotion/react";
 import { ContentArea } from "@ComponentFarm/common";
+import PaginationMobile from "@ComponentFarm/modules/Paginate/PaginationMobile";
 
 const Manage = () => {
   const router = useRouter();
@@ -50,6 +51,7 @@ const Manage = () => {
   return (
     <Layout
       css={css`
+        padding-bottom: 56px;
         @media (min-width: 768px) and (max-width: 1200px) {
           max-width: 100%;
         }

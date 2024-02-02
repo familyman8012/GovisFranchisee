@@ -1,6 +1,6 @@
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { BACKGROUND, INPUT, TEXTCOLOR } from '@ComponentFarm/token';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { BACKGROUND, INPUT, TEXTCOLOR } from "@ComponentFarm/token";
 
 export const datepickerGlobalStyle = css`
   .react-datepicker {
@@ -36,12 +36,9 @@ export const datepickerGlobalStyle = css`
     border: 1px solid ${INPUT.border};
     border-radius: 0.4rem;
 
-    -webkit-transition:
-      border-color 0.15s ease-in-out,
+    -webkit-transition: border-color 0.15s ease-in-out,
       box-shadow 0.15s ease-in-out;
-    transition:
-      border-color 0.15s ease-in-out,
-      box-shadow 0.15s ease-in-out;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
     input {
       width: 100%;
@@ -63,14 +60,14 @@ export const datepickerGlobalStyle = css`
     }
 
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       top: 50%;
       margin-top: -0.8rem;
       width: 1.6rem;
       height: 1.6rem;
       right: 1.2rem;
-      background: url('/images/common/icon-16-calendar.svg') no-repeat left top /
+      background: url("/images/common/icon-16-calendar.svg") no-repeat left top /
         100%;
     }
 
@@ -257,11 +254,11 @@ export const datepickerGlobalStyle = css`
   }
 
   .react-datepicker__navigation--next {
-    right: 1.6rem;
+    right: calc(50% - 120px);
   }
 
   .react-datepicker__navigation--previous {
-    left: 1.6rem;
+    left: calc(50% - 120px);
     transform: rotate(-180deg);
   }
 
@@ -304,13 +301,13 @@ export const datepickerGlobalStyle = css`
   }
 
   // hide
-  .react-datepicker-popper[data-placement^='top']
+  .react-datepicker-popper[data-placement^="top"]
     .react-datepicker__triangle::before,
-  .react-datepicker-popper[data-placement^='bottom']
+  .react-datepicker-popper[data-placement^="bottom"]
     .react-datepicker__triangle::before,
-  .react-datepicker-popper[data-placement^='top']
+  .react-datepicker-popper[data-placement^="top"]
     .react-datepicker__triangle::after,
-  .react-datepicker-popper[data-placement^='bottom']
+  .react-datepicker-popper[data-placement^="bottom"]
     .react-datepicker__triangle::after {
     content: none;
   }
@@ -322,7 +319,7 @@ export const datepickerGlobalStyle = css`
     border-radius: 50%;
   }
 
-  .react-datepicker-popper[data-placement^='bottom'] {
+  .react-datepicker-popper[data-placement^="bottom"] {
     padding-top: 0.4rem;
   }
 
@@ -342,10 +339,10 @@ export const datepickerGlobalStyle = css`
     font-weight: 400;
     &::before {
       position: absolute;
-      content: '';
+      content: "";
       height: 100%;
       margin: 0 -0.7rem;
-      background: #ededfc;
+      background: var(--color-orange95);
       left: 0;
       right: 0;
       z-index: -1;
@@ -358,7 +355,7 @@ export const datepickerGlobalStyle = css`
 
     &.react-datepicker__day--range-start,
     &.react-datepicker__day--selecting-range-start {
-      background-color: var(--color-blue60) !important;
+      background-color: var(--color-orange70) !important;
       color: var(--color-gray1) !important;
       border-radius: 50%;
       font-weight: 900;
@@ -369,7 +366,7 @@ export const datepickerGlobalStyle = css`
       }
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
@@ -382,7 +379,7 @@ export const datepickerGlobalStyle = css`
     &.react-datepicker__day--selecting-range-end,
     &.react-datepicker__day--range-end {
       &:not(.react-datepicker__day--outside-month) {
-        background-color: var(--color-blue60) !important;
+        background-color: var(--color-orange70) !important;
         color: var(--color-gray1) !important;
         border-radius: 50%;
         font-weight: 900;
@@ -394,7 +391,7 @@ export const datepickerGlobalStyle = css`
       }
 
       &:after {
-        content: '';
+        content: "";
         position: absolute;
         width: 100%;
         height: 100%;
@@ -418,7 +415,7 @@ export const datepickerGlobalStyle = css`
   .react-datepicker__day--range-start,
   .react-datepicker__month--range-start,
   .react-datepicker__month--range-end {
-    background-color: var(--color-blue60) !important;
+    background-color: var(--color-orange70) !important;
     color: var(--color-gray1) !important;
     border-radius: 50%;
     font-weight: 900;
@@ -432,9 +429,9 @@ export const datepickerGlobalStyle = css`
 
   .react-datepicker__day--keyboard-selected {
     background: transparent;
-    border: 1px solid var(--color-blue60);
+    border: 1px solid var(--color-orange70);
 
-    &[aria-selected='false'] {
+    &[aria-selected="false"] {
       border: none;
     }
     &.react-datepicker__day--outside-month {
@@ -442,7 +439,7 @@ export const datepickerGlobalStyle = css`
     }
   }
 
-  .react-datepicker-popper[data-placement^='bottom']
+  .react-datepicker-popper[data-placement^="bottom"]
     .react-datepicker__triangle::after {
     border-bottom-color: #fff;
   }
@@ -459,12 +456,9 @@ export const DateInputWrapper = styled.div`
   border: 1px solid ${INPUT.border};
   border-radius: 0.4rem;
 
-  -webkit-transition:
-    border-color 0.15s ease-in-out,
+  -webkit-transition: border-color 0.15s ease-in-out,
     box-shadow 0.15s ease-in-out;
-  transition:
-    border-color 0.15s ease-in-out,
-    box-shadow 0.15s ease-in-out;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 
   input {
     width: 100%;

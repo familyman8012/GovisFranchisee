@@ -298,7 +298,7 @@ export const MobileTableSty = css`
 
       &:nth-of-type(2) {
         height: 8.1rem;
-        padding: 0.8rem;
+        padding: 0.8rem 0;
         border-bottom: 1px solid var(--color-neutral90);
         background: #fff;
 

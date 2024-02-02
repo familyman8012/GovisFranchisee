@@ -730,7 +730,6 @@ export const Table = styled.table`
 
   td {
     min-height: 4.9rem;
-
     border-bottom: 1px solid var(--color-neutral90);
 
     dl {
@@ -750,6 +749,10 @@ export const Table = styled.table`
     }
   }
 
+  tbody tr:last-of-type > td {
+    border-bottom: 0;
+  }
+
   &.basic {
     width: 100%;
 
@@ -757,9 +760,6 @@ export const Table = styled.table`
       &:hover {
         cursor: pointer;
         background: var(--color-indigo90);
-      }
-      &:last-of-type td {
-        border-bottom: none;
       }
     }
     th {

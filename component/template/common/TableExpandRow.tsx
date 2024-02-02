@@ -1,6 +1,7 @@
-import React, { useCallback, useState } from 'react';
-import styled from '@emotion/styled';
-import CircleUp from '@ComponentFarm/atom/icons/CircleUp';
+import React, { useCallback, useState } from "react";
+import styled from "@emotion/styled";
+import CircleUp from "@ComponentFarm/atom/icons/CircleUp";
+import Up from "@ComponentFarm/atom/icons/Up";
 
 const ExpandRowStyle = styled.tr`
   & ~ tr.expand-content > td {
@@ -27,8 +28,8 @@ const ExpandRowStyle = styled.tr`
     cursor: pointer;
 
     svg {
-      width: 1.6rem;
-      height: 1.6rem;
+      width: 2.4rem;
+      height: 2.4rem;
     }
   }
 `;
@@ -51,18 +52,18 @@ const TableExpandRow = ({
     if (!expanded && onExpand) {
       onExpand(); // 확장될 때 onExpand 함수 호출
     }
-    setExpanded(val => !val);
+    setExpanded((val) => !val);
   }, [expanded, onExpand]);
 
   return (
     <>
       <ExpandRowStyle onClick={toggleExpand}>
-        <td className="right">
+        {children}
+        <td className="center">
           <button type="button" className="dropdown-btn">
-            <CircleUp transform={`rotate(${expanded ? 180 : 90})`} />
+            <Up transform={`rotate(${expanded ? 0 : 180})`} />
           </button>
         </td>
-        {children}
       </ExpandRowStyle>
       {expanded && (
         <tr className="expand-content">

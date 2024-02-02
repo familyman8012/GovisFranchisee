@@ -24,7 +24,6 @@ import { PALLETES } from "LibFarm/color";
 import { runInAction } from "mobx";
 import { authStore } from "src/mobx/store";
 import { LoginGuideModal } from "ComponentsFarm/pageComp/login/LoginGuideModal";
-import AxiosUtil from "ApiFarm/.";
 import { fetchMyInfo, login } from "ApiFarm/auth";
 import useErrorHandler from "HookFarm/useErrorHandler";
 

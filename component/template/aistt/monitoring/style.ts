@@ -1,4 +1,4 @@
-import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 import styled from "@emotion/styled";
 
 export const MonitoringPageStyle = styled.div`
@@ -6,7 +6,7 @@ export const MonitoringPageStyle = styled.div`
   flex-direction: column;
   padding-top: 6.4rem;
   /* min-height: calc(100vh - 13.4rem); */
-  ${mediaMaxWidth(breakpoints[2])} {
+  ${mqMaxWidth(breakpoints[1])} {
     padding-top: 3.2rem;
   }
 `;
@@ -53,7 +53,7 @@ export const MonitoringListStyle = styled.div`
     border: 1px solid var(--color-neutral90);
   }
 
-  ${mediaMaxWidth(breakpoints[2])} {
+  ${mqMaxWidth(breakpoints[1])} {
     .wrap {
       flex-direction: column;
       padding: 0 1.6rem;

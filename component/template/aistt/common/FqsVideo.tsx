@@ -2,6 +2,7 @@ import React, { HTMLAttributes } from "react";
 import styled from "@emotion/styled";
 import { Cross } from "@ComponentFarm/atom/icons";
 import useSyncedRef from "HookFarm/useSyncedRef";
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 
 export const VideoWrapStyle = styled.div`
   position: relative;
@@ -62,13 +63,16 @@ export const VideoWrapStyle = styled.div`
     border-radius: 0;
     .video-position {
       position: fixed;
-      top: 5.7rem;
-      bottom: auto;
-      left: 0;
+      top: auto;
+      bottom: 0;
+      left: auto;
       right: 0;
       z-index: 98;
-      width: 100%;
-      height: 56.25vw;
+      width: 33%;
+      height: 18.5625vw;
+      max-width: 1024px;
+      max-height: 576px;
+
       overflow: hidden;
     }
   }
@@ -92,6 +96,19 @@ export const VideoWrapStyle = styled.div`
     svg {
       width: 2.4rem;
       height: 2.4rem;
+    }
+  }
+
+  ${mqMaxWidth(breakpoints[1])} {
+    &.viewport-out .video-position {
+      top: 5.7rem;
+      bottom: auto;
+      left: 0;
+      right: 0;
+      max-width: none;
+      max-height: none;
+      width: 100%;
+      height: 56.25vw;
     }
   }
 `;

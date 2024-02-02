@@ -2,7 +2,7 @@ import { useRef } from "react";
 import dayjs from "dayjs";
 import Up from "@ComponentFarm/atom/icons/Up";
 import styled from "@emotion/styled";
-import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 
 const MonitoringRecordItemStyle = styled.div`
   .header {
@@ -57,7 +57,7 @@ const MonitoringRecordItemStyle = styled.div`
     color: var(--color-orange60);
   }
 
-  ${mediaMaxWidth(breakpoints[2])} {
+  ${mqMaxWidth(breakpoints[1])} {
     display: flex;
     flex-direction: row;
     align-items: stretch;

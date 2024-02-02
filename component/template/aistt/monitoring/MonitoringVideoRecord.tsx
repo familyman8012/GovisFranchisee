@@ -1,5 +1,5 @@
 import TablerPoint from "@ComponentFarm/atom/icons/TablerPoint";
-import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 import styled from "@emotion/styled";
 import { IFqsMonitoringVideoInfo } from "InterfaceFarm/ai-fqs";
 import dayjs from "dayjs";
@@ -40,7 +40,7 @@ const MonitoringVideoRecordStyle = styled.button`
     margin-top: 1.2rem;
   }
 
-  ${mediaMaxWidth(breakpoints[2])} {
+  ${mqMaxWidth(breakpoints[1])} {
     width: 50%;
     display: flex;
     flex-direction: column;

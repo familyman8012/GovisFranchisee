@@ -57,8 +57,8 @@ const buttonVariants = {
     }
   `,
   gostPrimary: css`
-    color: var(--button-blue);
-    border: 1px solid var(--button-blue);
+    color: var(--button-orange);
+    border: 1px solid var(--button-orange);
     background-color: transparent;
 
     &:not(&:disabled) {

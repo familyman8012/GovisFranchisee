@@ -2,9 +2,8 @@ import { useEffect, useMemo } from "react";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
 import { fetchInspectionInfo } from "ApiFarm/aistt";
-import { Button } from "@ComponentFarm/atom/Button/Button";
 import { Tabs } from "@ComponentFarm/atom/Tab/Tab";
-import TitleArea from "@ComponentFarm/layout/TitleArea";
+
 import AnalysisView from "@ComponentFarm/template/aistt/analysis/AnalysisView";
 import { useGoMove } from "HookFarm/useGoMove";
 import Layout from "ComponentsFarm/layouts";
@@ -25,20 +24,12 @@ const MonitoringAnalysisViewPage = () => {
 
   useEffect(() => {
     if (isError) {
-      onMove(`/aistt-monitoring/${router.query.store_idx}`);
+      onMove(`/aistt-monitoring`);
     }
   }, [isError]);
 
   return (
     <Layout>
-      <TitleArea
-        title="제품 모니터링"
-        BtnBox={
-          <Button variant="gostSecondary" onClick={() => router.back()}>
-            이전
-          </Button>
-        }
-      />
       <Tabs
         id="aistt-state-view"
         tabs={[
@@ -54,7 +45,7 @@ const MonitoringAnalysisViewPage = () => {
         data={data}
         onViewOriginVideo={() =>
           router.push({
-            pathname: `/aistt-monitoring/${data?.store_idx}/videos`,
+            pathname: `/aistt-monitoring`,
             search: `?d=${data?.manufacture_dt}`,
           })
         }

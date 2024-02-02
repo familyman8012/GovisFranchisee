@@ -1,4 +1,4 @@
-import { css } from '@emotion/react';
+import { css } from "@emotion/react";
 
 type Props = React.SVGProps<SVGSVGElement> & {
   size?: number;
@@ -15,6 +15,7 @@ const Up = ({ size, viewBoxSize, ...props }: Props) => (
     height={size || 16}
     fill="none"
     viewBox={`0 0 ${viewBoxSize || 24} ${viewBoxSize || 24}`}
+    {...props}
   >
     <path
       fill="#747474"

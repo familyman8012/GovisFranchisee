@@ -1,7 +1,7 @@
-import dayjs from 'dayjs';
-import styled from '@emotion/styled';
-import { Badge } from '@ComponentFarm/atom/Badge/Badge';
-import Tooltip from '@ComponentFarm/atom/Tooltip/Tooltip';
+import dayjs from "dayjs";
+import styled from "@emotion/styled";
+import { Badge } from "@ComponentFarm/atom/Badge/Badge";
+import Tooltip from "@ComponentFarm/atom/Tooltip/Tooltip";
 
 interface Props {
   beforeSecond: number; // 1 = 1second
@@ -25,7 +25,7 @@ const SecondBadgeStyle = styled.div`
     color: #868fa0;
     vertical-align: middle;
     &:before {
-      content: '~';
+      content: " / ";
     }
   }
 
@@ -52,12 +52,12 @@ const SecondBadges = ({
       role="button"
       tabIndex={0}
       className="video-second-tags"
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
         onClickSecond?.(beforeSecond, afterSecond);
       }}
-      onKeyDown={e => {
-        if (e.key === 'Enter') {
+      onKeyDown={(e) => {
+        if (e.key === "Enter") {
           onClickSecond?.(beforeSecond, afterSecond);
         }
       }}
@@ -65,7 +65,7 @@ const SecondBadges = ({
       <Badge
         color="gray"
         size="sm"
-        onClick={e => {
+        onClick={(e) => {
           if (onClickbeforeSecond) {
             e.stopPropagation();
             onClickbeforeSecond(beforeSecond);
@@ -85,10 +85,10 @@ const SecondBadges = ({
             <polygon points="5 3 19 12 5 21 5 3" />
           </svg>
         )}
-        {dayjs.unix(beforeSecond).format('mm:ss')}
+        {dayjs.unix(beforeSecond).format("mm:ss")}
         {onClickbeforeSecond && (
           <Tooltip direction="top" size="sm">
-            영상 {dayjs.unix(beforeSecond).format('mm:ss')}초 이동
+            영상 {dayjs.unix(beforeSecond).format("mm:ss")}초 이동
           </Tooltip>
         )}
       </Badge>
@@ -96,7 +96,7 @@ const SecondBadges = ({
       <Badge
         color="gray"
         size="sm"
-        onClick={e => {
+        onClick={(e) => {
           if (onClickAfterSecond) {
             e.stopPropagation();
             onClickAfterSecond(afterSecond);
@@ -116,10 +116,10 @@ const SecondBadges = ({
             <polygon points="5 3 19 12 5 21 5 3" />
           </svg>
         )}
-        {dayjs.unix(afterSecond).format('mm:ss')}
+        {dayjs.unix(afterSecond).format("mm:ss")}
         {onClickAfterSecond && (
           <Tooltip direction="top" size="sm">
-            영상 {dayjs.unix(afterSecond).format('mm:ss')}초 이동
+            영상 {dayjs.unix(afterSecond).format("mm:ss")}초 이동
           </Tooltip>
         )}
       </Badge>

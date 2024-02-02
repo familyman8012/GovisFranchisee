@@ -41,7 +41,7 @@ const MonitoringTimeFilter = ({
   onChangeDate,
   onChangeVideo,
 }: Props) => {
-  const { data, isLoading } = useQuery(["aistt-monitoring-record"], () =>
+  const { data } = useQuery(["aistt-monitoring-record"], () =>
     fetchMonitoringStoreRecordList()
   );
 

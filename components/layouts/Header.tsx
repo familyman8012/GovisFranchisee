@@ -24,6 +24,7 @@ import { useRouter } from "next/router";
 import Spinner from "ComponentsFarm/elements/Spinner";
 
 import { fetchMyStore } from "ApiFarm/auth";
+import { runInAction } from "mobx";
 
 interface IHeader {
   handlerSideMenuShow: () => void;
@@ -31,6 +32,18 @@ interface IHeader {
   menuIconType?: string | undefined;
   handlerMenuIcon: MouseEventHandler | undefined;
 }
+
+const setAuthStoreInfo = ({
+  selected_store_idx,
+  selected_store_name,
+}: {
+  selected_store_idx: number;
+  selected_store_name: string;
+}) =>
+  runInAction(() => {
+    authStore.selected_store_idx = selected_store_idx;
+    authStore.selected_store_name = selected_store_name;
+  });
 
 function Header({
   handlerSideMenuShow,
@@ -57,10 +70,7 @@ function Header({
 
   useQuery(["selected-store"], fetchMyStore, {
     enabled: authStore.isLoggedIn,
-    onSuccess: (res) => {
-      authStore.selected_store_idx = res.selected_store_idx;
-      authStore.selected_store_name = res.selected_store_name;
-    },
+    onSuccess: setAuthStoreInfo,
   });
 
   // useQuery
@@ -70,8 +80,7 @@ function Header({
 
   const changeStoreMutate = useMutation(changeStore, {
     onSuccess: (res) => {
-      authStore.selected_store_idx = res.selected_store_idx;
-      authStore.selected_store_name = res.selected_store_name;
+      setAuthStoreInfo(res);
       setOpen(false);
       router.reload();
     },

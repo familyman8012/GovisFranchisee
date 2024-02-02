@@ -9,7 +9,7 @@ import { IFqsMonitoringVideoInfo } from "InterfaceFarm/ai-fqs";
 import type { VideoTimeDiff } from "@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator";
 import MonitoringMakeHistory from "./MonitoringMakeHistory";
 import FqsVideo from "../common/FqsVideo";
-import { breakpoints, mediaMaxWidth } from "@ComponentFarm/common";
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 import { vi } from "date-fns/locale";
 
 const VideoTimeDiffCalculator = dynamic(
@@ -73,7 +73,7 @@ const MonitoringVideoViewStyle = styled.div`
     }
   }
 
-  ${mediaMaxWidth(breakpoints[2])} {
+  ${mqMaxWidth(breakpoints[1])} {
     flex-direction: column;
     .video-wrap {
       max-width: 100%;
@@ -234,16 +234,15 @@ const MonitoringVideoView = ({
               총 제조 수<span className="number">{data?.total_count}</span>
             </span>
           </h2>
-
           {data?.list.map((item) => (
             <MonitoringMakeHistory
               key={item.inspection_info_idx}
               data={item}
               active={item.manufacture_dt === makingTime}
               onClickAnalysis={() => {
-                // router.push(
-                //   `/aistt-monitoring/${storeIdx}/analysis/${item.inspection_info_idx}`
-                // );
+                router.push(
+                  `/aistt-monitoring/analysis/${item.inspection_info_idx}`
+                );
               }}
               onClickItem={(clickItem) => {
                 router.replace(

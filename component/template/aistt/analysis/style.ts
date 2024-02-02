@@ -1,71 +1,101 @@
-import styled from '@emotion/styled';
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
+import styled from "@emotion/styled";
 
 export const AnalysisPageStyle = styled.div`
   padding-top: 3.2rem;
   display: flex;
   flex-direction: column;
 
-  .video-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 1536px;
-    border-top-right-radius: 0.8rem;
-    border-top-left-radius: 0.8rem;
-    overflow: hidden;
-
-    video {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    &:before {
-      display: block;
-      content: '';
-      padding-bottom: 56.25%;
-    }
-
-    .badge {
-      position: absolute;
-      z-index: 2;
-      top: 1.6rem;
-      right: 1.6rem;
-    }
+  .title {
+    margin-bottom: 3.2rem;
   }
 
-  .info {
-    margin-top: 3.2rem;
-    padding-bottom: 1.6rem;
+  .top {
     display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    flex-direction: row;
 
-    h2 {
-      flex: 100%;
-      margin-bottom: 1rem;
+    .video {
+      flex: 1;
+      margin-right: 2.4rem;
+    }
+
+    .inspection-result {
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      span {
+      flex-direction: column;
+      width: 33.6rem;
+
+      sub {
         display: inline-flex;
+        font-size: 1.4rem;
+        margin-bottom: 1.6rem;
+        color: var(--color-neutral40);
+      }
+
+      .card {
+        flex: 1;
+        border-radius: 0.8rem;
+        border: 1px solid var(--color-neutral90);
+        background-color: var(--color-gray1);
+        padding: 3.2rem;
+      }
+
+      .product {
+        margin-bottom: 3.2rem;
+      }
+
+      .manufactor {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
         align-items: center;
+
+        .left {
+          display: inline-flex;
+          flex-direction: column;
+          gap: 0.8rem;
+        }
+
+        .left p {
+          font-size: 1.2rem;
+          color: var(--color-neutral50);
+        }
+
+        .right {
+          flex: none;
+
+          button {
+            max-width: 100%;
+            min-width: auto !important;
+            width: 100%;
+          }
+        }
+
+        .bottom {
+          flex: none;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          color: var(--color-neutral60);
+          border-top: 2px solid var(--color-neutral95);
+          border-bottom: 2px solid var(--color-neutral95);
+          padding: 2.4rem 0;
+          margin: 2.4rem 0;
+          width: 100%;
+        }
       }
-    }
 
-    p {
-      font-size: 1.6rem;
-      font-weight: 400;
-      color: var(--color-neutral50);
+      .inspections {
+        display: flex;
+        flex-direction: column;
+        padding: 1.6rem;
+        gap: 1.6rem;
+        background-color: var(--color-gray2);
+        color: var(--color-gray9);
 
-      & + p {
-        margin-left: 1.6rem;
+        .badge {
+          margin-right: 0.8rem;
+        }
       }
-    }
-
-    .badge {
-      margin-left: 1.6rem;
     }
   }
 
@@ -80,8 +110,8 @@ export const AnalysisPageStyle = styled.div`
   }
 
   h3 {
-    font-size: 1.8rem;
-    font-weight: bold;
+    font-size: 1.6rem;
+    font-weight: 600;
     line-height: 1.5;
   }
 
@@ -98,6 +128,27 @@ export const AnalysisPageStyle = styled.div`
 
   .list {
     margin-top: 6.4rem;
+  }
+
+  ${mqMaxWidth(breakpoints[1])} {
+    padding: 0 1.6rem;
+    .top {
+      margin-top: 3.2rem;
+      flex-direction: column;
+
+      .video {
+        margin-right: 0;
+        margin-bottom: 6.4rem;
+      }
+
+      .inspection-result {
+        width: 100%;
+      }
+
+      .inspection-result .card {
+        padding: 3.2rem 1.6rem;
+      }
+    }
   }
 `;
 

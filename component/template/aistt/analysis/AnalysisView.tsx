@@ -1,24 +1,17 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import dayjs from "dayjs";
-import { runInAction } from "mobx";
-import { useRouter } from "next/router";
 import Skeleton from "react-loading-skeleton";
-import { useMutation } from "react-query";
-import { requestInspection } from "ApiFarm/aistt";
 import { IFqsInspectionInfo } from "InterfaceFarm/ai-fqs";
 import { Badge } from "@ComponentFarm/atom/Badge/Badge";
 import { Button } from "@ComponentFarm/atom/Button/Button";
-import Empty from "@ComponentFarm/atom/Empty/Empty";
-import Pic from "@ComponentFarm/atom/icons/Pic";
-import { Table, TableWrap } from "@ComponentFarm/common";
-import SecondBadges from "@ComponentFarm/template/common/SecondBadges";
-import TableExpandRow from "@ComponentFarm/template/common/TableExpandRow";
-import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 
 import { SectionStyle } from "../style";
 import { AnalysisPageStyle } from "./style";
-import FqsVideo, { VideoWrapStyle } from "../common/FqsVideo";
+import FqsVideo from "../common/FqsVideo";
 import InspectionStepList from "./InspectionStepList";
+import useWifiPopup from "HookFarm/useWifiPopup";
+import { VideoWrapStyle } from "../common/style";
+import VideoPlayConfirm from "../common/VideoPlayConfirm";
 
 const AnalysisViewLoading = () => {
   return (
@@ -50,12 +43,13 @@ const AnalysisView = ({
   onViewOriginVideo?: (item: IFqsInspectionInfo) => void;
 }) => {
   const videoRef = useRef<HTMLVideoElement>(null);
-
   const handleChangeVideoTime = (time: number) => {
     if (videoRef.current) {
       videoRef.current.currentTime = time;
     }
   };
+
+  const [isConfined, setIsConfirmed] = useWifiPopup();
 
   const insufficientList = React.useMemo(
     () => data?.step_list.filter((step) => step.rating_scale_idx_1 === 2),
@@ -81,6 +75,7 @@ const AnalysisView = ({
             closeButton
             ref={videoRef}
             src={data?.dual_video_url ? data?.dual_video_url : data?.video_url}
+            onPlay={() => setIsConfirmed(true)}
           />
         </div>
         <div className="inspection-result">

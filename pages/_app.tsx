@@ -28,6 +28,7 @@ import "swiper/css/pagination";
 import "react-toastify/dist/ReactToastify.css";
 /** @tui-calendar css */
 import "tui-calendar/dist/tui-calendar.css";
+import ConfirmModal from "@ComponentFarm/modules/Modal/ConfirmModal";
 
 function MyApp({ Component, pageProps }: AppProps) {
   const router = useRouter();
@@ -113,6 +114,8 @@ function MyApp({ Component, pageProps }: AppProps) {
             pauseOnHover={false}
           />
           {loadedStore && <Component {...pageProps} />}
+
+          <ConfirmModal />
         </Hydrate>
         <ReactQueryDevtools />
       </QueryClientProvider>

@@ -74,7 +74,7 @@ const HeaderContentContainer = styled.div`
     font-size: var(--font-size8);
     font-weight: bold;
     line-height: 1.2;
-    margin-bottom: 1.5rem;
+    margin-bottom: 0.4rem;
   }
 
   .content {
@@ -82,6 +82,7 @@ const HeaderContentContainer = styled.div`
 
     p {
       margin-top: 0.4rem;
+      color: var(--color-neutral30);
       font-size: var(--font-size4);
       line-height: var(--font-size7);
     }
@@ -97,7 +98,8 @@ const HeaderContentContainer = styled.div`
 `;
 
 const ButtonContainer = styled.div`
-  padding: 0 2.4rem 2.4rem;
+  border-top: 1px solid var(--color-neutral90);
+  padding: 2.4rem;
   display: flex;
   gap: 1.2rem;
   justify-content: center;

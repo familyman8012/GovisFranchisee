@@ -11,6 +11,8 @@ import MonitoringMakeHistory from "./MonitoringMakeHistory";
 import FqsVideo from "../common/FqsVideo";
 import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 import { vi } from "date-fns/locale";
+import useWifiPopup from "HookFarm/useWifiPopup";
+import VideoPlayConfirm from "../common/VideoPlayConfirm";
 
 const VideoTimeDiffCalculator = dynamic(
   () => import("@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator"),
@@ -117,6 +119,7 @@ const MonitoringVideoView = ({
 }: MonitoringVideoViewProps) => {
   const videoRef = React.useRef<HTMLVideoElement>(null);
   const router = useRouter();
+  const [isConfirmed, setIsConfirmed] = useWifiPopup();
 
   const [isVideoLoaded, setIsVideoLoaded] = React.useState<boolean>(false);
   const [timeDiffList, setTimeDiffList] = React.useState<VideoTimeDiff[]>([]);
@@ -210,21 +213,27 @@ const MonitoringVideoView = ({
     <MonitoringVideoViewStyle>
       <div className="video-wrap">
         <h2 className="title">모니터링 영상</h2>
-        <FqsVideo
-          ref={videoRef}
-          loading={!isVideoLoaded}
-          src={videoInfo.cctv_video_url}
-          crossOrigin="anonymous"
-          sticky
-        />
-        <VideoTimeDiffCalculator
-          videoSrc={videoInfo.cctv_video_url}
-          frameCount={2}
-          onLoaded={(diffList) => {
-            setIsVideoLoaded(true);
-            setTimeDiffList(diffList);
-          }}
-        />
+        {isConfirmed ? (
+          <>
+            <FqsVideo
+              ref={videoRef}
+              loading={!isVideoLoaded}
+              src={videoInfo.cctv_video_url}
+              crossOrigin="anonymous"
+              sticky
+            />
+            <VideoTimeDiffCalculator
+              videoSrc={videoInfo.cctv_video_url}
+              frameCount={2}
+              onLoaded={(diffList) => {
+                setIsVideoLoaded(true);
+                setTimeDiffList(diffList);
+              }}
+            />
+          </>
+        ) : (
+          <VideoPlayConfirm onPlay={() => setIsConfirmed(true)} />
+        )}
       </div>
       <div className="product-wrap">
         <div className="product-list">

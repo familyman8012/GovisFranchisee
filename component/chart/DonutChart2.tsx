@@ -1,4 +1,5 @@
 import { DonutArea } from "@ComponentFarm/template/aistt/common/style";
+import debounce from "lodash/debounce";
 import React, { useEffect, useRef, useState } from "react";
 
 import Skeleton from "react-loading-skeleton";
@@ -25,9 +26,16 @@ const DonutChart = ({
     }
   };
 
+  const debouncedUpdateSize = debounce(updateContainerSize, 250);
+
   useEffect(() => {
     // 첫 마운트에서 컨테이너 크기를 설정
     updateContainerSize();
+    window.addEventListener("resize", debouncedUpdateSize);
+
+    return () => {
+      window.removeEventListener("resize", debouncedUpdateSize);
+    };
   }, []);
 
   const renderActiveShape = (props: any) => {
@@ -45,8 +53,10 @@ const DonutChart = ({
       payload,
       percent,
     } = props;
-    const sin = Math.sin(-RADIAN * midAngle);
-    const cos = Math.cos(-RADIAN * midAngle);
+    const sin =
+      Math.sin(-RADIAN * midAngle) * (activeIndex === props.index ? 1.2 : 1);
+    const cos =
+      Math.cos(-RADIAN * midAngle) * (activeIndex === props.index ? 1.2 : 1);
     const sx = cx + (outerRadius + 10) * cos;
     const sy = cy + (outerRadius + 10) * sin;
     const mx = cx + (outerRadius + 30) * cos;
@@ -120,12 +130,12 @@ const DonutChart = ({
           endAngle={endAngle}
           innerRadius={
             activeIndex === props.index
-              ? outerRadius + 31 * 1.2
+              ? outerRadius + containerSize.width * 0.056 * 1.2
               : outerRadius + 6
           }
           outerRadius={
             activeIndex === props.index
-              ? outerRadius + 35 * 1.2
+              ? outerRadius + (containerSize.width * 0.056 + 4) * 1.2
               : outerRadius + 10
           }
           fill={fill}

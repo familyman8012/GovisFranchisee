@@ -117,7 +117,7 @@ const InspectionStepList = ({ stepList, onChangeVideoTime }: Props) => {
 
   return (
     <InspectionStepListStyle>
-      <TableWrap className="content">
+      <TableWrap>
         <Table className="basic">
           <colgroup>
             <col width={getTableWidthPercentage(100)} />

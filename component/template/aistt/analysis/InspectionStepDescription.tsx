@@ -10,6 +10,7 @@ import {
   mqMaxWidth,
 } from "@ComponentFarm/common";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
+import { BadIcon, GoodIcon } from "./AnalysisIcons";
 
 const InspectionStepDescriptionStyle = styled.div`
   display: flex;
@@ -231,8 +232,12 @@ const InspectionStepDescription = ({ inspectionStep }: Props) => {
         <h3>개선 요청 결과</h3>
         <div className="card">
           <Badge color="gray">개선 사항</Badge>
-          <h2>해당영역에 토핑이 부족합니다.</h2>
-          <p>{descriptionObj?.["개선사항"]}</p>
+          {[2, 3].includes(inspectionStep.rating_scale_idx_1) ? (
+            <BadIcon text={descriptionObj?.["개선사항"]} />
+          ) : (
+            <GoodIcon text={descriptionObj?.["개선사항"]} />
+          )}
+
           <ul className="images">
             <li>
               {inspectionStep.ground_truth_image_url && (
@@ -261,7 +266,7 @@ const InspectionStepDescription = ({ inspectionStep }: Props) => {
               </span>
             </li>
             <li>
-              <span className="label">결과</span>
+              <span className="label">평가 점수</span>
               <span className="score">
                 {descriptionObj?.["전체검사_점수"]
                   ? `${descriptionObj?.["전체검사_점수"]}`

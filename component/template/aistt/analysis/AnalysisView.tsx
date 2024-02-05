@@ -15,10 +15,9 @@ import SecondBadges from "@ComponentFarm/template/common/SecondBadges";
 import TableExpandRow from "@ComponentFarm/template/common/TableExpandRow";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 
-import AnalysisStepDescription from "./AnalysisStepDescription";
+import { SectionStyle } from "../style";
 import { AnalysisPageStyle } from "./style";
 import FqsVideo, { VideoWrapStyle } from "../common/FqsVideo";
-import { FqsAnalysisDataStyle, SectionStyle } from "../style";
 import InspectionStepList from "./InspectionStepList";
 
 const AnalysisViewLoading = () => {
@@ -148,10 +147,7 @@ const AnalysisView = ({
       </div>
       <div className="inspection-info">
         <SectionStyle className="list">
-          <h3 className="title">단계별 상세 결과</h3>
-          <span className="count">
-            총 <span className="number">{data?.step_list.length ?? 0}</span> 건
-          </span>
+          <h3 className="title">레시피 단계별 평가</h3>
           <InspectionStepList
             stepList={data?.step_list ?? []}
             onChangeVideoTime={handleChangeVideoTime}

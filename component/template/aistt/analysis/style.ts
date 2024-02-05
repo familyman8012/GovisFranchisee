@@ -62,7 +62,7 @@ export const AnalysisPageStyle = styled.div`
 
         .right {
           flex: none;
-
+          width: 9.8rem;
           button {
             max-width: 100%;
             min-width: auto !important;

@@ -35,14 +35,6 @@ const AisttStateAnalysisViewPage = () => {
 
   return (
     <Layout>
-      <TitleArea
-        title="현황"
-        BtnBox={
-          <Button variant="gostSecondary" onClick={() => router.back()}>
-            이전
-          </Button>
-        }
-      />
       <Tabs
         id="aistt-state-view"
         tabs={[

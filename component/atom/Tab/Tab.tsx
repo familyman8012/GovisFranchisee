@@ -2,6 +2,7 @@ import { FC } from "react";
 import { motion } from "framer-motion";
 import styled from "@emotion/styled";
 import { Badge } from "../Badge/Badge";
+import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
 
 export interface BaseTabProps {
   title: string;
@@ -80,6 +81,12 @@ const TabsWrapper = styled.div`
   position: relative;
   margin-top: 2.4rem;
   border-bottom: 1px solid var(--color-neutral90);
+
+  ${mqMaxWidth(breakpoints[1])} {
+    width: calc(100% - 3.2rem);
+    margin-left: auto;
+    margin-right: auto;
+  }
 `;
 
 export const Tabs: FC<TabsProps> = ({

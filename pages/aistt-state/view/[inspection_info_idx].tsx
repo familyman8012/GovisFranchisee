@@ -37,11 +37,7 @@ const AisttStateAnalysisViewPage = () => {
     <Layout>
       <Tabs
         id="aistt-state-view"
-        tabs={[
-          {
-            title: "제품 제조 상세",
-          },
-        ]}
+        tabs={[{ title: "제품 제조 상세" }]}
         activeTabIndex={0}
         onTabChange={() => {}}
       />

@@ -1,5 +1,3 @@
-// import Modal from "ComponentsFarm/elements/Modal";
-import Modal from "@ComponentFarm/modules/Modal/Modal";
 import React, { FC, useMemo } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import {
@@ -7,8 +5,6 @@ import {
   components,
   DropdownIndicatorProps,
   StylesConfig,
-  MenuProps,
-  GroupBase,
 } from "react-select";
 
 export interface IOption {
@@ -62,14 +58,6 @@ const CustomControl = (prefixLabel: string) => {
   return ControlComponent;
 };
 
-const ResponsiveMenu = (props: MenuProps<any, false, GroupBase<IOption>>) => {
-  return (
-    <Modal isOpen onClose={() => {}} showButtons={false}>
-      <components.Menu {...props} />
-    </Modal>
-  );
-};
-
 export const Select: FC<SelectProps> = ({
   options,
   selectedOption,
@@ -111,7 +99,7 @@ export const Select: FC<SelectProps> = ({
     indicatorSeparator: () => ({
       display: "none",
     }),
-    menu: (provided, state) => ({
+    menu: (provided) => ({
       ...provided,
       width: "auto",
       zIndex: 10,
@@ -129,9 +117,11 @@ export const Select: FC<SelectProps> = ({
       fontSize: "1.4rem",
       lineHeight: "120%",
       backgroundColor: state.isFocused
-        ? "var(--input-selectOptionSelected)"
+        ? "var(--color-orange95)"
         : "transparent",
-      color: state.isFocused ? "var(--color-blue60)" : "var(--color-neutral10)",
+      color: state.isFocused
+        ? "var(--color-orange70)"
+        : "var(--color-neutral10)",
       // color: state.isSelected ? 'white' : 'inherit',
     }),
   };
@@ -168,7 +158,6 @@ export const Select: FC<SelectProps> = ({
       components={{
         DropdownIndicator,
         Control: prefixLabel ? CustomControl(prefixLabel) : components.Control,
-        Menu: restProps.responsive ? ResponsiveMenu : components.Menu,
       }}
       options={options}
       value={computedSelectedOption}

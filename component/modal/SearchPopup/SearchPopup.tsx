@@ -204,10 +204,8 @@ const SearchPopup = <T extends ICommonResultData>({
                         >
                           {String(value)}
                         </Badge>
-                      ) : key === "category" ? (
-                        <label htmlFor={String(el.idx)}>{String(value)}</label>
                       ) : (
-                        String(value)
+                        <label htmlFor={String(el.idx)}>{String(value)}</label>
                       )}
                     </td>
                   )

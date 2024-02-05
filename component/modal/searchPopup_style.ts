@@ -164,25 +164,38 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
     margin-top: 0;
     border: none;
 
-    table thead tr:nth-of-type(1) {
-      &:hover {
-        background: none;
-      }
-      th {
-        margin-bottom: 0.8rem;
-        padding: 0;
-        color: var(--color-gray10);
-        font-size: 1.4rem;
-        font-weight: 700;
-        line-height: 120%;
-        background: none;
+    table thead tr {
+      &:nth-of-type(1) {
+        &:hover {
+          background: none;
+        }
+        th {
+          margin-bottom: 0.8rem;
+          padding: 0;
+          color: var(--color-gray10);
+          font-size: 1.4rem;
+          font-weight: 700;
+          line-height: 120%;
+          background: none;
+        }
       }
     }
 
     table tbody {
-      display: block;
-      max-height: 19.2rem;
       overflow-y: scroll;
+      display: block;
+      max-height: calc(100vh - 50rem);
+      height: calc(100vh - 50rem);
+    }
+
+    table thead tr:nth-of-type(2) th,
+    td {
+      &:first-of-type {
+        border-left: 1px solid var(--color-neutral90);
+      }
+      &:last-of-type {
+        border-right: 1px solid var(--color-neutral90);
+      }
     }
   }
 `;

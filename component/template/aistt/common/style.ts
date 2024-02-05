@@ -207,6 +207,18 @@ export const SkeletonWrap = styled.div`
       margin: 0 2.4rem 0 1.2rem;
     }
   }
+
+  ${mq[0]} {
+    > span {
+      &:not(&:first-of-type) {
+        display: none;
+      }
+      &:first-of-type {
+        width: 90%;
+        margin: 0 auto;
+      }
+    }
+  }
 `;
 
 export const MobileTableSty = css`
@@ -276,14 +288,25 @@ export const MobileTableSty = css`
         }
       }
 
+      .react-loading-skeleton {
+        width: 100% !important;
+      }
+
       &:nth-of-type(1) {
         display: none;
       }
 
       &:nth-of-type(2) {
-        padding: 0.8rem;
+        height: 8.1rem;
+        padding: 0.8rem 0;
         border-bottom: 1px solid var(--color-neutral90);
         background: #fff;
+
+        .wrap_skeleton,
+        span[aria-busy="true"],
+        .react-loading-skeleton {
+          height: 100%;
+        }
 
         .inner {
           .box_rank {
@@ -354,6 +377,7 @@ export const InfoArea = styled.div`
     text-align: center;
   }
   dd {
+    height: 2.7rem;
     color: var(--color-neutral-10, #181818);
     font-family: Pretendard;
     font-size: 2.4rem;
@@ -362,11 +386,24 @@ export const InfoArea = styled.div`
     line-height: 110%; /* 2.64rem */
     text-align: center;
 
+    .num {
+      .box_skeleton {
+        width: 5rem;
+      }
+    }
+
     .txt {
       margin-left: 0.8rem;
       color: var(--color-neutral40);
       font-size: 1.4rem;
       font-weight: 400;
+    }
+
+    .box_skeleton {
+      display: inline-block;
+      width: 80%;
+      margin: 0 auto;
+      vertical-align: middle;
     }
   }
 `;

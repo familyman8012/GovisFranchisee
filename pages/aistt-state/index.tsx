@@ -28,11 +28,6 @@ const AisttQualityState = () => {
 
   const { score_range, ...rest } = router.query;
 
-  const hanldeTabMove = (index: number) => {
-    setActiveTabIndex(index);
-    router.push(aisttStateListTabData[index].url);
-  };
-
   const { data: manufacturingQualityData } = useQuery(
     ["manufacturingQualityList", rest],
     () => fetchManufacturingQuality(params as IAisttStateReq)
@@ -46,6 +41,7 @@ const AisttQualityState = () => {
   return (
     <Layout
       css={css`
+        padding-bottom: 56px;
         @media (min-width: 768px) and (max-width: 1200px) {
           max-width: 100%;
         }
@@ -64,7 +60,9 @@ const AisttQualityState = () => {
           addText={
             <dl className="add_text">
               <dt>총 제조 수</dt>
-              <dd>{pizzaStatusListData?.summary.manufacturing_count_total}</dd>
+              <dd>
+                {pizzaStatusListData?.summary.manufacturing_count_total ?? "-"}
+              </dd>
             </dl>
           }
         />

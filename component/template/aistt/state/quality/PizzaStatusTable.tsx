@@ -16,6 +16,7 @@ import { QueryParams } from "HookFarm/useQueryParams";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 import { mq } from "@ComponentFarm/common";
 import { InfoArea, MobileTableSty } from "../../common/style";
+import Skeleton from "react-loading-skeleton";
 
 const PizzaStatusTableWrap = styled.div`
   width: 100%;
@@ -148,15 +149,33 @@ export const PizzaStatusTable = ({
       <InfoArea>
         <dl>
           <dt>평균 점수</dt>
-          <dd>{data?.summary.converted_score_avarage_total}</dd>
+          <dd>
+            {data?.summary.converted_score_avarage_total ?? (
+              <span className="box_skeleton">
+                <Skeleton baseColor="#fcfcfc" />
+              </span>
+            )}
+          </dd>
         </dl>
         <dl className="center">
           <dt>총 메뉴 수</dt>
-          <dd>{data?.summary.product_count}</dd>
+          <dd>
+            {data?.summary.product_count ?? (
+              <span className="box_skeleton">
+                <Skeleton baseColor="#fcfcfc" />
+              </span>
+            )}
+          </dd>
         </dl>
         <dl>
           <dt>총 제조 수</dt>
-          <dd>{data?.summary.manufacturing_count_total.toLocaleString()}</dd>
+          <dd>
+            {data?.summary.manufacturing_count_total.toLocaleString() ?? (
+              <span className="box_skeleton">
+                <Skeleton baseColor="#fcfcfc" />
+              </span>
+            )}
+          </dd>
         </dl>
       </InfoArea>
       <div className="area_table">

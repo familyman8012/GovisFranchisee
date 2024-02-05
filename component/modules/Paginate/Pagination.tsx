@@ -1,6 +1,8 @@
-import React, { FC } from 'react';
-import { default as PaginationLibrary } from 'react-js-pagination';
-import { PaginationWrap } from './style';
+import React, { FC, useEffect, useState } from "react";
+import { default as PaginationLibrary } from "react-js-pagination";
+import { PaginationWrap } from "./style";
+import debounce from "lodash/debounce";
+import PaginationMobile from "./PaginationMobile";
 
 export interface PaginationProps {
   pageInfo: number[];
@@ -39,21 +41,44 @@ const Pagination: FC<PaginationProps> = ({
   totalCount,
   handlePageChange,
 }) => {
+  const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+    const handleResize = debounce(() => {
+      setWindowWidth(window.innerWidth);
+    }, 300); // 300ms 동안 debounce
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      handleResize.cancel();
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <PaginationWrap>
-      <PaginationLibrary
-        activePage={pageInfo[0]}
-        itemsCountPerPage={pageInfo[1]}
-        totalItemsCount={totalCount}
-        prevPageText={carotLeft}
-        nextPageText={carotRight}
-        pageRangeDisplayed={5}
-        onChange={handlePageChange}
-        hideFirstLastPages
-        itemClass="page-item"
-        linkClass="page-link"
-        activeClass="active"
-      />
+      {windowWidth >= 800 ? (
+        <PaginationLibrary
+          activePage={pageInfo[0]}
+          itemsCountPerPage={pageInfo[1]}
+          totalItemsCount={totalCount}
+          prevPageText={carotLeft}
+          nextPageText={carotRight}
+          pageRangeDisplayed={5}
+          onChange={handlePageChange}
+          hideFirstLastPages
+          itemClass="page-item"
+          linkClass="page-link"
+          activeClass="active"
+        />
+      ) : (
+        <PaginationMobile
+          pageInfo={pageInfo}
+          totalCount={totalCount}
+          handlePageChange={handlePageChange}
+        />
+      )}
     </PaginationWrap>
   );
 };

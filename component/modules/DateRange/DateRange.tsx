@@ -12,6 +12,9 @@ import "react-datepicker/dist/react-datepicker.css";
 import { FiCalendar } from "react-icons/fi";
 import { IcoInput } from "@ComponentFarm/atom/IcoInput/IcoInput";
 import { DateRageBox, DateRangeWrap } from "./style";
+import { Button } from "@ComponentFarm/atom/Button/Button";
+import { IconViewArea } from "@ComponentFarm/common";
+import Cross from "@ComponentFarm/atom/icons/Cross";
 
 export type DateRangeType = [Date | null, Date | null];
 
@@ -252,6 +255,19 @@ const DateRangePicker: React.FC<DateRangePickerProps> = ({
           <div className="dimm" onClick={() => setOpen(false)} />
           <div className="wrap_date_range">
             <div className="area_calendar">
+              <Button
+                type="button"
+                variant="transparent"
+                onClick={() => setOpen(false)}
+                IconOnly={
+                  <IconViewArea size={16}>
+                    <Cross size={16} />
+                  </IconViewArea>
+                }
+                className="btn_close"
+              >
+                <span className="hiddenZoneV">닫기</span>
+              </Button>
               <div className="box_calendar">
                 <DatePicker
                   selected={dateRange[0]}

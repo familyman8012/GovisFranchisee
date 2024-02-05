@@ -213,6 +213,10 @@ export const DateRageBox = styled.div`
         }
       }
     }
+
+    .btn_close {
+      display: none;
+    }
   }
 
   .area_direct_input {
@@ -276,6 +280,27 @@ export const DateRageBox = styled.div`
       .area_calendar {
         display: block;
 
+        .btn_close {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          position: absolute;
+          bottom: -5.5rem;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          width: 3rem;
+          height: 3rem;
+          padding: 0;
+          border-radius: 50%;
+          background: var(--color-orange70);
+
+          svg {
+            path {
+              fill: #fff;
+            }
+          }
+        }
+
         .react-datepicker,
         .react-datepicker__month,
         .react-datepicker__month-container {
@@ -307,10 +332,10 @@ export const DateRageBox = styled.div`
           button {
             width: auto;
             height: 4.4rem;
-          }
 
-          button:last-of-type {
-            display: none;
+            &:first-of-type {
+              display: none;
+            }
           }
         }
       }

@@ -9,8 +9,7 @@ export const Container = styled.div`
 
 export const LayoutWrap = styled.div`
   max-width: 100%;
-  margin: 56px auto 0;
-  padding: 0;
+  margin: 56px auto;
 
   &.fullWidth {
     max-width: 100vw !important;

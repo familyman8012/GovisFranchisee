@@ -144,7 +144,11 @@ const AnalysisView = ({
         <SectionStyle className="list">
           <h3 className="title">레시피 단계별 평가</h3>
           <InspectionStepList
-            stepList={data?.step_list ?? []}
+            stepList={
+              data?.step_list.filter(
+                (step) => step.step_variable_name !== "도우"
+              ) ?? []
+            }
             onChangeVideoTime={handleChangeVideoTime}
           />
         </SectionStyle>

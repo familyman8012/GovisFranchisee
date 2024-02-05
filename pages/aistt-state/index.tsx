@@ -20,7 +20,6 @@ import { css } from "@emotion/react";
 
 const AisttQualityState = () => {
   const router = useRouter();
-  const [activeTabIndex, setActiveTabIndex] = useState(1);
   const [params, updateParams, resetParams] = useQueryParams({
     search_start_dt: dayjs().format("YYYY-MM-DD"),
     search_end_dt: dayjs().format("YYYY-MM-DD"),
@@ -68,7 +67,6 @@ const AisttQualityState = () => {
         />
         <AreaManufacturingQuality>
           <ManufacturingQualityList
-            type="state"
             params={params}
             updateParams={updateParams}
             data={manufacturingQualityData?.list}

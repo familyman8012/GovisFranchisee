@@ -134,14 +134,8 @@ export const ManufacturingQualityList = ({
   }, []);
 
   const handlerScoreRange = (item: any) => {
-    if (type === "state") {
-      router.push({
-        pathname: "/aistt-state/quality",
-        query: { ...router.query, score_range: item.score_range },
-      });
-    }
-    if (type !== "state" && updateParams) {
-      if (selectScoreRange === String(item.score_range)) {
+    if (updateParams) {
+      if (String(router.query.score_range) === String(item.score_range)) {
         setselectScoreRange("");
         updateParams({ score_range: undefined });
       } else {

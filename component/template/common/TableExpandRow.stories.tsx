@@ -1,18 +1,18 @@
 /* eslint-disable react/destructuring-assignment */
-import React from 'react';
-import { Meta, Story } from '@storybook/react';
-import StoryLayout from '@ComponentFarm/modules/story_layout/StoryLayout';
-import { Badge } from '@ComponentFarm/atom/Badge/Badge';
-import DataFilled from '@ComponentFarm/atom/icons/DataFilled';
-import Pic from '@ComponentFarm/atom/icons/Pic';
-import { Table, TableWrap } from '@ComponentFarm/common';
-import { getTableWidthPercentage } from '@UtilFarm/calcSize';
-import TableExpandRow from './TableExpandRow';
-import { FqsAnalysisDataStyle } from '../aistt/style';
+import React from "react";
+import { Meta, Story } from "@storybook/react";
+import StoryLayout from "@ComponentFarm/modules/story_layout/StoryLayout";
+import { Badge } from "@ComponentFarm/atom/Badge/Badge";
+import DataFilled from "@ComponentFarm/atom/icons/DataFilled";
+import Pic from "@ComponentFarm/atom/icons/Pic";
+import { Table, TableWrap } from "@ComponentFarm/common";
+import { getTableWidthPercentage } from "@UtilFarm/calcSize";
+import TableExpandRow from "./TableExpandRow";
+import InspectionStepDescription from "../aistt/analysis/InspectionStepDescription";
 
 const meta: Meta = {
-  title: 'TEMPLATE/TableExpandRow',
-  tags: ['autodocs'],
+  title: "TEMPLATE/TableExpandRow",
+  tags: ["autodocs"],
   args: {
     TotalProps: {
       props: ``,
@@ -21,8 +21,8 @@ const meta: Meta = {
   parameters: {
     docs: {
       story: { inline: true }, // render the story in an iframe
-      canvas: { sourceState: 'shown' }, // start with the source open
-      source: { type: 'code' }, // forces the raw source code (rather than the rendered JSX).
+      canvas: { sourceState: "shown" }, // start with the source open
+      source: { type: "code" }, // forces the raw source code (rather than the rendered JSX).
     },
   },
 };
@@ -33,7 +33,7 @@ interface Props {
   darkMode: boolean;
 }
 
-export const Default: Story<Props> = args => {
+export const Default: Story<Props> = (args) => {
   return (
     <StoryLayout {...args}>
       <TableWrap className="content">
@@ -63,48 +63,29 @@ export const Default: Story<Props> = args => {
           <tbody>
             <TableExpandRow
               content={
-                <FqsAnalysisDataStyle>
-                  <ul>
-                    <li>
-                      <span className="ico">
-                        <Pic />
-                      </span>
-                      <div className="cont">
-                        <div className="inspection-img">
-                          <h3>제조 이미지</h3>
-                          <img src="" alt="" />
-                        </div>
-
-                        <div className="inspection-img">
-                          <h3>제조 이미지 컬러맵</h3>
-                          <img src="" alt="" />
-                        </div>
-                      </div>
-                    </li>
-                    <li className="hide-line">
-                      <span className="ico">
-                        <DataFilled />
-                      </span>
-                      <div className="cont">
-                        <div className="inspection">
-                          <h3>감점 및 심각 요인</h3>
-                          <div className="effect">
-                            <Badge color="yellow" size="sm">
-                              감점 요인
-                            </Badge>
-                            <p>감점 내역이 없습니다.</p>
-                          </div>
-                          <div className="effect">
-                            <Badge color="red" size="sm">
-                              심각 요인
-                            </Badge>
-                            <p>심각 내역이 없습니다.</p>
-                          </div>
-                        </div>
-                      </div>
-                    </li>
-                  </ul>
-                </FqsAnalysisDataStyle>
+                <InspectionStepDescription
+                  inspectionStep={{
+                    // Mockup data
+                    inspection_step_idx: 1,
+                    step_variable_name: "도우",
+                    step_image_url: "",
+                    step_color_image_url: "",
+                    ground_truth_image_url: "",
+                    step_variable_idx: 1,
+                    section_dt_finish: 30,
+                    section_score: 10,
+                    section_score_std: 10,
+                    section_description: "",
+                    section_dt_start: 0,
+                    rating_scale_idx_1: 2,
+                    rating_scale_idx_2: 3,
+                    rating_scale_idx_3: 1,
+                    rating_scale_name_1: "소스 부족",
+                    rating_scale_name_2: "소스 부족",
+                    rating_scale_name_3: "소스 부족",
+                    conversion_score: 25,
+                  }}
+                />
               }
             >
               <td>도우</td>

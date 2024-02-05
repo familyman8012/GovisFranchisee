@@ -103,7 +103,7 @@ export const Detail = () => {
           hideUnderline
           addText={
             <dl className="add_text">
-              <dt>총 </dt>
+              <dt>총 제조 수</dt>
               <dd>{` ${totalFrequencyCount ?? "-"}`}</dd>
             </dl>
           }

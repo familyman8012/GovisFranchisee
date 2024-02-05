@@ -90,7 +90,7 @@ export const PaginationMobileWrap = styled.div`
 
   input {
     width: 55px;
-    padding: 3px 4px;
+    padding: 3px 7px;
     text-align: right;
     border: 1px solid rgb(224, 224, 224);
     border-radius: 3px;

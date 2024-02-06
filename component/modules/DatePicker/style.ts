@@ -253,12 +253,17 @@ export const datepickerGlobalStyle = css`
     color: ${TEXTCOLOR.default};
   }
 
-  .react-datepicker__navigation--next {
-    right: calc(50% - 120px);
+  @media (min-width: 200px) and (max-width: 800px) {
+    .react-datepicker__navigation--next {
+      right: calc(50% - 120px);
+    }
+
+    .react-datepicker__navigation--previous {
+      left: calc(50% - 120px);
+    }
   }
 
   .react-datepicker__navigation--previous {
-    left: calc(50% - 120px);
     transform: rotate(-180deg);
   }
 

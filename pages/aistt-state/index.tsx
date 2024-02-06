@@ -17,6 +17,7 @@ import { ContentArea } from "@ComponentFarm/common";
 import { AreaManufacturingQuality } from "@ComponentFarm/template/aistt/common/style";
 import { ManufacturingQualityList } from "@ComponentFarm/template/aistt/common/ManufacturingQuality";
 import { css } from "@emotion/react";
+import Img from "@ComponentFarm/atom/Img/Img";
 
 const AisttQualityState = () => {
   const router = useRouter();

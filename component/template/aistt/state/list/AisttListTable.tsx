@@ -17,7 +17,6 @@ import useSortable from "HookFarm/useSortable";
 import { getTableWidthPercentage } from "@UtilFarm/calcSize";
 import { MobileTableSty } from "../../common/style";
 import styled from "@emotion/styled";
-import Img from "@ComponentFarm/atom/Img/Img";
 
 interface TableProps {
   isLoading: boolean;
@@ -168,10 +167,8 @@ const AisttListTable = ({
                     <div className="box_rank">{item.inspection_info_idx}</div>
                     <div className="thumb">
                       {item.inspection_image_url ? (
-                        <Img
+                        <img
                           src={item.inspection_image_url}
-                          width="102"
-                          height="67"
                           alt={item.product_name}
                         />
                       ) : (

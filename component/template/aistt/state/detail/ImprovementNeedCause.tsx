@@ -8,7 +8,6 @@ import { Badge } from "@ComponentFarm/atom/Badge/Badge";
 import Empty from "@ComponentFarm/atom/Empty/Empty";
 import { AreaBox } from "@ComponentFarm/template/common/AreaBox";
 import { mq } from "@ComponentFarm/common";
-import Img from "@ComponentFarm/atom/Img/Img";
 
 export const ImprovementNeedCauseWrap = styled.div`
   display: grid;

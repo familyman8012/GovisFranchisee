@@ -19,7 +19,7 @@ export const newsMenu = [
   { title: "레시피 정복", path: "/recipe/product" },
   { title: "뉴스레터", path: "/news/product" },
   { title: "캘린더", path: "/calendar" },
-  { title: "우수사례 & 성공사례", path: "/board/best-practices" },
+  { title: "우리가 불편해야 고객이 만족한다", path: "/board/best-practices" },
 ];
 
 export const fqs = [

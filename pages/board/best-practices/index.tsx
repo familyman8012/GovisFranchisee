@@ -6,7 +6,11 @@ import { useQuery } from "react-query";
 import style from "StyleFarm/scss/modules/Practice.module.scss";
 
 import * as PracticeService from "ApiFarm/practice";
-import { IPracticeListItem, IPracticeListRequest, IPracticeListReponse } from "InterfaceFarm/Practice";
+import {
+  IPracticeListItem,
+  IPracticeListRequest,
+  IPracticeListReponse,
+} from "InterfaceFarm/Practice";
 
 import Layout from "ComponentsFarm/layouts";
 import PracticeList from "ComponentsFarm/pageComp/practice/PracticeList";
@@ -35,11 +39,15 @@ const PracticePage = () => {
   return (
     <Layout>
       <Head>
-        <title>우수사례 & 성공사례 | GOVIS For Franchisee</title>
+        <title>우리가 불편해야 고객이 만족한다 | GOVIS For Franchisee</title>
       </Head>
       <div className={style["pracice-board"]}>
         <div className="p-0">
-          <PracticeList loading={isLoading} items={data?.list ?? []} onClick={handleClick} />
+          <PracticeList
+            loading={isLoading}
+            items={data?.list ?? []}
+            onClick={handleClick}
+          />
         </div>
       </div>
     </Layout>

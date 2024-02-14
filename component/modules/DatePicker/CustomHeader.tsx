@@ -57,7 +57,7 @@ const DatePickerCustomHeader = styled.div`
       }
 
       &.selected-month {
-        background-color: var(--color-blue60) !important;
+        background-color: var(--color-orange70) !important;
         color: #fff !important;
       }
     }

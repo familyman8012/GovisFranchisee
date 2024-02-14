@@ -171,7 +171,7 @@ export const DateRangeWrap = styled.div`
           .react-datepicker__year-option--selected {
             display: none;
           }
-          background-color: var(--color-blue60) !important;
+          background-color: var(--color-orange70) !important;
           color: #fff !important;
         }
       }

@@ -484,6 +484,12 @@ const reset = css`
     background: var(--color-orange60);
   }
 
+  @media (max-width: 360px) {
+    .select_library_control {
+      font-size: 12px;
+    }
+  }
+
   /* input.inp,
   select,
   textarea {

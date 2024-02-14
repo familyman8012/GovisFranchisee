@@ -84,6 +84,12 @@ export const SearchBox = styled.form<{ width?: string }>`
       }
     }
   }
+
+  @media (max-width: 360px) {
+    .box_searchkeyword .inp {
+      font-size: 12px;
+    }
+  }
 `;
 
 export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
@@ -195,6 +201,18 @@ export const SearchResult = styled.form<{ width?: string; col?: number[] }>`
       }
       &:last-of-type {
         border-right: 1px solid var(--color-neutral90);
+      }
+    }
+  }
+
+  @media (max-width: 360px) {
+    table tbody {
+      max-height: calc(100vh - 40rem);
+      height: calc(100vh - 40rem);
+
+      td label,
+      .badge {
+        font-size: 12px;
       }
     }
   }

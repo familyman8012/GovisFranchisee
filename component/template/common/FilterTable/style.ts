@@ -185,6 +185,15 @@ export const FilterTable = styled.div`
       }
     }
   }
+  @media (max-width: 360px) {
+    dl.control_filter_line:first-of-type .icoInput {
+      font-size: 12px;
+    }
+    dl.control_filter_line:nth-of-type(2) dd.box_filter_inp .inner .btn_search {
+      font-size: 12px;
+      padding: 1.1rem 0;
+    }
+  }
 `;
 
 export const FilterTableBtnBox = styled.div`

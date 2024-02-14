@@ -127,6 +127,7 @@ function Login() {
                   size="sm"
                   clear
                   onClick={() => setShowGuideModal(true)}
+                  style={{ fontSize: "0.875rem" }}
                 >
                   이용안내
                 </Button>

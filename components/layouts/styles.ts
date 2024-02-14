@@ -174,7 +174,7 @@ export const UserInfoBox = styled.div`
   .name {
     margin-bottom: 4px;
     color: #212529;
-    font-size: 1.25rem;
+    font-size: 17.5px;
     font-weight: 500;
     line-height: 1.2;
     display: flex;

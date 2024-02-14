@@ -1,5 +1,5 @@
 import { IMaterialReq } from "InterfaceFarm/material";
-import { CommonRequest } from ".";
+import { CommonRequest, FcV2Request } from ".";
 import { IMenuListItem } from "InterfaceFarm/menu";
 
 export const fetchCommonMaterialList = async (params?: IMaterialReq) => {
@@ -19,4 +19,14 @@ export const fetchCommonMenuList = async (params: any) => {
     }>
   >("/menu/info/list", { params });
   return response.data.data;
+};
+
+export const fetchCommonAisttStoreInfo = async () => {
+  return FcV2Request.get<
+    IResponse<{
+      store_idx: number;
+      store_name: string;
+      is_use_stt: number;
+    }>
+  >("/store/info").then((res) => res.data.data);
 };

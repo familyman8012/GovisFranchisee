@@ -16,17 +16,40 @@ import VideoPlayConfirm from "../common/VideoPlayConfirm";
 const AnalysisViewLoading = () => {
   return (
     <AnalysisPageStyle>
-      <VideoWrapStyle />
-      <div className="info">
-        <h2>
-          <Skeleton width="350px" height="2.6rem" />
-        </h2>
-        <p>
-          <Skeleton width="100px" height="1.7rem" />
-        </p>
-        <p>
-          <Skeleton width="100px" height="1.7rem" />
-        </p>
+      <div className="top">
+        <div className="video">
+          <h3 className="title">
+            <Skeleton width={"20rem"} height={"2.4rem"} />
+          </h3>
+          <VideoWrapStyle />
+        </div>
+        <div className="inspection-result">
+          <h3 className="title">
+            <Skeleton width={"20rem"} height={"2.4rem"} />
+          </h3>
+          <ul className="card">
+            <li className="product">
+              <Skeleton
+                width={"10rem"}
+                height={"1.4rem"}
+                style={{ marginBottom: "1rem" }}
+              />
+              <h2>
+                <Skeleton width={"100%"} height={"2.4rem"} />
+              </h2>
+            </li>
+            <li className="manufactor">
+              <div className="left">
+                <p>
+                  <Skeleton width={"100%"} height={"1rem"} />
+                </p>
+                <p>
+                  <Skeleton width={"100%"} height={"1rem"} />
+                </p>
+              </div>
+            </li>
+          </ul>
+        </div>
       </div>
     </AnalysisPageStyle>
   );

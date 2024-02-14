@@ -14,6 +14,8 @@ import { BoxArrowUpRight } from "@emotion-icons/bootstrap/BoxArrowUpRight";
 import dayjs from "dayjs";
 import { authStore } from "src/mobx/store";
 import { ILoginUserResponse } from "InterfaceFarm/auth";
+import { useQuery } from "react-query";
+import { fetchCommonAisttStoreInfo } from "ApiFarm/common";
 
 function Left({
   session,
@@ -23,6 +25,19 @@ function Left({
   sideMenuShow: boolean;
 }) {
   const year = useMemo(() => dayjs().year(), []);
+
+  const { data } = useQuery("fetchCommonAisttStore", () =>
+    fetchCommonAisttStoreInfo()
+  );
+
+  // STT 사용여부에 따라 메뉴 필터링
+  const filteredMenu = useMemo(
+    () =>
+      !data || !data.is_use_stt
+        ? manageMenu.filter((menu) => !menu.path.startsWith("/aistt"))
+        : manageMenu,
+    [data]
+  );
 
   const handlerBtnLogout = useCallback(() => {
     authStore.logOut();
@@ -42,7 +57,7 @@ function Left({
           <p className="email">{session?.user_email}</p>
         </UserInfoBox>
 
-        <MenuListItem title="매장 관리" menuData={manageMenu} />
+        <MenuListItem title="매장 관리" menuData={filteredMenu} />
         <MenuListItem title="본사 소식" menuData={newsMenu} />
       </MenuSection>
       <LnbBottom>

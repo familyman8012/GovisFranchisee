@@ -6,20 +6,11 @@ import { useQuery } from "react-query";
 import styled from "@emotion/styled";
 import { fetchMonitoringStoreProductList } from "ApiFarm/aistt";
 import { IFqsMonitoringVideoInfo } from "InterfaceFarm/ai-fqs";
-import type { VideoTimeDiff } from "@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator";
 import MonitoringMakeHistory from "./MonitoringMakeHistory";
 import FqsVideo from "../common/FqsVideo";
 import { breakpoints, mqMaxWidth } from "@ComponentFarm/common";
-import { vi } from "date-fns/locale";
 import useWifiPopup from "HookFarm/useWifiPopup";
 import VideoPlayConfirm from "../common/VideoPlayConfirm";
-
-const VideoTimeDiffCalculator = dynamic(
-  () => import("@ComponentFarm/template/aistt/common/VideoTimeDiffCalculator"),
-  {
-    ssr: false,
-  }
-);
 
 const MonitoringVideoViewStyle = styled.div`
   position: relative;
@@ -121,15 +112,12 @@ const MonitoringVideoView = ({
   const router = useRouter();
   const [isConfirmed, setIsConfirmed] = useWifiPopup();
 
-  const [isVideoLoaded, setIsVideoLoaded] = React.useState<boolean>(false);
-  const [timeDiffList, setTimeDiffList] = React.useState<VideoTimeDiff[]>([]);
-
   const makingTime = React.useMemo(
     () => router.query.d as string,
     [router.query]
   );
 
-  const { data } = useQuery(
+  const { data, isLoading } = useQuery(
     [
       "aistt-monitoring-time-products",
       activeDate,
@@ -145,69 +133,22 @@ const MonitoringVideoView = ({
     }
   );
 
-  const setVideoRealTime = (time: number) => {
-    const video = videoRef.current;
-    if (!video || timeDiffList.length === 0) return;
-
-    // 가장 가까운 작은 값과 가장 가까운 큰 값 변수
-    let closestSmaller: VideoTimeDiff | undefined;
-    let closestLarger: VideoTimeDiff | undefined;
-
-    timeDiffList.forEach((entry) => {
-      if (
-        entry.videoTime <= time &&
-        (!closestSmaller || entry.videoTime > closestSmaller.videoTime)
-      ) {
-        closestSmaller = entry;
-      }
-
-      if (
-        entry.videoTime >= time &&
-        (!closestLarger || entry.videoTime < closestLarger.videoTime)
-      ) {
-        closestLarger = entry;
-      }
-    });
-
-    if (!closestSmaller || !closestLarger) {
-      video.currentTime = time;
-      return;
-    }
-
-    // closestSmaller.videoTime 값들 사이의 차이의 백분율을 계산합니다.
-    const percentageDifference =
-      (time - closestSmaller.videoTime) /
-      (closestSmaller === closestLarger
-        ? 1
-        : closestLarger.videoTime - closestSmaller.videoTime);
-
-    video.currentTime =
-      closestSmaller.time +
-      (closestLarger.time - closestSmaller.time) * percentageDifference;
-  };
-
   // 비디오 및 OCR 로드 완료 시 시간 설정
   useEffect(() => {
-    if (!isVideoLoaded || !makingTime) return;
+    if (isLoading || !makingTime || !isConfirmed) return;
 
-    const baseTime = dayjs(videoInfo.record_dt)
-      .set("second", 0)
-      .set("minute", 0);
-    const endTime = dayjs(videoInfo.record_finish_dt);
     const dt = dayjs(makingTime);
 
-    const inTime = baseTime.unix() <= dt.unix() && endTime.unix() >= dt.unix();
+    const { video_play_seconds } = data?.list.find((item) =>
+      dt.isSame(item.manufacture_dt)
+    ) ?? {
+      video_play_seconds: 0,
+    };
 
-    if (!inTime) return;
-
-    if (dt.isValid()) setVideoRealTime(Math.abs(dt.diff(baseTime, "second")));
-  }, [videoRef, makingTime, isVideoLoaded]);
-
-  // 비디오 변경 시 로드 완료 상태 변경
-  useEffect(() => {
-    if (!videoInfo.cctv_video_url) return;
-    setIsVideoLoaded(false);
-  }, [videoInfo.cctv_video_url]);
+    if (dt.isValid() && videoRef.current && video_play_seconds) {
+      videoRef.current.currentTime = video_play_seconds;
+    }
+  }, [videoRef, makingTime, isLoading, isConfirmed]);
 
   return (
     <MonitoringVideoViewStyle>
@@ -217,18 +158,9 @@ const MonitoringVideoView = ({
           <>
             <FqsVideo
               ref={videoRef}
-              loading={!isVideoLoaded}
               src={videoInfo.cctv_video_url}
               crossOrigin="anonymous"
               sticky
-            />
-            <VideoTimeDiffCalculator
-              videoSrc={videoInfo.cctv_video_url}
-              frameCount={2}
-              onLoaded={(diffList) => {
-                setIsVideoLoaded(true);
-                setTimeDiffList(diffList);
-              }}
             />
           </>
         ) : (

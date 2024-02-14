@@ -134,7 +134,7 @@ export const Button = styled.button`
   `}
 
   transition: opacity 0.35s, color 0.35s ease-out, background 0.35s ease-out;
-  font-size: ${(props) => (props.size === "sm" ? "1.3rem" : "1.4rem")};
+  font-size: ${(props) => (props.size === "sm" ? "0.875rem" : "1rem")};
 
   > * {
     line-height: 1;

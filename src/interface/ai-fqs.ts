@@ -204,6 +204,7 @@ export interface IFqsMonitoringMakeHistory {
   store_idx: number;
   store_name: string;
   video_info_idx: number;
+  video_play_seconds: number;
   inspection_image_url: string;
   product_info_idx: number;
   product_info_name: string;

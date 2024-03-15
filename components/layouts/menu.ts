@@ -7,6 +7,7 @@ export const manageMenu = [
   // { title: "상품 피드백", path: "/recipe/feedback" },
   { title: "건의 & 문의", path: "/board/suggestion" },
   { title: "인테리어 AS", path: "/board/interior" },
+  { title: "기기 AS", path: "/board/machine" },
   { title: "반품 문의", path: "/board/return" },
   // { title: "실시간 주문 현황", path: "/kds" },
   { title: "GoAir", path: "/goair" },

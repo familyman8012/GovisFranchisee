@@ -11,7 +11,6 @@ import {
 } from "ComponentsFarm/pageComp/machine/style";
 import { useRouter } from "next/router";
 import React from "react";
-import { useMemo } from "react";
 import { useQuery } from "react-query";
 
 export default function MachineBoardView() {

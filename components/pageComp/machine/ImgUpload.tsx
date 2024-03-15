@@ -1,5 +1,5 @@
 import { X } from "@emotion-icons/bootstrap";
-import { MachineApplyImgPost } from "ApiFarm/Machine";
+import { MachineApplyImgPost } from "ApiFarm/machine";
 import { ThumbnailLoading } from "ComponentsFarm/elements/Loading";
 import { ISendImg } from "PagesFarm/board/machine/post";
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";

@@ -1,8 +1,5 @@
 import { MachineApplyPost, MachineApplyImgPost } from "ApiFarm/machine";
-import { Datepicker } from "ComponentsFarm/elements/Datepicker";
-import { ListCustomCheckBox } from "ComponentsFarm/elements/GoCheckbox";
 import { LabelText, LabelTextArea } from "ComponentsFarm/elements/GoPizzaInput";
-import { GoRadio } from "ComponentsFarm/elements/GoRadio";
 import Layout from "ComponentsFarm/layouts";
 import { Container } from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
@@ -14,8 +11,8 @@ import {
 } from "ComponentsFarm/pageComp/machine/style";
 import { IMachinePostValues } from "InterfaceFarm/MachineBoard";
 import { useRouter } from "next/router";
-import { useEffect, useRef, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
 
 export interface ISendImg {
   id: string;

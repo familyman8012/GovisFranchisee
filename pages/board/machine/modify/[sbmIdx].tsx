@@ -1,22 +1,18 @@
 import { MachineApplyModifyinfo, MachineApplyViewinfo } from "ApiFarm/machine";
-import { Datepicker } from "ComponentsFarm/elements/Datepicker";
-import { ListCustomCheckBox } from "ComponentsFarm/elements/GoCheckbox";
 import { LabelText, LabelTextArea } from "ComponentsFarm/elements/GoPizzaInput";
-import { GoRadio } from "ComponentsFarm/elements/GoRadio";
 import Layout from "ComponentsFarm/layouts";
 import { Container } from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import ImgUpload from "ComponentsFarm/pageComp/machine/ImgUpload";
 import { MachineBoardContentsInfo } from "ComponentsFarm/pageComp/machine/MachineBoardContentsInfo";
 import {
-  ErrorTxt,
   RegisterForm,
   MachineApplyView,
 } from "ComponentsFarm/pageComp/machine/style";
 import { IMachinePostValues } from "InterfaceFarm/MachineBoard";
 import { useRouter } from "next/router";
 import { SetStateAction, useEffect, useMemo, useState } from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm } from "react-hook-form";
 import { useQuery } from "react-query";
 
 export default function MachineBoardPost() {

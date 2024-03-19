@@ -5,7 +5,10 @@ import Layout from "ComponentsFarm/layouts";
 import { Container } from "ComponentsFarm/layouts/styles";
 import { FeedBackContents } from "ComponentsFarm/pageComp/feedback/styles";
 import { ReturnBoardContentsInfo } from "ComponentsFarm/pageComp/return/ReturnBoardContentsInfo";
-import { RegisterFormView, ReturnApplyView } from "ComponentsFarm/pageComp/return/style";
+import {
+  RegisterFormView,
+  ReturnApplyView,
+} from "ComponentsFarm/pageComp/return/style";
 import { useRouter } from "next/router";
 import React from "react";
 import { useMemo } from "react";
@@ -19,9 +22,13 @@ export default function ReturnBoardView() {
     router.push("/board/return");
   };
 
-  const { data } = useQuery(["return-apply-view"], () => ReturnApplyViewinfo(String(sbreIdx)), {
-    enabled: !!sbreIdx,
-  });
+  const { data } = useQuery(
+    ["return-apply-view"],
+    () => ReturnApplyViewinfo(String(sbreIdx)),
+    {
+      enabled: !!sbreIdx,
+    }
+  );
 
   // 클레임 분류
   const occur_type_text = useMemo(
@@ -41,12 +48,21 @@ export default function ReturnBoardView() {
 
   // 요청 사항
   const processRequest = useMemo(
-    () => (data?.process_request === 0 ? "반품" : data?.process_request === 1 ? "교환" : "개선요청"),
+    () =>
+      data?.process_request === 0
+        ? "반품"
+        : data?.process_request === 1
+        ? "교환"
+        : "개선요청",
     [data?.process_request]
   );
 
   return (
-    <Layout menuIconType="back" className="fullWidth" handlerMenuIcon={handlerNavBarMenuClick}>
+    <Layout
+      menuIconType="back"
+      className="fullWidth"
+      handlerMenuIcon={handlerNavBarMenuClick}
+    >
       <FeedBackContents>
         <div className={"recipe-feedback"}>
           <ReturnApplyView className="view">
@@ -71,6 +87,20 @@ export default function ReturnBoardView() {
                   </div>
                   <Container className={"contents "}>
                     <RegisterFormView>
+                      <div className="box">
+                        <div className="tit">제품 유형</div>
+                        <p>
+                          {data.product_type === 0
+                            ? "알 수 없음"
+                            : data.product_type === 1
+                            ? "전용"
+                            : data.product_type === 2
+                            ? "범용"
+                            : data.product_type === 3
+                            ? "도우"
+                            : "-"}
+                        </p>
+                      </div>
                       <div className="box">
                         <div className="tit">입고일자</div>
                         <p>{data.receiving_date}</p>
@@ -102,7 +132,10 @@ export default function ReturnBoardView() {
                                   <li className="blank"></li>
                                 ) : (
                                   <li>
-                                    <img src={data[`attached_image_${i + 1}`]} alt={`반품이미지${i + 1}`} />
+                                    <img
+                                      src={data[`attached_image_${i + 1}`]}
+                                      alt={`반품이미지${i + 1}`}
+                                    />
                                   </li>
                                 )}
                               </React.Fragment>
@@ -112,27 +145,39 @@ export default function ReturnBoardView() {
                       <div className="box">
                         <div className="tit">상세 내용</div>
                         <p>
-                          {data?.detail_content?.split("\n").map((line: string, i: number) => {
-                            return (
-                              <React.Fragment key={`line${i}`}>
-                                {line}
-                                <br />
-                              </React.Fragment>
-                            );
-                          })}
+                          {data?.detail_content
+                            ?.split("\n")
+                            .map((line: string, i: number) => {
+                              return (
+                                <React.Fragment key={`line${i}`}>
+                                  {line}
+                                  <br />
+                                </React.Fragment>
+                              );
+                            })}
                         </p>
                       </div>
                     </RegisterFormView>
                   </Container>
                 </div>
-                <div className={`box_btn_area ${data?.status === 2 ? "fin" : ""}`}>
+                <div
+                  className={`box_btn_area ${data?.status === 2 ? "fin" : ""}`}
+                >
                   {data?.status !== 2 && (
-                    <button className="btn btn_modify" onClick={() => router.push(`/board/return/modify/${sbreIdx}`)}>
+                    <button
+                      className="btn btn_modify"
+                      onClick={() =>
+                        router.push(`/board/return/modify/${sbreIdx}`)
+                      }
+                    >
                       <EditOutline width={22} height={22} />
                       <span className="txt">수정</span>
                     </button>
                   )}
-                  <button className="btn btn_chat" onClick={() => router.push(`/board/return/view/${sbreIdx}`)}>
+                  <button
+                    className="btn btn_chat"
+                    onClick={() => router.push(`/board/return/view/${sbreIdx}`)}
+                  >
                     <ChatRight width={22} height={22} />
                     <span className="txt">채팅 및 답변확인</span>
                   </button>

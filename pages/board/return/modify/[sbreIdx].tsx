@@ -69,7 +69,7 @@ export default function ReturnBoardPost() {
 
   //defaultValue 설정
   useEffect(() => {
-    reset(data);
+    reset({ ...data, product_type: data?.product_type?.toString() ?? "0" });
     const imgArr: SetStateAction<null | string[]> = [];
     Array(4)
       .fill(0)
@@ -104,6 +104,7 @@ export default function ReturnBoardPost() {
         sbre_idx: Number(sbreIdx),
         receiving_date: values.receiving_date.toString(),
         product_name: values.product_name,
+        product_type: values.product_type?.toString() ?? "",
         product_quantity: Number(values.product_quantity),
         expiration_date: values.expiration_date,
         occur_type: values.occur_type
@@ -158,6 +159,26 @@ export default function ReturnBoardPost() {
                   }}
                   errors={errors}
                 />
+                <div className="box">
+                  <div className="tit">제품 유형</div>
+                  <div className="wrap_radio">
+                    {["-", "전용", "범용", "도우"].map((el, i) => (
+                      <GoRadio
+                        className="round"
+                        key={`product_type${i}`}
+                        id={`${i}`}
+                        label={el}
+                        register={register(`product_type`, {
+                          required: true,
+                        })}
+                      />
+                    ))}
+                  </div>
+                  {errors.product_type &&
+                    errors.product_type.type === "required" && (
+                      <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                    )}
+                </div>
                 <div className={`box ${errors.receiving_date && "error"}`}>
                   <div className="tit">입고일자</div>
                   <Controller

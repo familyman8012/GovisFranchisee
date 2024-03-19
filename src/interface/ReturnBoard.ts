@@ -63,7 +63,8 @@ export interface iReturnApplyViewRequest {
   sbre_idx: number;
 }
 
-export interface iReturnApplyViewResponse extends Omit<iReturnApplyRequest, "occur_type" | "process_request"> {
+export interface iReturnApplyViewResponse
+  extends Omit<iReturnApplyRequest, "occur_type" | "process_request"> {
   [index: string]: any;
   status: number;
   created_at: string;
@@ -128,6 +129,7 @@ export interface IReturnPostValues {
   product_name: string;
   receiving_date: string;
   expiration_date: string;
+  product_type: string;
   product_quantity: number;
   occur_type: any[];
   occur_etc: string | null;

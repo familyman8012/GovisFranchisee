@@ -36,7 +36,11 @@ export default function ReturnBoardPost() {
     setValue,
     getValues,
     formState: { errors },
-  } = useForm<IReturnPostValues>();
+  } = useForm<IReturnPostValues>({
+    defaultValues: {
+      product_type: "0",
+    },
+  });
 
   const handlerNavBarMenuClick = () => {
     router.push("/board/return");
@@ -110,6 +114,7 @@ export default function ReturnBoardPost() {
         product_name: values.product_name,
         receiving_date: values.receiving_date.toString(),
         expiration_date: values.expiration_date.toString(),
+        product_type: values.product_type?.toString() ?? "",
         product_quantity: Number(values.product_quantity),
         occur_type: values.occur_type
           .filter((el: boolean | number) => el !== false)
@@ -162,6 +167,29 @@ export default function ReturnBoardPost() {
                   }}
                   errors={errors}
                 />
+                <div className="box">
+                  <div className="tit">제품 유형</div>
+                  <div className="wrap_radio">
+                    {["-", "전용", "범용", "도우"].map((el, i) => (
+                      <GoRadio
+                        className="round"
+                        key={`product_type${i}`}
+                        id={`${i}`}
+                        label={el}
+                        register={{
+                          ...register(`product_type`, {
+                            required: true,
+                          }),
+                        }}
+                        value={i}
+                      />
+                    ))}
+                  </div>
+                  {errors.product_type &&
+                    errors.product_type.type === "required" && (
+                      <ErrorTxt>필수 입력 사항입니다.</ErrorTxt>
+                    )}
+                </div>
                 <div className={`box ${errors.receiving_date && "error"}`}>
                   <div className="tit">입고일자</div>
                   <Controller
